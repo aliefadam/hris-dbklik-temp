@@ -17,7 +17,7 @@
     <div
         class="duration-300 setting-extra fixed top-[60px] right-[40px] bg-white flex-col rounded-xl shadow-[0_0_10px_1px_rgba(0,0,0,0.2)] hidden">
         <a class="text-dbklik flex items-center gap-2 px-6 py-3 hover:bg-dbklik rounded-tl-xl rounded-tr-xl hover:text-white"
-            href="/"><i class="bi bi-person-fill"></i> Profil Saya</a>
+            href="/profile"><i class="bi bi-person-fill"></i> Profil Saya</a>
         <a class="text-green-800 flex items-center gap-2 px-6 py-3 hover:bg-green-800 hover:text-white"
             href="/ganti-password"><i class="bi bi-shield-lock-fill"></i>
             Ganti Password</a>

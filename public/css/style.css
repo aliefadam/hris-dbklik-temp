@@ -96,6 +96,27 @@ body::-webkit-scrollbar-thumb:hover {
     background: #0f2370;
 }
 
+/*  */
+
+.kehadiran-list::-webkit-scrollbar {
+    width: 5px;
+    height: 7px;
+}
+
+.kehadiran-list::-webkit-scrollbar-track {
+    background: white;
+    border: 1px solid #0f2370;
+}
+
+.kehadiran-list::-webkit-scrollbar-thumb {
+    background-color: #152c89;
+    border-radius: 10px;
+}
+
+.kehadiran-list::-webkit-scrollbar-thumb:hover {
+    background: #0f2370;
+}
+
 table tr th:first-child {
     border-top-left-radius: 8px;
 }

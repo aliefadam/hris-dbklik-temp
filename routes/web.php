@@ -48,3 +48,10 @@ Route::get("/notification", function () {
         "title" => "Notifikasi",
     ]);
 });
+
+Route::get("/profile", function () {
+    return view("profile", [
+        "data" => Menu::getMenu(),
+        "title" => "Notifikasi",
+    ]);
+});
