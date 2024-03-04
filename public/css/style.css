@@ -1,0 +1,157 @@
+nav {
+    transition: 300ms;
+}
+
+nav.active {
+    left: 120px;
+    width: calc(100% - 160px);
+}
+
+nav.scroll {
+    background-color: white;
+}
+
+aside {
+    transition: 300ms;
+}
+
+aside.active {
+    width: 80px;
+}
+
+aside.active img {
+    display: none;
+}
+
+aside.active .side-bar-header {
+    justify-content: center;
+}
+
+aside.active span {
+    display: none;
+}
+
+aside.active .item {
+    justify-content: center;
+}
+
+.btn-hide-side {
+    transition: 500ms;
+}
+
+aside.active .btn-hide-side {
+    transform: rotate(-180deg);
+}
+
+main {
+    transition: 300ms;
+}
+
+main.active {
+    margin-left: 80px;
+}
+
+.setting-extra {
+    z-index: 200000 !important;
+}
+
+.setting-extra.show,
+.notification-extra.show {
+    display: flex;
+}
+
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: white;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #152c89;
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #0f2370;
+}
+
+/*  */
+
+.notif-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.notif-list::-webkit-scrollbar-track {
+    background: white;
+}
+
+.notif-list::-webkit-scrollbar-thumb {
+    background-color: #152c89;
+    border-radius: 6px;
+}
+
+.notif-list::-webkit-scrollbar-thumb:hover {
+    background: #0f2370;
+}
+
+table tr th:first-child {
+    border-top-left-radius: 8px;
+}
+
+table tr th:last-child {
+    border-top-right-radius: 8px;
+}
+
+#table-riwayat_wrapper {
+    margin-top: 20px;
+}
+
+.dataTables_length {
+    margin-bottom: 10px;
+    color: #0f2370 !important;
+}
+
+.dataTables_info {
+    color: #0f2370 !important;
+    margin-top: 10px;
+}
+
+.dataTables_paginate {
+    margin-top: 10px;
+}
+
+.dataTables_filter {
+    display: none;
+}
+
+.paginate_button.current {
+    background-color: #0f2370 !important;
+}
+
+main .dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #0f2370 !important;
+}
+
+main
+    .dataTables_wrapper
+    .dataTables_paginate
+    .paginate_button:not(.current):not(.disabled):hover {
+    background: #0f227036 !important;
+    border: 1px solid #0f2370 !important;
+    color: #0f2370 !important;
+}
+
+main .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    color: #fcbe00 !important;
+    font-weight: 600;
+}
+
+main .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #fcbe00 !important;
+}
+
+table.dataTable > tbody > tr > td {
+    padding: 12px;
+}
