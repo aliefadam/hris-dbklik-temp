@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.hr')
 
 @section('content')
     <div class="bg-white shadow-xl rounded-lg px-5 py-6 w-[60%] flex gap-2">
