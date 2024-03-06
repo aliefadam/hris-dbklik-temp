@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="h-screen bg-gradient-to-b to-indigo-600 from-dbklik from-60% font-[poppins] pb-5">
+<body class="h-screen bg-gradient-to-b to-indigo-600 from-dbklik from-50% font-[poppins] pb-5">
     <main class="">
         @yield('content')
     </main>
