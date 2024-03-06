@@ -1,45 +1,41 @@
 @extends('layouts.secondary')
 
 @section('content')
-    <div class="h-screen flex justify-center items-center">
-        <div class="bg-white rounded-xl shadow-xl w-[30%] p-5 flex flex-col gap-3">
-            <div class="items-center flex flex-row place-self-center mb-6 mt-3">
-                <img src="{{ asset('imgs/db-logo.png') }}" class="w-[50px]" />
-                <h1 class="font-bold text-3xl leading-none text-dbklik">HRIS DB KLIK</h1>
+    <div class="bg-white w-[40%] rounded-xl px-7 py-10">
+        <div class="login-brand flex items-center justify-center gap-2">
+            <img src="{{ asset('imgs/db-logo.png') }}" width="40">
+            <span class="text-3xl font-bold text-dbklik">HRIS DB KLIK</span>
+        </div>
+        <form action="" class="w-full mt-5" method="post">
+            <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
+                <label for="email" class="text-dbklik">Email</label>
+                <input type="email" name="email" id="email" class="bg-transparent outline-none"
+                    placeholder="your@email.com">
             </div>
-
-            <div class="flex flex-col gap-2 py-2 px-3 border-dbklik border rounded-lg">
-                <label for="email" class="text-dbklik font-medium">e-mail</label>
-                <input type="email" class="w-[95%] outline-none rounded-lg py-2" name="email" id="email"
-                    onfocus="eventFocus(this.parentElement, this.nextElementSibling)"
-                    onblur="clearFocus(this.parentElement, this.nextElementSibling)">
-
-            </div>
-
-            <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                <label for="password" class="text-dbklik font-medium" id="labelPassword">Password</label>
+            <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md mt-3">
+                <label for="password" class="text-dbklik">Password</label>
                 <div class="relative w-full container-kata-sandi-baru">
-                    <input type="password" class="w-[95%] outline-none rounded-lg text-[15px] py-2" name="password"
-                        id="password" onfocus="eventFocus(this.parentElement.parentElement, this.nextElementSibling)"
-                        onblur="clearFocus(this.parentElement.parentElement, this.nextElementSibling)">
+                    <input type="password" class="w-[95%] outline-none bg-transparent placeholder:translate-y-1"
+                        name="kata_sandi_baru" id="kata_sandi_baru"
+                        onfocus="eventFocus(this.parentElement, this.nextElementSibling)"
+                        onblur="clearFocus(this.parentElement, this.nextElementSibling)" placeholder="************">
                     <i onclick="eventInput(this, this.previousElementSibling)"
-                        class="text-primary bi bi-eye absolute top-1/2 translate-y-[-50%] right-3 text-lg cursor-pointer btnHidePasswordKataSandiLama">
-                    </i>
+                        class="text-primary bi bi-eye absolute right-0 text-lg cursor-pointer btnHidePasswordKataSandiLama"></i>
                 </div>
             </div>
-
-            <div class="justify-between flex flex-col-2">
-                <label class="text-indigo-600">
-                    <input class="mr-1 checked:bg-black" type="checkbox" name="checkIngat">Ingat Saya
-                </label>
-                <p class="text-indigo-600">Lupa Password?</p>
+            <div class="mt-4 flex justify-between">
+                <div class="left flex items-center gap-1">
+                    <input type="checkbox" name="" id="ingat_saya">
+                    <label for="ingat_saya" class="leading-none">Ingat saya</label>
+                </div>
+                <div class="right">
+                    <a href="/" class="text-dbklik hover:underline">Lupa password ?</a>
+                </div>
             </div>
-
-            <div>
-                <button class="mt-6 bg-yellow-dbklik rounded-lg font-medium w-full p-4 hover:bg-yellow-600">LOGIN</button>
+            <div class="w-full flex justify-center mt-4">
+                <button class="bg-gradient-to-r from-yellow-500 to-yellow-400 p-3 w-full rounded-lg">Masuk</button>
             </div>
-
-        </div>
+        </form>
     </div>
 
 
@@ -54,7 +50,6 @@
                 eyeLogo.classList.remove("bi-eye-slash");
                 eyeLogo.classList.add("bi-eye");
             }
-
         }
 
         function eventFocus(container, eyeLogo) {
@@ -65,13 +60,6 @@
         function clearFocus(container, eyeLogo) {
             container.classList.remove("border-indigo-600");
             eyeLogo.classList.remove("!text-indigo-600");
-            cannotEmpty(container.childElement)
-        }
-
-        function cannotEmpty(element) {
-            if (element.value === '') {
-                alert('cannot empty')
-            }
         }
     </script>
 @endsection

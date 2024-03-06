@@ -17,14 +17,21 @@
     @vite('resources/css/app.css')
     <title>{{ $title }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+    {{-- <style>
+        body {
+            background-image: url({{ asset('imgs/bg.jpg') }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position-x: -20px;
+            height: 100vh;
+            position: relative;
+        }
+    </style> --}}
 </head>
 
-<body class="h-screen bg-gradient-to-b to-indigo-600 from-dbklik from-50% font-[poppins] pb-5">
-    <main class="">
-        @yield('content')
-    </main>
-
+<body
+    class="font-[poppins] w-full h-screen bg-gradient-to-r from-dbklik to-indigo-600 flex justify-center items-center">
+    @yield('content')
 </body>
 
 </html>
