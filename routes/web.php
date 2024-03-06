@@ -222,3 +222,9 @@ Route::prefix("/owner")->group(function () {
         ]);
     });
 });
+
+Route::get("/login", function () {
+    return view("login", [
+        "title" => "Login",
+    ]);
+});
