@@ -32,12 +32,17 @@
     {{-- animate css --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    {{-- chart js --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
+        integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+
 </head>
 
 <body class="relative top-0 left-0 w-full bg-gradient-to-b bg-gray-100 font-[poppins] pb-5">
     @include('overlay')
-    @include('partials.sidebar')
-    @include('partials.topbar')
+    @include('partials.owner_sidebar')
+    @include('partials.owner_topbar')
     <main class="ml-[250px] mt-[84px] py-5 px-10">
         @yield('content')
     </main>
@@ -70,6 +75,32 @@
                 tableDaftarPengajuan.search($(this).val())
                     .draw();
             });
+
+            let tableKaryawan = $('#table-karyawan').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+            });
+
+            $('#customSearchBoxKaryawan').keyup(function() {
+                tableKaryawan.search($(this).val())
+                    .draw();
+            });
+
+            let tableMutasi = $('#table-mutasi').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+            });
+
+            // $('#customSearchBoxKaryawan').keyup(function() {
+            //     tableMutasi.search($(this).val())
+            //         .draw();
+            // });
         });
 
         const rowData = $("#table-daftar-pengajuan tbody tr");
@@ -147,6 +178,65 @@
             $(".overlay").addClass("flex");
         });
 
+        const rowData3 = $("#table-karyawan tbody tr");
+        rowData3.on("click", function() {
+            const id = this.getAttribute("data-id");
+            window.location.href = `/owner/data-karyawan/${id}`;
+        });
+
+        const btnResign = $(".btn-resign");
+        const btnKontrak = $(".btn-kontrak");
+        const btnCatatan = $(".btn-catatan");
+        const btnMutasi = $(".btn-mutasi");
+
+        btnResign.on("click", function() {
+            showOverlay("overlay-resign");
+        });
+        btnKontrak.on("click", function() {
+            showOverlay("overlay-kontrak");
+        });
+        btnCatatan.on("click", function() {
+            showOverlay("overlay-catatan");
+        });
+        btnMutasi.on("click", function() {
+            showOverlay("overlay-mutasi");
+        });
+
+        const btnCloseOverlayResign = $(".btn-close-overlay-resign");
+        const btnCloseOverlayKontrak = $(".btn-close-overlay-kontrak");
+        const btnCloseOverlayCatatan = $(".btn-close-overlay-catatan");
+        const btnCloseOverlayMutasi = $(".btn-close-overlay-mutasi");
+
+        btnCloseOverlayResign.on("click", function() {
+            closeOverlay("overlay-resign", "container-overlay-resign");
+        });
+        btnCloseOverlayKontrak.on("click", function() {
+            closeOverlay("overlay-kontrak", "container-overlay-kontrak");
+        });
+        btnCloseOverlayCatatan.on("click", function() {
+            closeOverlay("overlay-catatan", "container-overlay-catatan");
+        });
+        btnCloseOverlayMutasi.on("click", function() {
+            closeOverlay("overlay-mutasi", "container-overlay-mutasi");
+        });
+
+        function showOverlay(overlay) {
+            $(`.${overlay}`).removeClass("hidden");
+            $(`.${overlay}`).addClass("flex");
+        }
+
+        function closeOverlay(overlay, container) {
+            $(`.${container}`).removeClass("animate__fadeInDown");
+            $(`.${container}`).addClass("animate__fadeOutUp");
+            setTimeout(() => {
+                $(`.${overlay}`).removeClass("flex");
+                $(`.${overlay}`).addClass("hidden");
+                $(`.${container}`).removeClass("animate__fadeOutUp");
+                $(`.${container}`).addClass("animate__fadeInDown");
+            }, 500);
+        }
+
+
         const btnCloseOverlay = $(".btn-close-overlay");
         btnCloseOverlay.on("click", function() {
             $(".container-overlay").removeClass("animate__fadeInDown");
@@ -157,7 +247,7 @@
                 $(".container-overlay").removeClass("animate__fadeOutUp");
                 $(".container-overlay").addClass("animate__fadeInDown");
             }, 500);
-        })
+        });
     </script>
 
 </body>

@@ -44,5 +44,13 @@
                 class="{{ $title == 'Daftar Karyawan' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Daftar
                 Karyawan</span>
         </a>
+        <a href="/hr/struktur-pegawai"
+            class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Struktur Pegawai' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+            <i
+                class="icon-item bi bi-diagram-3 {{ $title == 'Struktur Pegawai' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+            <span
+                class="{{ $title == 'Struktur Pegawai' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Struktur
+                Pegawai</span>
+        </a>
     </div>
 </aside>

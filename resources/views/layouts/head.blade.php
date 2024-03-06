@@ -36,8 +36,8 @@
 
 <body class="relative top-0 left-0 w-full bg-gradient-to-b bg-gray-100 font-[poppins] pb-5">
     @include('overlay')
-    @include('partials.sidebar')
-    @include('partials.topbar')
+    @include('partials.head_sidebar')
+    @include('partials.head_topbar')
     <main class="ml-[250px] mt-[84px] py-5 px-10">
         @yield('content')
     </main>
@@ -70,6 +70,32 @@
                 tableDaftarPengajuan.search($(this).val())
                     .draw();
             });
+
+            let tableKaryawan = $('#table-karyawan').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+            });
+
+            $('#customSearchBoxKaryawan').keyup(function() {
+                tableKaryawan.search($(this).val())
+                    .draw();
+            });
+
+            let tableMutasi = $('#table-mutasi').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+            });
+
+            // $('#customSearchBoxKaryawan').keyup(function() {
+            //     tableMutasi.search($(this).val())
+            //         .draw();
+            // });
         });
 
         const rowData = $("#table-daftar-pengajuan tbody tr");
@@ -85,29 +111,29 @@
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
 
-            $("span.overlay-status").removeClass("pending")
-            $("span.overlay-status").removeClass("disetujui")
-            $("span.overlay-status").removeClass("ditolak")
-            $("span.overlay-file-pendukung").removeClass("underline");
-            $("span.overlay-file-pendukung").removeClass("underline-offset-1");
+            $("span.overlay-head-status").removeClass("pending")
+            $("span.overlay-head-status").removeClass("disetujui")
+            $("span.overlay-head-status").removeClass("ditolak")
+            $("span.overlay-head-file-pendukung").removeClass("underline");
+            $("span.overlay-head-file-pendukung").removeClass("underline-offset-1");
 
-            $("span.overlay-status").addClass(statusText);
+            $("span.overlay-head-status").addClass(statusText);
             if (filePendukung != "-") {
-                $("span.overlay-file-pendukung").addClass("underline");
-                $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-head-file-pendukung").addClass("underline");
+                $("span.overlay-head-file-pendukung").addClass("underline-offset-1");
             }
 
-            $(".overlay").removeClass("hidden");
-            $(".overlay").addClass("flex");
+            $(".overlay-head").removeClass("hidden");
+            $(".overlay-head").addClass("flex");
 
-            $("span.overlay-divisi").html(divisi);
-            $("span.overlay-nama").html(nama);
-            $("span.overlay-izin").html(izin);
-            $("span.overlay-tanggal-diajukan").html(tanggalDiajukan);
-            $("span.overlay-tanggal-izin").html(tanggalIzin);
-            $("span.overlay-catatan").html(catatan);
-            $("span.overlay-file-pendukung").html(filePendukung);
-            $("span.overlay-status").html(status);
+            $("span.overlay-head-divisi").html(divisi);
+            $("span.overlay-head-nama").html(nama);
+            $("span.overlay-head-izin").html(izin);
+            $("span.overlay-head-tanggal-diajukan").html(tanggalDiajukan);
+            $("span.overlay-head-tanggal-izin").html(tanggalIzin);
+            $("span.overlay-head-catatan").html(catatan);
+            $("span.overlay-head-file-pendukung").html(filePendukung);
+            $("span.overlay-head-status").html(status);
         });
 
         const rowData2 = $("#table-riwayat tbody tr");
@@ -147,6 +173,65 @@
             $(".overlay").addClass("flex");
         });
 
+        const rowData3 = $("#table-karyawan tbody tr");
+        rowData3.on("click", function() {
+            const id = this.getAttribute("data-id");
+            window.location.href = `/hr/data-karyawan/${id}`;
+        });
+
+        const btnResign = $(".btn-resign");
+        const btnKontrak = $(".btn-kontrak");
+        const btnCatatan = $(".btn-catatan");
+        const btnMutasi = $(".btn-mutasi");
+
+        btnResign.on("click", function() {
+            showOverlay("overlay-resign");
+        });
+        btnKontrak.on("click", function() {
+            showOverlay("overlay-kontrak");
+        });
+        btnCatatan.on("click", function() {
+            showOverlay("overlay-catatan");
+        });
+        btnMutasi.on("click", function() {
+            showOverlay("overlay-mutasi");
+        });
+
+        const btnCloseOverlayResign = $(".btn-close-overlay-resign");
+        const btnCloseOverlayKontrak = $(".btn-close-overlay-kontrak");
+        const btnCloseOverlayCatatan = $(".btn-close-overlay-catatan");
+        const btnCloseOverlayMutasi = $(".btn-close-overlay-mutasi");
+
+        btnCloseOverlayResign.on("click", function() {
+            closeOverlay("overlay-resign", "container-overlay-resign");
+        });
+        btnCloseOverlayKontrak.on("click", function() {
+            closeOverlay("overlay-kontrak", "container-overlay-kontrak");
+        });
+        btnCloseOverlayCatatan.on("click", function() {
+            closeOverlay("overlay-catatan", "container-overlay-catatan");
+        });
+        btnCloseOverlayMutasi.on("click", function() {
+            closeOverlay("overlay-mutasi", "container-overlay-mutasi");
+        });
+
+        function showOverlay(overlay) {
+            $(`.${overlay}`).removeClass("hidden");
+            $(`.${overlay}`).addClass("flex");
+        }
+
+        function closeOverlay(overlay, container) {
+            $(`.${container}`).removeClass("animate__fadeInDown");
+            $(`.${container}`).addClass("animate__fadeOutUp");
+            setTimeout(() => {
+                $(`.${overlay}`).removeClass("flex");
+                $(`.${overlay}`).addClass("hidden");
+                $(`.${container}`).removeClass("animate__fadeOutUp");
+                $(`.${container}`).addClass("animate__fadeInDown");
+            }, 500);
+        }
+
+
         const btnCloseOverlay = $(".btn-close-overlay");
         btnCloseOverlay.on("click", function() {
             $(".container-overlay").removeClass("animate__fadeInDown");
@@ -157,7 +242,19 @@
                 $(".container-overlay").removeClass("animate__fadeOutUp");
                 $(".container-overlay").addClass("animate__fadeInDown");
             }, 500);
-        })
+        });
+
+        const btnCloseOverlayHead = $(".btn-close-overlay-head");
+        btnCloseOverlayHead.on("click", function() {
+            $(".container-overlay-head").removeClass("animate__fadeInDown");
+            $(".container-overlay-head").addClass("animate__fadeOutUp");
+            setTimeout(() => {
+                $(".overlay-head").removeClass("flex");
+                $(".overlay-head").addClass("hidden");
+                $(".container-overlay-head").removeClass("animate__fadeOutUp");
+                $(".container-overlay-head").addClass("animate__fadeInDown");
+            }, 500);
+        });
     </script>
 
 </body>
