@@ -55,3 +55,10 @@ Route::get("/profile", function () {
         "title" => "Notifikasi",
     ]);
 });
+
+Route::get("/login", function () {
+    return view("login", [
+        "data" => Menu::getMenu(),
+        "title" => "Login"
+    ]);
+});
