@@ -6,7 +6,8 @@
             <img src="{{ asset('imgs/db-logo.png') }}" width="40">
             <span class="text-3xl font-bold text-dbklik">HRIS DB KLIK</span>
         </div>
-        <form action="" class="w-full mt-5" method="post">
+        <form action="{{ route('login') }}" class="w-full mt-5" method="post">
+            @csrf
             <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                 <label for="email" class="text-dbklik">Email</label>
                 <input type="email" name="email" id="email" class="bg-transparent outline-none"

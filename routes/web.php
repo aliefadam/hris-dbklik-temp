@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\DaftarPengajuan;
 use App\Models\Karyawan;
 use Illuminate\Support\Facades\Route;
@@ -223,8 +224,6 @@ Route::prefix("/owner")->group(function () {
     });
 });
 
-Route::get("/login", function () {
-    return view("login", [
-        "title" => "Login",
-    ]);
-});
+
+Route::get("/login", [UserController::class, "showLogin"])->name("showLogin");
+Route::post("/login", [UserController::class, "login"])->name("login");

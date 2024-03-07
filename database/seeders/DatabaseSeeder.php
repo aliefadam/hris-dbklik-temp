@@ -9,7 +9,7 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\SubDivisi;
-use App\Models\Izin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -143,6 +143,10 @@ class DatabaseSeeder extends Seeder
             "nama_sub_divisi" => "Admin",
         ]);
         SubDivisi::create([
+            "divisi_id" => "10",
+            "nama_sub_divisi" => "Developer",
+        ]);
+        SubDivisi::create([
             "divisi_id" => "11",
             "nama_sub_divisi" => "IT Support",
         ]);
@@ -184,6 +188,10 @@ class DatabaseSeeder extends Seeder
             "nama_jabatan" => "Staff",
             "level" => 4,
         ]);
+        Jabatan::create([
+            "nama_jabatan" => "Intern",
+            "level" => 5,
+        ]);
 
         // Cabang
         Cabang::create([
@@ -215,14 +223,12 @@ class DatabaseSeeder extends Seeder
             "alamat" => "Jl. Raya Sesetan No.119a, Sesetan, Denpasar Selatan, Kota Denpasar, Bali 80223"
         ]);
 
-
         Karyawan::create([
-            'divisi_id' => 1,
-            'sub_divisi_id' => 101,
+            'sub_divisi_id' => 20,
             'nama_lengkap' => 'John Doe',
             'nama_panggilan' => 'John',
             'email' => 'john.doe@example.com',
-            'jabatan_id' => 1,
+            'jabatan_id' => 4,
             'tanggal_masuk_kerja' => '2023-01-15',
             'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
             'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
@@ -240,11 +246,11 @@ class DatabaseSeeder extends Seeder
             'no_whatsapp' => 81234567890,
             'no_rekening_bca' => 1234567890,
             'inventaris_kantor' => 'Laptop, Monitor, Keyboard, Mouse',
-            'berakhir_kerja' => null,
+            'berakhir_kerja' => "2029-05-25",
             'range_kontrak' => '1 tahun',
             'kontak_darurat' => 81234567891,
             'cabang_id' => 1,
-            'jatah_cuti' => 12,
+            'jatah_cuti' => 6,
             'cv_file' => 'john_doe_cv.pdf',
             'ksk_file' => 'john_doe_ksk.pdf',
             'ijasah_file' => 'john_doe_ijazah.pdf',
@@ -257,5 +263,191 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
+        Karyawan::create([
+            'sub_divisi_id' => 21,
+            'nama_lengkap' => 'Jane Smith',
+            'nama_panggilan' => 'Jane',
+            'email' => 'jane.smith@example.com',
+            'jabatan_id' => 4,
+            'tanggal_masuk_kerja' => '2023-02-20',
+            'alamat_domisili' => 'Jl. Sampel No. 456, Kota Sampel',
+            'alamat_ktp' => 'Jl. Asli No. 789, Kota Asal',
+            'no_nik' => 2345678901234567,
+            'no_kk' => 2345678901234567,
+            'no_npwp' => 2345678901,
+            'no_bpjs_ktk' => 23456789012345,
+            'no_bpjs_kes' => 23456789012345,
+            'tempat_lahir' => 'Sample City',
+            'tanggal_lahir' => '1988-10-10',
+            'pendidikan_terakhir' => 'S1 Manajemen Bisnis',
+            'tahun_lulus' => 2010,
+            'status_pernikahan' => 'Menikah',
+            'no_telephone' => 82345678901,
+            'no_whatsapp' => 82345678901,
+            'no_rekening_bca' => 2345678901,
+            'inventaris_kantor' => 'Laptop, Monitor, Docking Station',
+            'berakhir_kerja' => "2029-05-25",
+            'range_kontrak' => '2 tahun',
+            'kontak_darurat' => 82345678902,
+            'cabang_id' => 2,
+            'jatah_cuti' => 6,
+            'cv_file' => 'jane_smith_cv.pdf',
+            'ksk_file' => 'jane_smith_ksk.pdf',
+            'ijasah_file' => 'jane_smith_ijazah.pdf',
+            'transkrip_nilai_file' => 'jane_smith_transkrip.pdf',
+            'ktp_file' => 'jane_smith_ktp.pdf',
+            'bpjs_ktk_file' => 'jane_smith_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'jane_smith_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'jane_smith_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
+        Karyawan::create([
+            'sub_divisi_id' => 10,
+            'nama_lengkap' => 'Alex Johnson',
+            'nama_panggilan' => 'Alex',
+            'email' => 'alex.johnson@example.com',
+            'jabatan_id' => 4,
+            'tanggal_masuk_kerja' => '2023-03-01',
+            'alamat_domisili' => 'Jl. Dummy No. 101, Kota Dummy',
+            'alamat_ktp' => 'Jl. Palsu No. 202, Kota Palsu',
+            'no_nik' => 3456789012345678,
+            'no_kk' => 3456789012345678,
+            'no_npwp' => 3456789012,
+            'no_bpjs_ktk' => 34567890123456,
+            'no_bpjs_kes' => 34567890123456,
+            'tempat_lahir' => 'Dummy City',
+            'tanggal_lahir' => '1992-07-15',
+            'pendidikan_terakhir' => 'S1 Teknik Elektro',
+            'tahun_lulus' => 2014,
+            'status_pernikahan' => 'Belum Menikah',
+            'no_telephone' => 83456789012,
+            'no_whatsapp' => 83456789012,
+            'no_rekening_bca' => 3456789012,
+            'inventaris_kantor' => 'Laptop, Headset',
+            'berakhir_kerja' => "2029-05-25",
+            'range_kontrak' => '3 tahun',
+            'kontak_darurat' => 83456789013,
+            'cabang_id' => 2,
+            'jatah_cuti' => 6,
+            'cv_file' => 'alex_johnson_cv.pdf',
+            'ksk_file' => 'alex_johnson_ksk.pdf',
+            'ijasah_file' => 'alex_johnson_ijazah.pdf',
+            'transkrip_nilai_file' => 'alex_johnson_transkrip.pdf',
+            'ktp_file' => 'alex_johnson_ktp.pdf',
+            'bpjs_ktk_file' => 'alex_johnson_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'alex_johnson_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'alex_johnson_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
+        Karyawan::create([
+            'sub_divisi_id' => 10,
+            'nama_lengkap' => 'Eva Turner',
+            'nama_panggilan' => 'Eva',
+            'email' => 'eva.turner@example.com',
+            'jabatan_id' => 3,
+            'tanggal_masuk_kerja' => '2023-04-15',
+            'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
+            'alamat_ktp' => 'Jl. Simulasi No. 408, Kota Simulasi',
+            'no_nik' => 4567890123456789,
+            'no_kk' => 4567890123456789,
+            'no_npwp' => 4567890123,
+            'no_bpjs_ktk' => 45678901234567,
+            'no_bpjs_kes' => 45678901234567,
+            'tempat_lahir' => 'Simulated City',
+            'tanggal_lahir' => '1994-09-20',
+            'pendidikan_terakhir' => 'S1 Desain Komunikasi Visual',
+            'tahun_lulus' => 2016,
+            'status_pernikahan' => 'Belum Menikah',
+            'no_telephone' => 84567890123,
+            'no_whatsapp' => 84567890123,
+            'no_rekening_bca' => 4567890123,
+            'inventaris_kantor' => 'Laptop, Tablet Grafis',
+            'berakhir_kerja' => "2030-04-15",
+            'range_kontrak' => '3 tahun',
+            'kontak_darurat' => 84567890124,
+            'cabang_id' => 1,
+            'jatah_cuti' => 6,
+            'cv_file' => 'eva_turner_cv.pdf',
+            'ksk_file' => 'eva_turner_ksk.pdf',
+            'ijasah_file' => 'eva_turner_ijazah.pdf',
+            'transkrip_nilai_file' => 'eva_turner_transkrip.pdf',
+            'ktp_file' => 'eva_turner_ktp.pdf',
+            'bpjs_ktk_file' => 'eva_turner_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'eva_turner_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'eva_turner_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
+        Karyawan::create([
+            'sub_divisi_id' => 8,
+            'nama_lengkap' => 'Mark Bennett',
+            'nama_panggilan' => 'Mark',
+            'email' => 'mark.bennett@example.com',
+            'jabatan_id' => 3,
+            'tanggal_masuk_kerja' => '2023-05-01',
+            'alamat_domisili' => 'Jl. Fiktif No. 512, Kota Buatan',
+            'alamat_ktp' => 'Jl. Buatan No. 616, Kota Fiktif',
+            'no_nik' => 5678901234567890,
+            'no_kk' => 5678901234567890,
+            'no_npwp' => 5678901234,
+            'no_bpjs_ktk' => 56789012345678,
+            'no_bpjs_kes' => 56789012345678,
+            'tempat_lahir' => 'Fictional City',
+            'tanggal_lahir' => '1990-12-30',
+            'pendidikan_terakhir' => 'S1 Teknik Mesin',
+            'tahun_lulus' => 2013,
+            'status_pernikahan' => 'Menikah',
+            'no_telephone' => 85678901234,
+            'no_whatsapp' => 85678901234,
+            'no_rekening_bca' => 5678901234,
+            'inventaris_kantor' => 'Laptop, Monitor Eksternal',
+            'berakhir_kerja' => "2031-05-01",
+            'range_kontrak' => '3 tahun',
+            'kontak_darurat' => 85678901235,
+            'cabang_id' => 1,
+            'jatah_cuti' => 6,
+            'cv_file' => 'mark_bennett_cv.pdf',
+            'ksk_file' => 'mark_bennett_ksk.pdf',
+            'ijasah_file' => 'mark_bennett_ijazah.pdf',
+            'transkrip_nilai_file' => 'mark_bennett_transkrip.pdf',
+            'ktp_file' => 'mark_bennett_ktp.pdf',
+            'bpjs_ktk_file' => 'mark_bennett_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'mark_bennett_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'mark_bennett_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
+        // User
+        User::create([
+            "karyawan_id" => 1,
+            "email" => 'john.doe@example.com',
+            "password" => "123",
+        ]);
+        User::create([
+            "karyawan_id" => 2,
+            "email" => 'jane.smith@example.com',
+            "password" => "123",
+        ]);
+        User::create([
+            "karyawan_id" => 3,
+            "email" => 'alex.johnson@example.com',
+            "password" => "123",
+        ]);
+        User::create([
+            "karyawan_id" => 4,
+            "email" => 'eva.turner@example.com',
+            "password" => "123",
+        ]);
+        User::create([
+            "karyawan_id" => 5,
+            "email" => 'mark.bennett@example.com',
+            "password" => "123",
+        ]);
     }
 }
