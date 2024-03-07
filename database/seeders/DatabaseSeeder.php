@@ -9,6 +9,7 @@ use App\Models\Divisi;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\SubDivisi;
+use App\Models\Izin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -215,45 +216,46 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        // Karyawan::create([
-        //     'divisi_id' => 1,
-        //     'sub_divisi_id' => 101,
-        //     'nama_lengkap' => 'John Doe',
-        //     'nama_panggilan' => 'John',
-        //     'email' => 'john.doe@example.com',
-        //     'jabatan_id' => 1,
-        //     'tanggal_masuk_kerja' => '2023-01-15',
-        //     'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
-        //     'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
-        //     'no_nik' => 1234567890123456,
-        //     'no_kk' => 1234567890123456,
-        //     'no_npwp' => 1234567890,
-        //     'no_bpjs_ktk' => 12345678901234,
-        //     'no_bpjs_kes' => 12345678901234,
-        //     'tempat_lahir' => 'Contoh City',
-        //     'tanggal_lahir' => '1990-05-25',
-        //     'pendidikan_terakhir' => 'S1 Teknik Informatika',
-        //     'tahun_lulus' => 2012,
-        //     'status_pernikahan' => 'Belum Menikah',
-        //     'no_telephone' => 81234567890,
-        //     'no_whatsapp' => 81234567890,
-        //     'no_rekening_bca' => 1234567890,
-        //     'inventaris_kantor' => 'Laptop, Monitor, Keyboard, Mouse',
-        //     'berakhir_kerja' => null,
-        //     'range_kontrak' => '1 tahun',
-        //     'kontak_darurat' => 81234567891,
-        //     'cabang_id' => 1,
-        //     'jatah_cuti' => 12,
-        //     'cv_file' => 'john_doe_cv.pdf',
-        //     'ksk_file' => 'john_doe_ksk.pdf',
-        //     'ijasah_file' => 'john_doe_ijazah.pdf',
-        //     'transkrip_nilai_file' => 'john_doe_transkrip.pdf',
-        //     'ktp_file' => 'john_doe_ktp.pdf',
-        //     'bpjs_ktk_file' => 'john_doe_bpjs_ktk.pdf',
-        //     'bpjs_kes_file' => 'john_doe_bpjs_kes.pdf',
-        //     'referensi_kerja_file' => 'john_doe_referensi.pdf',
-        //     'status_karyawan' => 'Aktif',
-        //     'catatan' => '-',
-        // ]);
+        Karyawan::create([
+            'divisi_id' => 1,
+            'sub_divisi_id' => 101,
+            'nama_lengkap' => 'John Doe',
+            'nama_panggilan' => 'John',
+            'email' => 'john.doe@example.com',
+            'jabatan_id' => 1,
+            'tanggal_masuk_kerja' => '2023-01-15',
+            'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
+            'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
+            'no_nik' => 1234567890123456,
+            'no_kk' => 1234567890123456,
+            'no_npwp' => 1234567890,
+            'no_bpjs_ktk' => 12345678901234,
+            'no_bpjs_kes' => 12345678901234,
+            'tempat_lahir' => 'Contoh City',
+            'tanggal_lahir' => '1990-05-25',
+            'pendidikan_terakhir' => 'S1 Teknik Informatika',
+            'tahun_lulus' => 2012,
+            'status_pernikahan' => 'Belum Menikah',
+            'no_telephone' => 81234567890,
+            'no_whatsapp' => 81234567890,
+            'no_rekening_bca' => 1234567890,
+            'inventaris_kantor' => 'Laptop, Monitor, Keyboard, Mouse',
+            'berakhir_kerja' => null,
+            'range_kontrak' => '1 tahun',
+            'kontak_darurat' => 81234567891,
+            'cabang_id' => 1,
+            'jatah_cuti' => 12,
+            'cv_file' => 'john_doe_cv.pdf',
+            'ksk_file' => 'john_doe_ksk.pdf',
+            'ijasah_file' => 'john_doe_ijazah.pdf',
+            'transkrip_nilai_file' => 'john_doe_transkrip.pdf',
+            'ktp_file' => 'john_doe_ktp.pdf',
+            'bpjs_ktk_file' => 'john_doe_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'john_doe_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'john_doe_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
     }
 }
