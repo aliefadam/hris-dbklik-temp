@@ -26,39 +26,9 @@ Route::get('/riwayat', function () {
 });
 
 Route::get('/struktur-pegawai', function () {
-
-    $data_brief = 
-    [
-        [
-            "position" => "Intern",
-            "name" => "Alif"
-        ],
-        [
-            "position" => "Intern",
-            "name" => "Okta"
-        ],
-        [
-            "position" => "Intern",
-            "name" => "Fionaldy A. Manik"
-        ],
-    ];
-
-    $data_brief_upper = 
-    [
-        
-        [
-            "position" => "Head",
-            "name" => "Denny"
-        ]
-        
-    ];
-
     return view('struktur_pegawai', [
         "data_pengajuan" => DaftarPengajuan::getAll(),
         "title" => "Struktur Pegawai",
-        "data_brief" => $data_brief,
-        "data_brief_upper" => $data_brief_upper,
-        "actualEmployee" => "Fionaldy A. Manik"
     ]);
 });
 
