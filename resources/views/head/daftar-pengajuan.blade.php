@@ -29,16 +29,17 @@
             </tr>
         </thead>
         <tbody class="">
-            @foreach ($data_pengajuan as $pengajuan)
-                <tr data-filePendukung="{{ $pengajuan['file_pendukung'] }}" data-catatan="{{ $pengajuan['catatan'] }}">
+            @foreach ($data_perizinan as $perizinan)
+                <tr data-filePendukung="{{ $perizinan->bukti_file == null ? '-' : $perizinan->bukti_file }}"
+                    data-catatan="{{ $perizinan->catatan }}" data-id="{{ $perizinan->id }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $pengajuan['divisi'] }}</td>
-                    <td class="">{{ $pengajuan['nama'] }}</td>
-                    <td class="">{{ $pengajuan['izin'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_diajukan'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_izin'] }}</td>
+                    <td class="">{{ $perizinan->karyawan->subDivisi->divisi->nama_divisi }}</td>
+                    <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
+                    <td class="">{{ $perizinan->izin->jenis_izin }}</td>
+                    <td class="">{{ $perizinan->created_at }}</td>
+                    <td class="">{{ $perizinan->tanggal_mulai }} - {{ $perizinan->tanggal_akhir }}</td>
                     @php
-                        $status = $pengajuan['status'];
+                        $status = $perizinan['status'];
                         if ($status == 'pending') {
                             $logo = 'bi-hourglass-top';
                         } elseif ($status == 'disetujui') {

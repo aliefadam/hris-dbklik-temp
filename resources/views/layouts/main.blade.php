@@ -121,6 +121,8 @@
             const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
             const status = this.children[5].innerHTML;
             const statusText = this.children[5].children[1].innerHTML;
+            const feedback = this.getAttribute("data-feedback") ?? "-";
+
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
@@ -142,6 +144,7 @@
             $("span.overlay-catatan").html(catatan);
             $("span.overlay-file-pendukung").html(filePendukung);
             $("span.overlay-status").html(status);
+            $("span.overlay-feedback").html(feedback);
 
             $(".overlay").removeClass("hidden");
             $(".overlay").addClass("flex");

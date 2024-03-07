@@ -29,16 +29,17 @@
             </tr>
         </thead>
         <tbody class="">
-            @foreach ($data_pengajuan as $pengajuan)
-                <tr data-filePendukung="{{ $pengajuan['file_pendukung'] }}" data-catatan="{{ $pengajuan['catatan'] }}">
+            @foreach ($data_perizinan as $perizinan)
+                <tr data-filePendukung="{{ $perizinan->bukti_file == null ? '-' : $perizinan->bukti_file }}"
+                    data-catatan="{{ $perizinan->catatan }}" data-id="{{ $perizinan->id }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $pengajuan['divisi'] }}</td>
-                    <td class="">{{ $pengajuan['nama'] }}</td>
-                    <td class="">{{ $pengajuan['izin'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_diajukan'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_izin'] }}</td>
+                    <td class="">{{ $perizinan->karyawan->subDivisi->divisi->nama_divisi }}</td>
+                    <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
+                    <td class="">{{ $perizinan->izin->jenis_izin }}</td>
+                    <td class="">{{ $perizinan->created_at }}</td>
+                    <td class="">{{ $perizinan->tanggal_mulai }} - {{ $perizinan->tanggal_akhir }}</td>
                     @php
-                        $status = $pengajuan['status'];
+                        $status = $perizinan['status'];
                         if ($status == 'pending') {
                             $logo = 'bi-hourglass-top';
                         } elseif ($status == 'disetujui') {
@@ -52,24 +53,6 @@
                     </td>
                 </tr>
             @endforeach
-            {{-- <tr>
-                <td class="">2</td>
-                <td class="">IT</td>
-                <td class="">Joko</td>
-                <td class="">Sakit</td>
-                <td class="">Minggu, 4 Maret 2024 - 09:00</td>
-                <td class="">5 Maret - 6 Maret 2024</td>
-                <td class="disetujui"><i class="bi bi-check-circle-fill"></i> Disetujui</td>
-            </tr>
-            <tr>
-                <td class="">3</td>
-                <td class="">IT</td>
-                <td class="">Tono</td>
-                <td class="">Sakit</td>
-                <td class="">Minggu, 4 Maret 2024 - 09:00</td>
-                <td class="">5 Maret - 6 Maret 2024</td>
-                <td class="ditolak"><i class="bi bi-x-circle-fill"></i> Ditolak</td>
-            </tr> --}}
         </tbody>
     </table>
 @endsection

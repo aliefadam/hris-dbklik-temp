@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.hr')
 
 @section('content')
     <div class="flex gap-5">

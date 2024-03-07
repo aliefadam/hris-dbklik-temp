@@ -22,34 +22,34 @@
                 </div>
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-5 py-6">
-                <form action="" class="w-full">
+                <form action="/ajukan-perizinan" class="w-full" method="post">
+                    @csrf
                     <div class="w-[50%] flex items-center gap-2">
                         {{-- <label for="" class="text-dbklik font-medium">Izin</label> --}}
-                        <select name="" id=""
+                        <select name="jenis_izin" id=""
                             class="outline-none border border-dbklik p-2 rounded-md w-[100%]">
-                            <option value="sakit">Sakit</option>
-                            <option value="menikah">Menikah</option>
-                            <option value="berduka">Berduka</option>
-                            <option value="melahirkan">Melahirkan</option>
+                            @foreach ($jenis_izin as $izin)
+                                <option value="{{ $izin->id }}">{{ $izin->jenis_izin }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex mt-7 w-full gap-4">
                         <div class="flex flex-col gap-2 w-[50%]">
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                                <label for="" class="text-dbklik font-medium">Tanggal Mulai</label>
-                                <input type="date" name="" id="" class="outline-none">
+                                <label for="tanggal_mulai" class="text-dbklik font-medium">Tanggal Mulai</label>
+                                <input required type="date" name="tanggal_mulai" id="tanggal_mulai" class="outline-none">
                             </div>
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                                <label for="" class="text-dbklik font-medium">Tanggal Akhir</label>
-                                <input type="date" name="" id="" class="outline-none">
+                                <label for="tanggal_akhir" class="text-dbklik font-medium">Tanggal Akhir</label>
+                                <input required type="date" name="tanggal_akhir" id="tanggal_akhir" class="outline-none">
                             </div>
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                                <label for="" class="text-dbklik font-medium">File Pendukung</label>
-                                <input type="file" name="" id="" class="outline-none">
+                                <label for="file_pendukung" class="text-dbklik font-medium">File Pendukung</label>
+                                <input type="file" name="file_pendukung" id="file_pendukung" class="outline-none">
                             </div>
                         </div>
                         <div class="flex flex-col w-full">
-                            <textarea name="" id=""
+                            <textarea name="catatan" id="catatan"
                                 class="border border-dbklik resize-none rounded-lg h-full p-3 outline-none placeholder:text-dbklik"
                                 placeholder="Catatan/Keterangan"></textarea>
                         </div>

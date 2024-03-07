@@ -100,6 +100,7 @@
 
         const rowData = $("#table-daftar-pengajuan tbody tr");
         rowData.on("click", function() {
+            const id = this.getAttribute("data-id");
             const no = this.children[0].innerHTML;
             const divisi = this.children[1].innerHTML;
             const nama = this.children[2].innerHTML;
@@ -126,6 +127,7 @@
             $(".overlay-head").removeClass("hidden");
             $(".overlay-head").addClass("flex");
 
+            $(".form-balasan").attr("action", `/balas-perizinan/${id}`)
             $("span.overlay-head-divisi").html(divisi);
             $("span.overlay-head-nama").html(nama);
             $("span.overlay-head-izin").html(izin);
@@ -135,6 +137,17 @@
             $("span.overlay-head-file-pendukung").html(filePendukung);
             $("span.overlay-head-status").html(status);
         });
+
+        // document.addEventListener("click", function({
+        //     target
+        // }) {
+        //     // console.log(target);
+        //     if (target.classList.contains("btn-terima-perizinan")) {
+        //         console.log("diterima");
+        //     } else if (target.classList.contains("btn-tolak-perizinan")) {
+        //         console.log("ditolak");
+        //     }
+        // });
 
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {

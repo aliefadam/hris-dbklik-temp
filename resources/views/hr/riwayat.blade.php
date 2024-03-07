@@ -28,16 +28,17 @@
             </tr>
         </thead>
         <tbody class="">
-            @foreach ($data_pengajuan as $pengajuan)
-                <tr data-nama="{{ $pengajuan['nama'] }}" data-filePendukung="{{ $pengajuan['file_pendukung'] }}"
-                    data-catatan="{{ $pengajuan['catatan'] }}" data-divisi="{{ $pengajuan['divisi'] }}">
+            @foreach ($riwayat as $r)
+                <tr data-nama="{{ $r->karyawan->nama_lengkap }}" data-filePendukung="{{ $r->bukti_file ?? '-' }}"
+                    data-catatan="{{ $r->catatan }}" data-divisi="{{ $r->karyawan->subDivisi->divisi->nama_divisi }}"
+                    data-feedback="{{ $r->feedback ?? '-' }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $pengajuan['izin'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_diajukan'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_izin'] }}</td>
-                    <td class="">{{ $pengajuan['catatan'] }}</td>
+                    <td class="">{{ $r->izin->jenis_izin }}</td>
+                    <td class="">{{ $r->created_at }}</td>
+                    <td class="">{{ $r->tanggal_mulai }} - {{ $r->tanggal_akhir }}</td>
+                    <td class="">{{ $r->catatan ?? '-' }}</td>
                     @php
-                        $status = $pengajuan['status'];
+                        $status = $r->status;
                         if ($status == 'pending') {
                             $logo = 'bi-hourglass-top';
                         } elseif ($status == 'disetujui') {
