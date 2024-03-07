@@ -41,6 +41,17 @@ Route::get('/struktur-pegawai', function () {
             "position" => "Intern",
             "name" => "Fionaldy A. Manik"
         ],
+        [
+            "position" => "Intern",
+            "name" => "Fionaldy A. Manik"
+        ],        [
+            "position" => "Intern",
+            "name" => "Fionaldy A. Manik"
+        ],
+        [
+            "position" => "Intern",
+            "name" => "Fionaldy A. Manik"
+        ],
     ];
 
     $data_brief_upper = 
