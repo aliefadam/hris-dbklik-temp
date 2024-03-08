@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DaftarPengajuan;
 use App\Models\Karyawan;
+use App\Models\Perizinan;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
@@ -13,11 +14,23 @@ class OwnerController extends Controller
         return view('owner.welcome', ["title" => "Beranda"]);
     }
 
-    public function daftarPengajuan()
+    public function daftarPengajuan(Request $request)
     {
+        if ($request->s == "") {
+            $dataPerizinan = Perizinan::orderBy("updated_at", "DESC")->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('owner.daftar-pengajuan', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            "data_perizinan" => $dataPerizinan,
             "title" => "Daftar Pengajuan",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 

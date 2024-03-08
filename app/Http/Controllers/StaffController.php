@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
+use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,26 @@ class StaffController extends Controller
         ]);
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
+        if ($request->s == "") {
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('riwayat', [
-            "riwayat" => Perizinan::where("karyawan_id", auth()->user()->karyawan->id)->get(),
+            "riwayat" => $dataRiwayat,
             "title" => "Riwayat",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 
@@ -58,6 +74,7 @@ class StaffController extends Controller
     {
         return view("notification", [
             "title" => "Notifikasi",
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
         ]);
     }
 

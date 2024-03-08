@@ -100,6 +100,8 @@
 
         const rowData = $("#table-daftar-pengajuan tbody tr");
         rowData.on("click", function() {
+            $(".kolom-feedback").html("");
+
             const no = this.children[0].innerHTML;
             const divisi = this.children[1].innerHTML;
             const nama = this.children[2].innerHTML;
@@ -110,21 +112,25 @@
             const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
+            const feedback = this.getAttribute("data-feedback");
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
             $("span.overlay-status").removeClass("ditolak")
             $("span.overlay-file-pendukung").removeClass("underline");
             $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-
+            $("span.overlay-file-pendukung").removeClass("cursor-pointer");
+            $("span.overlay-file-pendukung").off("click");
             $("span.overlay-status").addClass(statusText);
+
             if (filePendukung != "-") {
                 $("span.overlay-file-pendukung").addClass("underline");
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
             }
-
-            $(".overlay").removeClass("hidden");
-            $(".overlay").addClass("flex");
 
             $("span.overlay-divisi").html(divisi);
             $("span.overlay-nama").html(nama);
@@ -134,10 +140,22 @@
             $("span.overlay-catatan").html(catatan);
             $("span.overlay-file-pendukung").html(filePendukung);
             $("span.overlay-status").html(status);
+
+            if (statusText != "pending") {
+                $(".kolom-feedback").html(`
+                    <span class="text-dbklik text-[14px]">Feedback</span>
+                    <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
+                `);
+            }
+
+            $(".overlay").removeClass("hidden");
+            $(".overlay").addClass("flex");
         });
 
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {
+            $(".kolom-feedback").html("");
+
             const nama = this.getAttribute("data-nama");
             const divisi = this.getAttribute("data-divisi");
             const izin = this.children[1].innerHTML;
@@ -154,11 +172,17 @@
             $("span.overlay-status").removeClass("ditolak")
             $("span.overlay-file-pendukung").removeClass("underline");
             $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-
+            $("span.overlay-file-pendukung").removeClass("cursor-pointer");
+            $("span.overlay-file-pendukung").off("click");
             $("span.overlay-status").addClass(statusText);
+
             if (filePendukung != "-") {
                 $("span.overlay-file-pendukung").addClass("underline");
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
             }
 
             $("span.overlay-divisi").html(divisi);
@@ -169,8 +193,13 @@
             $("span.overlay-catatan").html(catatan);
             $("span.overlay-file-pendukung").html(filePendukung);
             $("span.overlay-status").html(status);
-            $("span.overlay-feedback").html(feedback);
 
+            if (statusText != "pending") {
+                $(".kolom-feedback").html(`
+                    <span class="text-dbklik text-[14px]">Feedback</span>
+                    <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
+                `);
+            }
 
             $(".overlay").removeClass("hidden");
             $(".overlay").addClass("flex");

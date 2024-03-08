@@ -4,16 +4,26 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBox" class="outline-none" placeholder="Cari">
+            <input type="text" id="customSearchBox" class="outline-none" placeholder="Cari">
         </div>
-        <div class="flex gap-3">
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Dari">
+        <form action="/riwayat">
+            <div class="flex gap-3">
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="s" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($mulai) ? $mulai : '' }}">
+                </div>
+                <span class="self-center">-</span>
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="e" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($akhir) ? $akhir : '' }}">
+                </div>
+                <button class="bg-gradient-to-r from-green-600 to-green-500 px-5 rounded-md text-white"><i
+                        class="bi bi-funnel"></i> Filter</button>
+                <a href="/riwayat"
+                    class="flex gap-1 items-center bg-gradient-to-r from-red-600 to-red-500 px-5 rounded-md text-white"><i
+                        class="bi bi-trash"></i> Bersihkan Filter</a>
             </div>
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Sampai">
-            </div>
-        </div>
+        </form>
     </div>
 
     <table class="w-full rounded-lg shadow-lg bg-white" id="table-riwayat">
@@ -54,4 +64,30 @@
             @endforeach
         </tbody>
     </table>
+
+    {{-- <script>
+        const inputMulai = $("input[name=mulai]");
+        const inputSampai = $("input[name=sampai]");
+        const btnFilterTanggal = $(".btn-filter-tanggal");
+
+        btnFilterTanggal.on("click", function() {
+            const tanggalMulai = inputMulai.val();
+            const tanggalSampai = inputSampai.val();
+
+            $.ajax({
+                url: "/filter-tanggal",
+                type: "post",
+                data: {
+                    _token: $("meta[name=csrf-token]").attr("content"),
+                    mulai: tanggalMulai,
+                    sampai: tanggalSampai,
+                    idUser: $(this).attr("data-idUser"),
+                },
+                success: function(data) {
+                    // console.log(data);
+                    $(".table-body").html(data);
+                }
+            })
+        })
+    </script> --}}
 @endsection

@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-5 py-6">
-                <form action="/ajukan-perizinan" class="w-full" method="post">
+                <form action="/ajukan-perizinan" class="w-full" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="w-[50%] flex items-center gap-2">
                         {{-- <label for="" class="text-dbklik font-medium">Izin</label> --}}

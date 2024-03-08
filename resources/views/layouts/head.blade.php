@@ -100,6 +100,9 @@
 
         const rowData = $("#table-daftar-pengajuan tbody tr");
         rowData.on("click", function() {
+            $(".kolom-feedback").html("");
+            $(".kolom-balasan").html("");
+
             const id = this.getAttribute("data-id");
             const no = this.children[0].innerHTML;
             const divisi = this.children[1].innerHTML;
@@ -111,21 +114,26 @@
             const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
+            const feedback = this.getAttribute("data-feedback");
 
             $("span.overlay-head-status").removeClass("pending")
             $("span.overlay-head-status").removeClass("disetujui")
             $("span.overlay-head-status").removeClass("ditolak")
             $("span.overlay-head-file-pendukung").removeClass("underline");
             $("span.overlay-head-file-pendukung").removeClass("underline-offset-1");
+            $("span.overlay-head-file-pendukung").removeClass("cursor-pointer");
+            $("span.overlay-head-file-pendukung").off("click");
+
 
             $("span.overlay-head-status").addClass(statusText);
             if (filePendukung != "-") {
                 $("span.overlay-head-file-pendukung").addClass("underline");
                 $("span.overlay-head-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-head-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-head-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
             }
-
-            $(".overlay-head").removeClass("hidden");
-            $(".overlay-head").addClass("flex");
 
             $(".form-balasan").attr("action", `/balas-perizinan/${id}`)
             $("span.overlay-head-divisi").html(divisi);
@@ -136,18 +144,32 @@
             $("span.overlay-head-catatan").html(catatan);
             $("span.overlay-head-file-pendukung").html(filePendukung);
             $("span.overlay-head-status").html(status);
-        });
 
-        // document.addEventListener("click", function({
-        //     target
-        // }) {
-        //     // console.log(target);
-        //     if (target.classList.contains("btn-terima-perizinan")) {
-        //         console.log("diterima");
-        //     } else if (target.classList.contains("btn-tolak-perizinan")) {
-        //         console.log("ditolak");
-        //     }
-        // });
+            if (statusText != "pending") {
+                $(".kolom-feedback").html(`
+                    <span class="text-dbklik text-[14px]">Feedback</span>
+                    <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
+                `);
+            }
+
+            if (statusText == "pending") {
+                $(".kolom-balasan").html(`
+                    <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md mt-3">
+                        <label for="feedback" class="text-dbklik">Beri Tanggapan</label>
+                        <textarea name="feedback" id="feedback" class="bg-transparent outline-none resize-none h-[100px]"></textarea>
+                    </div>
+                    <div class="flex gap-3 border mt-3">
+                        <button name="status" value="disetujui"
+                            class="btn-terima-perizinan flex-[1] bg-gradient-to-r hover:from-green-900 hover:to-green-700 from-green-800 to-green-600 text-white p-3 rounded-lg">Terima</button>
+                        <button name="status" value="ditolak"
+                            class="btn-tolak-perizinan flex-[1] bg-gradient-to-r hover:from-red-900 hover:to-red-700 from-red-800 to-red-600 text-white p-3 rounded-lg">Tolak</button>
+                    </div>
+                `);
+            }
+
+            $(".overlay-head").removeClass("hidden");
+            $(".overlay-head").addClass("flex");
+        });
 
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {
@@ -166,11 +188,17 @@
             $("span.overlay-status").removeClass("ditolak")
             $("span.overlay-file-pendukung").removeClass("underline");
             $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-
+            $("span.overlay-file-pendukung").removeClass("cursor-pointer");
+            $("span.overlay-file-pendukung").off("click");
             $("span.overlay-status").addClass(statusText);
+
             if (filePendukung != "-") {
                 $("span.overlay-file-pendukung").addClass("underline");
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
             }
 
             $("span.overlay-divisi").html(divisi);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaftarPengajuan;
+use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Perizinan;
 use Illuminate\Http\Request;
@@ -25,14 +26,32 @@ class HRController extends Controller
 
     public function formPerizinan()
     {
-        return view('hr.perizinan', ["title" => "Perizinan"]);
+        return view('hr.perizinan', [
+            "title" => "Perizinan",
+            "jenis_izin" => Izin::all(),
+        ]);
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
+        if ($request->s == "") {
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('hr.riwayat', [
-            "riwayat" => Perizinan::where("karyawan_id", auth()->user()->karyawan->id)->get(),
+            "riwayat" => $dataRiwayat,
             "title" => "Riwayat",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 
@@ -44,11 +63,23 @@ class HRController extends Controller
         ]);
     }
 
-    public function daftarPengajuan()
+    public function daftarPengajuan(Request $request)
     {
+        if ($request->s == "") {
+            $dataPerizinan = Perizinan::orderBy("updated_at", "DESC")->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('hr.daftar-pengajuan', [
-            "data_perizinan" => Perizinan::all(),
+            "data_perizinan" => $dataPerizinan,
             "title" => "Daftar Pengajuan",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 

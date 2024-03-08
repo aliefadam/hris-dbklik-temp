@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DaftarPengajuan;
+use App\Models\Izin;
 use App\Models\Karyawan;
+use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use Illuminate\Http\Request;
 
@@ -25,14 +27,32 @@ class HeadController extends Controller
 
     public function formPerizinan()
     {
-        return view('head.perizinan', ["title" => "Perizinan"]);
+        return view('head.perizinan', [
+            "title" => "Perizinan",
+            "jenis_izin" => Izin::all(),
+        ]);
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
+        if ($request->s == "") {
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataRiwayat = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+                ->whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('head.riwayat', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            "riwayat" => $dataRiwayat,
             "title" => "Riwayat",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 
@@ -44,17 +64,32 @@ class HeadController extends Controller
         ]);
     }
 
-    public function daftarPengajuan()
+    public function daftarPengajuan(Request $request)
     {
+        if ($request->s == "") {
+            $dataPerizinan = Perizinan::orderBy("updated_at", "DESC")->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
         return view('head.daftar-pengajuan', [
-            "data_perizinan" => Perizinan::all(),
+            "data_perizinan" => $dataPerizinan,
             "title" => "Daftar Pengajuan",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
         ]);
     }
 
     public function notification()
     {
-        return view('head.notification', ["title" => "Notifikasi"]);
+        return view('head.notification', [
+            "title" => "Notifikasi",
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+        ]);
     }
 
     public function profile()

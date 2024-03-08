@@ -6,14 +6,24 @@
             <i class="bi bi-search text-dbklik"></i>
             <input type="search" id="customSearchBoxDaftarPengajuan" class="outline-none" placeholder="Cari">
         </div>
-        <div class="flex gap-3">
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Dari">
+        <form action="/hr/daftar-pengajuan">
+            <div class="flex gap-3">
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="s" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($mulai) ? $mulai : '' }}">
+                </div>
+                <span class="self-center">-</span>
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="e" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($akhir) ? $akhir : '' }}">
+                </div>
+                <button class="bg-gradient-to-r from-green-600 to-green-500 px-5 rounded-md text-white"><i
+                        class="bi bi-funnel"></i> Filter</button>
+                <a href="/hr/daftar-pengajuan"
+                    class="flex gap-1 items-center bg-gradient-to-r from-red-600 to-red-500 px-5 rounded-md text-white"><i
+                        class="bi bi-trash"></i> Bersihkan Filter</a>
             </div>
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Sampai">
-            </div>
-        </div>
+        </form>
     </div>
 
     <table class="w-full rounded-lg shadow-lg bg-white" id="table-daftar-pengajuan">
@@ -31,7 +41,8 @@
         <tbody class="">
             @foreach ($data_perizinan as $perizinan)
                 <tr data-filePendukung="{{ $perizinan->bukti_file == null ? '-' : $perizinan->bukti_file }}"
-                    data-catatan="{{ $perizinan->catatan }}" data-id="{{ $perizinan->id }}">
+                    data-catatan="{{ $perizinan->catatan ?? '-' }}" data-id="{{ $perizinan->id }}"
+                    data-feedback="{{ $perizinan->feedback ?? '-' }}">
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $perizinan->karyawan->subDivisi->divisi->nama_divisi }}</td>
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
