@@ -252,7 +252,7 @@ class DatabaseSeeder extends Seeder
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'John Doe',
             'nama_panggilan' => 'John',
-            'email' => 'aliefadam6@gmail.com',
+            'email' => 'john.doe@example.com',
             'jabatan_id' => 4,
             'tanggal_masuk_kerja' => '2023-01-15',
             'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
@@ -372,7 +372,7 @@ class DatabaseSeeder extends Seeder
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Eva Turner',
             'nama_panggilan' => 'Eva',
-            'email' => 'aliefadam21@gmail.com',
+            'email' => 'eva.turner@example.com',
             'jabatan_id' => 3,
             'tanggal_masuk_kerja' => '2023-04-15',
             'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
@@ -412,7 +412,7 @@ class DatabaseSeeder extends Seeder
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Mark Bennett',
             'nama_panggilan' => 'Mark',
-            'email' => 'codemateinformatika@gmail.com',
+            'email' => 'mark.bennett@gmail.com',
             'jabatan_id' => 3,
             'tanggal_masuk_kerja' => '2023-05-01',
             'alamat_domisili' => 'Jl. Fiktif No. 512, Kota Buatan',
@@ -531,7 +531,7 @@ class DatabaseSeeder extends Seeder
         // User
         User::create([
             "karyawan_id" => 1,
-            "email" => 'aliefadam6@gmail.com',
+            "email" => 'john.doe@example.com',
             "password" => "123",
             "roleLevel" => "4",
         ]);
@@ -549,13 +549,13 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             "karyawan_id" => 4,
-            "email" => 'aliefadam21@gmail.com',
+            "email" => 'eva.turner@example.com',
             "password" => "123",
             "roleLevel" => "2",
         ]);
         User::create([
             "karyawan_id" => 5,
-            "email" => 'codemateinformatika@gmail.com',
+            "email" => 'mark.bennett@example.com',
             "password" => "123",
             "roleLevel" => "3",
         ]);

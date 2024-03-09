@@ -15,6 +15,7 @@
                     data-nama="{{ $pesan['nama'] }}" data-divisi="{{ $pesan['divisi'] }}" data-izin="{{ $pesan['izin'] }}"
                     data-tanggal-izin="{{ $pesan['tanggal_izin'] }}" data-catatan="{{ $pesan['catatan'] }}"
                     data-file-pendukung="{{ $pesan['file_pendukung'] }}" onclick="notifDetail(this)"
+                    id="{{ $notifikasi->id }}"
                     class="flex items-center justify-between py-3 px-5 cursor-pointer {{ $notifikasi->status_dibaca ? 'bg-transparent hover:bg-gray-100' : 'bg-indigo-100 hover:bg-indigo-200' }}">
                     <div class="flex-2">
                         <h1 class="text-dbklik">{{ $pesan['judul'] }}</h1>
@@ -89,17 +90,16 @@
                 window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
             })
 
-
-            if (status != 1) {
-                $.ajax({
-                    url: "/baca-notif",
-                    type: "put",
-                    data: {
-                        _token: $("meta[name=csrf-token]").attr("content"),
-                        id: id,
-                    }
-                });
-            }
+            // if (status != 1) {
+            //     $.ajax({
+            //         url: "/baca-notif",
+            //         type: "put",
+            //         data: {
+            //             _token: $("meta[name=csrf-token]").attr("content"),
+            //             id: id,
+            //         }
+            //     });
+            // }
         }
     </script>
 @endsection
