@@ -26,7 +26,7 @@
             href="/hr/ganti-password"><i class="bi bi-shield-lock-fill"></i>
             Ganti Password</a>
         <a class="text-red-600 flex items-center gap-2 px-6 py-3 hover:bg-red-600 rounded-bl-xl rounded-br-xl hover:text-white"
-            href="/hr/logout"><i class="bi bi-door-closed-fill"></i> Keluar</a>
+            href="/logout"><i class="bi bi-door-closed-fill"></i> Keluar</a>
     </div>
 
     <div
