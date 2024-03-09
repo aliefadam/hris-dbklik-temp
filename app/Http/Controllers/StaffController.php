@@ -6,21 +6,49 @@ use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
 {
     public function index()
     {
+        $user_divisi = auth()->user()->karyawan->subDivisi->divisi->id;
+        $dataKaryawan = Karyawan::whereHas('subDivisi.divisi', function ($query) use ($user_divisi) {
+            $query->where('id', $user_divisi);
+        })->where("id", "!=", auth()->user()->id)->get()->map(function ($karyawan) {
+            return [
+                "id" => $karyawan->id,
+                "nama" => $karyawan->nama_lengkap,
+                "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
+                "divisi_id" => $karyawan->subDivisi->divisi->id,
+            ];
+        });
+
+        $data_cuti = Perizinan::whereDate('tanggal_mulai', '<=', now())
+        ->whereDate('tanggal_akhir', '>=', now())
+        ->where('status', 'disetujui')
+        ->pluck('karyawan_id');
+
+        $kehadiran = $dataKaryawan->map(function ($karyawan) use ($data_cuti) {
+            $hadir = in_array($karyawan['id'], $data_cuti->toArray());
+            $karyawan['status'] = $hadir ? 'Tidak Hadir' : 'Hadir';
+            return $karyawan;
+        });
+
         return view('welcome', [
             "title" => "Beranda",
             "dataDiri" => [
+                "id" => auth()->user()->karyawan->id,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
-            ],
+            ],    
+            "dataKaryawan" => $dataKaryawan,
+            "data_cuti" => $data_cuti,
+            "kehadiran" => $kehadiran
         ]);
     }
 
