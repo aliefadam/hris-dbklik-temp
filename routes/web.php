@@ -36,6 +36,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/daftar-karyawan", [HeadController::class, 'daftarKaryawan'])->middleware("role:2");
         Route::get("/data-karyawan/{id}", [HeadController::class, 'dataKaryawan'])->middleware("role:2");
         Route::get("/notification", [HeadController::class, 'notification'])->middleware("role:2");
+        Route::get("/notification/{notifikasi}", [HeadController::class, 'notificationSelected'])->middleware("role:2");
         Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
     });
