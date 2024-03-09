@@ -15,13 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId("karyawan_id");
             $table->foreignId("izin_id");
-            $table->dateTime("timestamp");
             $table->date("tanggal_mulai");
             $table->date("tanggal_akhir");
-            $table->text("catatan");
-            $table->string("bukti_file");
+            $table->text("catatan")->nullable();
+            $table->string("bukti_file")->nullable();
             $table->string("status");
-            $table->string("feedback");
+            $table->string("feedback")->nullable();
             $table->timestamps();
         });
     }

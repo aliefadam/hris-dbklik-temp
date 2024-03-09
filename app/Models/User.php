@@ -40,4 +40,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function karyawan()
+    {
+        // return $this->hasOne(Karyawan::class);
+        return $this->belongsTo(Karyawan::class);
+    }
 }

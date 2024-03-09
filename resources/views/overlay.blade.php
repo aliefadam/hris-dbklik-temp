@@ -39,17 +39,19 @@
                             - 6 Maret
                             2024</span>
                     </div>
-
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">File Pendukung</span>
                         <span
-                            class="overlay-file-pendukung text-black drop-shadow-md text-lg leading-none font-medium  cursor-pointer">surat-dokter.pdf</span>
+                            class="overlay-file-pendukung text-black drop-shadow-md text-lg leading-none font-medium">surat-dokter.pdf</span>
                     </div>
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">Status</span>
                         <span
                             class="overlay-status drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize"><i
                                 class="bi bi-check-circle-fill"></i> Disetujui</span>
+                    </div>
+                    <div class="flex flex-col gap-1 kolom-feedback">
+
                     </div>
                 </div>
             </div>
@@ -105,28 +107,22 @@
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">File Pendukung</span>
                         <span
-                            class="overlay-head-file-pendukung text-black drop-shadow-md text-lg leading-none font-medium  cursor-pointer">surat-dokter.pdf</span>
+                            class="overlay-head-file-pendukung text-black drop-shadow-md text-lg leading-none font-medium">surat-dokter.pdf</span>
                     </div>
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">Status</span>
-                        <span
-                            class="overlay-head-status drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize"><i
+                        <span class="overlay-head-status drop-shadow-md text-lg leading-none font-medium capitalize"><i
                                 class="bi bi-check-circle-fill"></i> Disetujui</span>
                     </div>
+                    <div class="flex flex-col gap-1 kolom-feedback"></div>
                 </div>
             </div>
-            <div class="mt-5">
-                <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md mt-3">
-                    <label for="catatan" class="text-dbklik">Beri Tanggapan</label>
-                    <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[100px]"></textarea>
+            <form action="/balas-perizinan/" class="form-balasan" method="post">
+                @csrf
+                <div class="mt-5 kolom-balasan">
+
                 </div>
-                <div class="flex gap-3 border mt-3">
-                    <button
-                        class="flex-[1] bg-gradient-to-r hover:from-green-900 hover:to-green-700 from-green-800 to-green-600 text-white p-3 rounded-lg">Terima</button>
-                    <button
-                        class="flex-[1] bg-gradient-to-r hover:from-red-900 hover:to-red-700 from-red-800 to-red-600 text-white p-3 rounded-lg">Tolak</button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

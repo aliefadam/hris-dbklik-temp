@@ -1,229 +1,67 @@
 <?php
 
+use App\Http\Controllers\HeadController;
+use App\Http\Controllers\HRController;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PerizinanController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
-use App\Models\DaftarPengajuan;
-use App\Models\Karyawan;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/', function () {
-    return view('welcome', [
-        "title" => "Beranda",
-    ]);
+Route::middleware(["guest"])->group(function () {
+    Route::get("/login", [UserController::class, "showLogin"])->name("showLogin");
+    Route::post("/login", [UserController::class, "login"])->name("login");
 });
 
-Route::get('/form-perizinan', function () {
-    return view('perizinan', [
-        "title" => "Perizinan",
-    ]);
+Route::middleware(["auth"])->group(function () {
+    Route::prefix('/owner')->group(function () {
+        Route::get('/', [OwnerController::class, 'welcome'])->middleware("role:1");
+        Route::get('/daftar-pengajuan', [OwnerController::class, 'daftarPengajuan'])->middleware("role:1");
+        Route::get('/daftar-karyawan', [OwnerController::class, 'daftarKaryawan'])->middleware("role:1");
+        Route::get('/data-karyawan/{karyawan}', [OwnerController::class, 'dataKaryawan'])->middleware("role:1");
+        Route::get('/struktur-pegawai', [OwnerController::class, 'strukturPegawai'])->middleware("role:1");
+        Route::get('/notification', [OwnerController::class, 'notification'])->middleware("role:1");
+        Route::get('/profile', [OwnerController::class, 'profile'])->middleware("role:1");
+        Route::get('/ganti-password', [OwnerController::class, 'gantiPassword'])->middleware("role:1");
+    });
+
+    Route::prefix("/head")->group(function () {
+        Route::get("/", [HeadController::class, 'welcome'])->middleware("role:2");
+        Route::get("/form-perizinan", [HeadController::class, 'formPerizinan'])->middleware("role:2");
+        Route::get("/riwayat", [HeadController::class, 'riwayat'])->middleware("role:2");
+        Route::get("/struktur-pegawai", [HeadController::class, 'strukturPegawai'])->middleware("role:2");
+        Route::get("/daftar-pengajuan", [HeadController::class, 'daftarPengajuan'])->middleware("role:2");
+        Route::get("/daftar-karyawan", [HeadController::class, 'daftarKaryawan'])->middleware("role:2");
+        Route::get("/data-karyawan/{id}", [HeadController::class, 'dataKaryawan'])->middleware("role:2");
+        Route::get("/notification", [HeadController::class, 'notification'])->middleware("role:2");
+        Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
+        Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
+    });
+
+    Route::prefix('/hr')->group(function () {
+        Route::get('/', [HRController::class, 'welcome'])->middleware("role:3");
+        Route::get('/form-perizinan', [HRController::class, 'formPerizinan'])->middleware("role:3");
+        Route::get('/riwayat', [HRController::class, 'riwayat'])->middleware("role:3");
+        Route::get('/struktur-pegawai', [HRController::class, 'strukturPegawai'])->middleware("role:3");
+        Route::get('/daftar-pengajuan', [HRController::class, 'daftarPengajuan'])->middleware("role:3");
+        Route::get('/daftar-karyawan', [HRController::class, 'daftarKaryawan'])->middleware("role:3");
+        Route::get('/data-karyawan/{karyawan}', [HRController::class, 'dataKaryawan'])->middleware("role:3");
+        Route::get('/notification', [HRController::class, 'notification'])->middleware("role:3");
+        Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");
+        Route::get('/ganti-password', [HRController::class, 'gantiPassword'])->middleware("role:3");
+    });
+
+    Route::get("/", [StaffController::class, "index"])->middleware("role:4");
+    Route::get('/form-perizinan', [StaffController::class, 'formPerizinan'])->middleware("role:4");
+    Route::get('/riwayat', [StaffController::class, 'riwayat'])->middleware("role:4");
+    Route::get('/struktur-pegawai', [StaffController::class, 'strukturPegawai'])->middleware("role:4");
+    Route::get('/ganti-password', [StaffController::class, 'gantiPassword'])->middleware("role:4");
+    Route::get('/notification', [StaffController::class, 'notification'])->middleware("role:4");
+    Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
+
+    Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
+    Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
 });
 
-Route::get('/riwayat', function () {
-    return view('riwayat', [
-        "data_pengajuan" => DaftarPengajuan::getAll(),
-        "title" => "Riwayat",
-    ]);
-});
-
-Route::get('/struktur-pegawai', function () {
-    return view('struktur_pegawai', [
-        "data_pengajuan" => DaftarPengajuan::getAll(),
-        "title" => "Struktur Pegawai",
-    ]);
-});
-
-Route::get("/ganti-password", function () {
-    return view("ganti_password", [
-        "title" => "Ganti Password  ",
-    ]);
-});
-
-Route::get("/notification", function () {
-    return view("notification", [
-        "title" => "Notifikasi",
-    ]);
-});
-
-Route::get("/profile", function () {
-    return view("profile", [
-        "title" => "Profil",
-    ]);
-});
-
-Route::prefix("/hr")->group(function () {
-    Route::get("/", function () {
-        return view('hr.welcome', [
-            "title" => "Beranda",
-        ]);
-    });
-    Route::get("/form-perizinan", function () {
-        return view('hr.perizinan', [
-            "title" => "Perizinan",
-        ]);
-    });
-    Route::get("/riwayat", function () {
-        return view('hr.riwayat', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Riwayat",
-        ]);
-    });
-
-    Route::get('/struktur-pegawai', function () {
-        return view('hr.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Struktur Pegawai",
-        ]);
-    });
-    Route::get("/daftar-pengajuan", function () {
-        return view('hr.daftar-pengajuan', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Daftar Pengajuan",
-        ]);
-    });
-    Route::get("/daftar-karyawan", function () {
-        return view('hr.daftar-karyawan', [
-            "data_karyawan" => Karyawan::getKaryawan(),
-            "title" => "Daftar Karyawan",
-        ]);
-    });
-    Route::get("/data-karyawan/{id}", function ($id) {
-        return view('hr.karyawan-detail', [
-            "data_karyawan" => Karyawan::getKaryawanById($id),
-            "data_karyawan_t" => Karyawan::getKaryawan(),
-            "title" => "Detail Karyawan",
-        ]);
-    });
-
-    Route::get("/notification", function () {
-        return view("hr.notification", [
-            "title" => "Notifikasi",
-        ]);
-    });
-
-    Route::get("/profile", function () {
-        return view('hr.profile', [
-            "title" => "Profil",
-        ]);
-    });
-
-    Route::get("/ganti-password", function () {
-        return view('hr.ganti_password', [
-            "title" => "Ganti Password",
-        ]);
-    });
-});
-
-
-Route::prefix("/head")->group(function () {
-    Route::get("/", function () {
-        return view('head.welcome', [
-            "title" => "Beranda",
-        ]);
-    });
-    Route::get("/form-perizinan", function () {
-        return view('head.perizinan', [
-            "title" => "Perizinan",
-        ]);
-    });
-    Route::get("/riwayat", function () {
-        return view('head.riwayat', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Riwayat",
-        ]);
-    });
-    Route::get('/struktur-pegawai', function () {
-        return view('head.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Struktur Pegawai",
-        ]);
-    });
-    Route::get("/daftar-pengajuan", function () {
-        return view('head.daftar-pengajuan', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Daftar Pengajuan",
-        ]);
-    });
-    Route::get("/daftar-karyawan", function () {
-        return view('head.daftar-karyawan', [
-            "data_karyawan" => Karyawan::getKaryawan(),
-            "title" => "Daftar Karyawan",
-        ]);
-    });
-    Route::get("/data-karyawan/{id}", function ($id) {
-        return view('head.karyawan-detail', [
-            "data_karyawan" => Karyawan::getKaryawanById($id),
-            "data_karyawan_t" => Karyawan::getKaryawan(),
-            "title" => "Detail Karyawan",
-        ]);
-    });
-
-    Route::get("/notification", function () {
-        return view("head.notification", [
-            "title" => "Notifikasi",
-        ]);
-    });
-
-    Route::get("/profile", function () {
-        return view('head.profile', [
-            "title" => "Profil",
-        ]);
-    });
-
-    Route::get("/ganti-password", function () {
-        return view('head.ganti_password', [
-            "title" => "Ganti Password",
-        ]);
-    });
-});
-
-Route::prefix("/owner")->group(function () {
-    Route::get("/", function () {
-        return view('owner.welcome', [
-            "title" => "Beranda",
-        ]);
-    });
-    Route::get("/daftar-pengajuan", function () {
-        return view('owner.daftar-pengajuan', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Daftar Pengajuan",
-        ]);
-    });
-    Route::get("/daftar-karyawan", function () {
-        return view('owner.daftar-karyawan', [
-            "data_karyawan" => Karyawan::getKaryawan(),
-            "title" => "Daftar Karyawan",
-        ]);
-    });
-    Route::get("/data-karyawan/{id}", function ($id) {
-        return view('owner.karyawan-detail', [
-            "data_karyawan" => Karyawan::getKaryawanById($id),
-            "data_karyawan_t" => Karyawan::getKaryawan(),
-            "title" => "Detail Karyawan",
-        ]);
-    });
-    Route::get('/struktur-pegawai', function () {
-        return view('owner.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
-            "title" => "Struktur Pegawai",
-        ]);
-    });
-    Route::get("/notification", function () {
-        return view("owner.notification", [
-            "title" => "Notifikasi",
-        ]);
-    });
-    Route::get("/profile", function () {
-        return view('owner.profile', [
-            "title" => "Profil",
-        ]);
-    });
-    Route::get("/ganti-password", function () {
-        return view('owner.ganti_password', [
-            "title" => "Ganti Password",
-        ]);
-    });
-});
-
-
-Route::get("/login", [UserController::class, "showLogin"])->name("showLogin");
-Route::post("/login", [UserController::class, "login"])->name("login");
+Route::get("/logout", [UserController::class, "logout"]);

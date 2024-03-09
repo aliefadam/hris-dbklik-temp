@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Cabang;
 use App\Models\Divisi;
+use App\Models\Izin;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\SubDivisi;
@@ -26,6 +27,30 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
+        // Izin
+        Izin::create([
+            "jenis_izin" => "Sakit",
+            "min_pengajuan" => "1",
+            "max_hari_izin" => "48"
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Menikah",
+            "min_pengajuan" => "120",
+            "max_hari_izin" => "72"
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Berduka",
+            "min_pengajuan" => "1",
+            "max_hari_izin" => "72"
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Melahirkan",
+            "min_pengajuan" => "1",
+            "max_hari_izin" => "2160",
+        ]);
 
         // Divisi
         Divisi::create([
@@ -423,31 +448,82 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
+        Karyawan::create([
+            'sub_divisi_id' => 8,
+            'nama_lengkap' => 'Tom Holland',
+            'nama_panggilan' => 'Tom',
+            'email' => 'tom.holland@example.com',
+            'jabatan_id' => 1,
+            'tanggal_masuk_kerja' => '2023-05-01',
+            'alamat_domisili' => 'Jl. Fiktif No. 512, Kota Buatan',
+            'alamat_ktp' => 'Jl. Buatan No. 616, Kota Fiktif',
+            'no_nik' => 5678901234567890,
+            'no_kk' => 5678901234567890,
+            'no_npwp' => 5678901234,
+            'no_bpjs_ktk' => 56789012345678,
+            'no_bpjs_kes' => 56789012345678,
+            'tempat_lahir' => 'Fictional City',
+            'tanggal_lahir' => '1990-12-30',
+            'pendidikan_terakhir' => 'S1 Teknik Mesin',
+            'tahun_lulus' => 2013,
+            'status_pernikahan' => 'Menikah',
+            'no_telephone' => 85678901234,
+            'no_whatsapp' => 85678901234,
+            'no_rekening_bca' => 5678901234,
+            'inventaris_kantor' => 'Laptop, Monitor Eksternal',
+            'berakhir_kerja' => "2031-05-01",
+            'range_kontrak' => '3 tahun',
+            'kontak_darurat' => 85678901235,
+            'cabang_id' => 1,
+            'jatah_cuti' => 6,
+            'cv_file' => 'mark_bennett_cv.pdf',
+            'ksk_file' => 'mark_bennett_ksk.pdf',
+            'ijasah_file' => 'mark_bennett_ijazah.pdf',
+            'transkrip_nilai_file' => 'mark_bennett_transkrip.pdf',
+            'ktp_file' => 'mark_bennett_ktp.pdf',
+            'bpjs_ktk_file' => 'mark_bennett_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'mark_bennett_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'mark_bennett_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
         // User
         User::create([
             "karyawan_id" => 1,
             "email" => 'john.doe@example.com',
             "password" => "123",
+            "roleLevel" => "4",
         ]);
         User::create([
             "karyawan_id" => 2,
             "email" => 'jane.smith@example.com',
             "password" => "123",
+            "roleLevel" => "4",
         ]);
         User::create([
             "karyawan_id" => 3,
             "email" => 'alex.johnson@example.com',
             "password" => "123",
+            "roleLevel" => "4",
         ]);
         User::create([
             "karyawan_id" => 4,
             "email" => 'eva.turner@example.com',
             "password" => "123",
+            "roleLevel" => "2",
         ]);
         User::create([
             "karyawan_id" => 5,
             "email" => 'mark.bennett@example.com',
             "password" => "123",
+            "roleLevel" => "3",
+        ]);
+        User::create([
+            "karyawan_id" => 6,
+            "email" => 'tom.holland@example.com',
+            "password" => "123",
+            "roleLevel" => "1",
         ]);
     }
 }

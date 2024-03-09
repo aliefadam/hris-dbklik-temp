@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     {{-- web icon --}}
     <link rel="icon" href="{{ asset('imgs/db-logo.png') }}">
     {{-- bootstrap icons --}}
@@ -112,6 +114,8 @@
 
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {
+            $(".kolom-feedback").html("");
+
             const nama = this.getAttribute("data-nama");
             const divisi = this.getAttribute("data-divisi");
             const izin = this.children[1].innerHTML;
@@ -121,17 +125,31 @@
             const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
             const status = this.children[5].innerHTML;
             const statusText = this.children[5].children[1].innerHTML;
+            const feedback = this.getAttribute("data-feedback") ?? "-";
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
             $("span.overlay-status").removeClass("ditolak")
             $("span.overlay-file-pendukung").removeClass("underline");
             $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-
+            $("span.overlay-file-pendukung").removeClass("cursor-pointer");
             $("span.overlay-status").addClass(statusText);
+            $("span.overlay-file-pendukung").off("click");
+
             if (filePendukung != "-") {
                 $("span.overlay-file-pendukung").addClass("underline");
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
+            }
+
+            if (statusText != "pending") {
+                $(".kolom-feedback").html(`
+                    <span class="text-dbklik text-[14px]">Feedback</span>
+                    <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
+                `);
             }
 
             $("span.overlay-divisi").html(divisi);
@@ -142,6 +160,7 @@
             $("span.overlay-catatan").html(catatan);
             $("span.overlay-file-pendukung").html(filePendukung);
             $("span.overlay-status").html(status);
+            $("span.overlay-feedback").html(feedback);
 
             $(".overlay").removeClass("hidden");
             $(".overlay").addClass("flex");

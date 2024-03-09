@@ -23,60 +23,60 @@
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Nama</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['nama'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->nama_lengkap }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Email</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['email'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->email }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">No Telephone</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['no_telephone'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_telephone }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">No Telephone Whatsapp</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['nama'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_whatsapp }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Alamat</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['alamat'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->alamat_domisili }}</span>
                     </div>
                 </div>
                 <div class="flex-[1] flex flex-col gap-3 ">
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Tanggal Mulai Kontrak</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['tanggal_mulai_kontrak'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->tanggal_masuk_kerja }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Tanggal Berakhir Kontrak</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['tanggal_berakhir_kontrak'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->berakhir_kerja }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Nomor Rekening</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['no_rekening'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_rekening_bca }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['divisi'] }}
-                            - {{ $data_karyawan['sub_divisi'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->subDivisi->divisi->nama_divisi }}
+                            - {{ $data_karyawan->subDivisi->nama_sub_divisi }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Jabatan</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['jabatan'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->jabatan->nama_jabatan }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Lokasi Kerja</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan['lokasi_kerja'] }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->cabang->nama_cabang }}</span>
                     </div>
                 </div>
             </div>

@@ -4,16 +4,26 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBox" class="outline-none" placeholder="Cari">
+            <input type="text" id="customSearchBox" class="outline-none" placeholder="Cari">
         </div>
-        <div class="flex gap-3">
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Dari">
+        <form action="/head/riwayat">
+            <div class="flex gap-3">
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="s" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($mulai) ? $mulai : '' }}">
+                </div>
+                <span class="self-center">-</span>
+                <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
+                    <input required name="e" type="date" class="outline-none text-dbklik w-[120px]"
+                        value="{{ isset($akhir) ? $akhir : '' }}">
+                </div>
+                <button class="bg-gradient-to-r from-green-600 to-green-500 px-5 rounded-md text-white"><i
+                        class="bi bi-funnel"></i> Filter</button>
+                <a href="/head/riwayat"
+                    class="flex gap-1 items-center bg-gradient-to-r from-red-600 to-red-500 px-5 rounded-md text-white"><i
+                        class="bi bi-trash"></i> Bersihkan Filter</a>
             </div>
-            <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                <input type="date" class="outline-none text-dbklik" placeholder="Sampai">
-            </div>
-        </div>
+        </form>
     </div>
 
     <table class="w-full rounded-lg shadow-lg bg-white" id="table-riwayat">
@@ -28,16 +38,17 @@
             </tr>
         </thead>
         <tbody class="">
-            @foreach ($data_pengajuan as $pengajuan)
-                <tr data-nama="{{ $pengajuan['nama'] }}" data-filePendukung="{{ $pengajuan['file_pendukung'] }}"
-                    data-catatan="{{ $pengajuan['catatan'] }}" data-divisi="{{ $pengajuan['divisi'] }}">
+            @foreach ($riwayat as $r)
+                <tr data-nama="{{ $r->karyawan->nama_lengkap }}" data-filePendukung="{{ $r->bukti_file ?? '-' }}"
+                    data-catatan="{{ $r->catatan }}" data-divisi="{{ $r->karyawan->subDivisi->divisi->nama_divisi }}"
+                    data-feedback="{{ $r->feedback ?? '-' }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $pengajuan['izin'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_diajukan'] }}</td>
-                    <td class="">{{ $pengajuan['tanggal_izin'] }}</td>
-                    <td class="">{{ $pengajuan['catatan'] }}</td>
+                    <td class="">{{ $r->izin->jenis_izin }}</td>
+                    <td class="">{{ $r->created_at }}</td>
+                    <td class="">{{ $r->tanggal_mulai }} - {{ $r->tanggal_akhir }}</td>
+                    <td class="">{{ $r->catatan ?? '-' }}</td>
                     @php
-                        $status = $pengajuan['status'];
+                        $status = $r->status;
                         if ($status == 'pending') {
                             $logo = 'bi-hourglass-top';
                         } elseif ($status == 'disetujui') {

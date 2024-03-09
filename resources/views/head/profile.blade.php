@@ -17,58 +17,62 @@
                 <div class="flex-[1] flex flex-col gap-4 ">
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Nama</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">Alief Sya'arah
-                            Adam</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['nama'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Email</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">aliefadam6@gmail.com</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['email'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">No Telephone</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">+62895364718840</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">+62{{ $dataDiri['no_telephone'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">No Telephone Whatsapp</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">+62895364718840</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">+62{{ $dataDiri['no_whatsapp'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Alamat</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">JL. Bandarejo
-                            Candi
-                            3 No. 11 RT 11
-                            RW 05, Sememi, Benowo, Surabaya.</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['alamat'] }}</span>
                     </div>
                 </div>
                 <div class="flex-[1] flex flex-col gap-3 ">
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Tanggal Mulai Kontrak</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">26 Januari
-                            2024</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['tanggal_mulai_kontrak'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Tanggal Berakhir Kontrak</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">06 Mei 2024</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['tanggal_akhir_kontrak'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Nomor Rekening</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">12345678</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['no_rekening'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">IT -
-                            Developer</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['divisi'] }}
+                            -
+                            {{ $dataDiri['sub_divisi'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Jabatan</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">Intern</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['jabatan'] }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Lokasi Kerja</span>
-                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">Tenggilis</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['cabang'] }}</span>
                     </div>
                 </div>
             </div>

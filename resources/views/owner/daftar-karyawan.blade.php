@@ -20,22 +20,22 @@
         <thead>
             <tr class="bg-dbklik text-yellow-dbklik">
                 <th class="p-3">No</th>
+                <th class="p-3">Nama</th>
                 <th class="p-3">Divisi</th>
                 <th class="p-3">Jabatan</th>
-                <th class="p-3">Nama</th>
                 <th class="p-3">Status</th>
                 <th class="p-3">Cabang</th>
             </tr>
         </thead>
         <tbody class="">
             @foreach ($data_karyawan as $karyawan)
-                <tr data-id="{{ $karyawan['id'] }}">
+                <tr data-id="{{ $karyawan->id }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $karyawan['divisi'] }}</td>
-                    <td class="">{{ $karyawan['jabatan'] }}</td>
-                    <td class="">{{ $karyawan['nama'] }}</td>
-                    <td class="">{{ $karyawan['status'] }}</td>
-                    <td class="">{{ $karyawan['lokasi_kerja'] }}</td>
+                    <td class="">{{ $karyawan->nama_lengkap }}</td>
+                    <td class="">{{ $karyawan->subDivisi->divisi->nama_divisi }}</td>
+                    <td class="">{{ $karyawan->jabatan->nama_jabatan }}</td>
+                    <td class="">{{ $karyawan->status_karyawan }}</td>
+                    <td class="">{{ $karyawan->cabang->nama_cabang }}</td>
                 </tr>
             @endforeach
         </tbody>

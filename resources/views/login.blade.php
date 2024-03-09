@@ -17,8 +17,7 @@
                 <label for="password" class="text-dbklik">Password</label>
                 <div class="relative w-full container-kata-sandi-baru">
                     <input type="password" class="w-[95%] outline-none bg-transparent placeholder:translate-y-1"
-                        name="kata_sandi_baru" id="kata_sandi_baru"
-                        onfocus="eventFocus(this.parentElement, this.nextElementSibling)"
+                        name="password" id="password" onfocus="eventFocus(this.parentElement, this.nextElementSibling)"
                         onblur="clearFocus(this.parentElement, this.nextElementSibling)" placeholder="************">
                     <i onclick="eventInput(this, this.previousElementSibling)"
                         class="text-primary bi bi-eye absolute right-0 text-lg cursor-pointer btnHidePasswordKataSandiLama"></i>
