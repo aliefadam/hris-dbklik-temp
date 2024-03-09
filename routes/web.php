@@ -36,17 +36,13 @@ Route::get('/struktur-pegawai', function () {
         [
             "position" => "Intern",
             "name" => "Okta"
+        ],[
+            "position" => "Intern",
+            "name" => "Alif"
         ],
         [
             "position" => "Intern",
-            "name" => "Fionaldy A. Manik"
-        ],
-        [
-            "position" => "Intern",
-            "name" => "Fionaldy A. Manik"
-        ],        [
-            "position" => "Intern",
-            "name" => "Fionaldy A. Manik"
+            "name" => "Okta"
         ],
         [
             "position" => "Intern",
