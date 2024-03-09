@@ -67,7 +67,7 @@ class PerizinanController extends Controller
                     "file_pendukung" => $namaFilePendukung ?? "-",
                 ],
             ];
-            Mail::to($penerima->email)->send(new NotifikasiEmail($dataEmail));
+            // Mail::to($penerima->email)->send(new NotifikasiEmail($dataEmail));
         }
 
         return redirect()->back();
@@ -104,7 +104,7 @@ class PerizinanController extends Controller
             ],
         ];
 
-        Mail::to($penerimaEmail)->send(new NotifikasiEmailBalasan($dataEmail));
+        // Mail::to($penerimaEmail)->send(new NotifikasiEmailBalasan($dataEmail));
 
         return redirect()->back();
     }
