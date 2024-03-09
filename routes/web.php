@@ -25,37 +25,75 @@ Route::get('/riwayat', function () {
     ]);
 });
 
-Route::get('/struktur-pegawai', function () {
+Route::get('/struktur-pegawai/loop', function () {
 
     $data_brief = 
     [
         [
-            "position" => "Intern",
-            "name" => "Alif"
+            "position" => "Directur",
+            "name" => "Denny",
+            "level" => 1,
+            "divisi" => null,
+            "sub_divisi" => null
         ],
         [
-            "position" => "Intern",
-            "name" => "Okta"
-        ],[
-            "position" => "Intern",
-            "name" => "Alif"
+            "position" => "Manager IT",
+            "name" => "Alif",
+            "level" => 2,
+            "divisi" => "IT",
+            "sub_divisi" => null
         ],
         [
-            "position" => "Intern",
-            "name" => "Okta"
+            "position" => "Head IT",
+            "name" => "Fionaldy ",
+            "level" => 3,
+            "sub_divisi" => "IT",
+            "divisi" => "IT"
         ],
         [
-            "position" => "Intern",
-            "name" => "Fionaldy A. Manik"
+            "position" => "Head IT Support",
+            "name" => "Alif",
+            "level" => 3,
+            "sub_divisi" => "IT Support",
+            "divisi" => "IT"
         ],
+        [
+            "position" => "Staff IT Support",
+            "name" => "Fionaldy A. ",
+            "level" => 4,
+            "sub_divisi" => "IT Support",
+            "divisi" => "IT"
+        ],
+        [
+            "position" => "Staff IT",
+            "name" => "Okta",
+            "level" => 4,
+            "sub_divisi" => "IT",
+            "divisi" => "IT"
+        ],
+        [
+            "position" => "Staff IT",
+            "name" => "Via",
+            "level" => 4,
+            "sub_divisi" => "IT",
+            "divisi" => "IT"
+        ],
+        [
+            "position" => "Staff IT",
+            "name" => "Nat",
+            "level" => 4,
+            "sub_divisi" => "IT",
+            "divisi" => "IT"
+        ]
     ];
 
     $data_brief_upper = 
     [
         
         [
-            "position" => "Head",
-            "name" => "Denny"
+            "position" => "Direktur",
+            "name" => "Denny",
+            "level" => 1
         ]
         
     ];

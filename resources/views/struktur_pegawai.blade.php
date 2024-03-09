@@ -3,10 +3,6 @@
 @section('content')
     <div class="bg-white shadow-xl rounded-lg px-5 py-10 w-full overflow-auto">
         <div class="scroll flex justify-center items-center flex-col gap-10">
-            <!-- 
-                1. Cari elemen pertama dan terakhir
-                2. Tarik garis
-             -->
             <div class="direktur flex gap-10">
 
                 @foreach ($data_brief_upper as $brief_upper)
@@ -25,6 +21,7 @@
             
             <div class="wrap relative">
                 <hr class="bg-indigo-600 opacity-100 absolute h-[2px] w-[calc(100%-200px)] -top-[25px] left-[50%] -translate-x-[50%]">
+                
                 <div class="manager flex gap-10">
                     
                 @foreach ($data_brief as $brief)
