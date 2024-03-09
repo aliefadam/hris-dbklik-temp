@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("jenis_izin");
             $table->integer("min_pengajuan");
-            $table->integer("max_pengajuan");
+            $table->integer("max_hari_izin");
             $table->timestamps();
         });
     }

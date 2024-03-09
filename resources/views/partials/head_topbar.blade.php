@@ -5,8 +5,12 @@
         <span class="hari text-dbklik text-xl font-semibold"></span>
     </div>
     <div class="right flex gap-3 text-dbklik">
-        <div class="btn-notification">
+        <div class="btn-notification relative">
             <i class="notif bi bi-bell-fill text-2xl cursor-pointer"></i>
+            @if (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->count() > 0)
+                <div class="jumlah absolute right-0 top-0 w-[12px] h-[12px] bg-yellow-dbklik text-black rounded-full">
+                </div>
+            @endif
         </div>
         <div class="flex items-center gap-1 cursor-pointer btn-setting">
             <i class="gear bi bi-gear-fill text-2xl"></i>
@@ -27,26 +31,24 @@
 
     <div
         class="duration-300 w-[400px] notification-extra fixed top-[60px] right-[90px] bg-white flex-col rounded-xl shadow-[0_0_10px_1px_rgba(0,0,0,0.2)] hidden">
-        <div class="py-3 px-5">
-            <h1>Notifikasi</h1>
+        <div class="py-3 px-5 flex justify-between">
+            <h1>Notifikasi Baru</h1>
+            <span>{{ App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->count() }}</span>
         </div>
         <hr>
-        <a href="" class="flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
-            <div class="flex-2">
-                <h1 class="text-dbklik">Pengajuan Izin Diterima</h1>
+        @foreach (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->paginate(3) as $notifikasi)
+            @php
+                $pesan = json_decode($notifikasi->pesan, true);
+            @endphp
+            <a href="" class="flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
+                <div class="flex-[2]">
+                    <h1 class="text-dbklik">{{ $pesan['judul'] }}</h1>
+                    <span class="block text-[13px]">{{ substr($pesan['pesan'], 0, 30) }}...</span>
+                </div>
                 <span
-                    class="block text-[13px]">{{ substr('Selamat pengajuan izinmu telah disetujui oleh sistem', 0, 35) }}...</span>
-            </div>
-            <span class="text-sm text-primary flex-1 flex justify-end">7 Hari Lalu</span>
-        </a>
-        <a href="" class="flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
-            <div class="flex-2">
-                <h1 class="text-dbklik">Pengajuan Izin Diterima</h1>
-                <span
-                    class="block text-[13px]">{{ substr('Selamat pengajuan izinmu telah disetujui', 0, 35) }}...</span>
-            </div>
-            <span class="text-sm text-primary flex-1 flex justify-end">7 Hari Lalu</span>
-        </a>
+                    class="text-[12px] text-primary flex-[1] flex justify-end text-right">{{ $notifikasi->created_at->diffForHumans() }}</span>
+            </a>
+        @endforeach
         <hr>
         <a href="/head/notification"
             class="duration-200 p-3 flex justify-center hover:bg-dbklik hover:text-white text-black rounded-br-lg rounded-bl-lg">Lihat

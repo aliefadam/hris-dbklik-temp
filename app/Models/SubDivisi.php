@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SubDivisi extends Model
 {
     use HasFactory;
+
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class);
+    }
 }

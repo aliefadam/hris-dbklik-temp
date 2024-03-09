@@ -6,18 +6,22 @@
             <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
         </div>
         <div class="flex-1 justify-center flex flex-col">
-            <h1 class="leading-none text-[35px] font-semibold text-dbklik">Alief Adam</h1>
+            <h1 class="leading-none text-[35px] font-semibold text-dbklik">{{ $dataDiri['nama'] }}</h1>
             <div class="mt-4 flex flex-col gap-1">
                 <span class="text-[13px] leading-none block text-dbklik">Divisi - Sub Divisi</span>
-                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">IT - Developer</h1>
+                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">{{ $dataDiri['divisi'] }}
+                    -
+                    {{ $dataDiri['sub_divisi'] }}</h1>
             </div>
             <div class="mt-4 flex flex-col gap-1">
                 <span class="text-[13px] leading-none block text-dbklik">Jabatan</span>
-                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">Intern</h1>
+                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">{{ $dataDiri['jabatan'] }}
+                </h1>
             </div>
             <div class="mt-4 flex flex-col gap-1">
                 <span class="text-[13px] leading-none block text-dbklik">Cabang</span>
-                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">Surabaya - Tenggilis</h1>
+                <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">{{ $dataDiri['cabang'] }}
+                </h1>
             </div>
         </div>
     </div>

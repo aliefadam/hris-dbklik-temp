@@ -15,12 +15,12 @@
                 class="{{ $title == 'Beranda' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Beranda</span>
         </a>
         <a href="/owner/daftar-pengajuan"
-            class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Daftar Pengajuan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+            class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Daftar Perizinan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <i
-                class="icon-item bi bi-list-task {{ $title == 'Daftar Pengajuan' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+                class="icon-item bi bi-list-task {{ $title == 'Daftar Perizinan' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
             <span
-                class="{{ $title == 'Daftar Pengajuan' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Daftar
-                Pengajuan</span>
+                class="{{ $title == 'Daftar Perizinan' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Daftar
+                Perizinan</span>
         </a>
         <a href="/owner/daftar-karyawan"
             class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Daftar Karyawan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
