@@ -38,11 +38,12 @@ class PerizinanController extends Controller
             $pesan = [
                 "judul" => "Pengajuan Izin Baru",
                 "pesan" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "izin" => Izin::where("id", $request->jenis_izin)->get(),
+                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                "izin" => Izin::find($request->jenis_izin)->jenis_izin,
                 "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
-                "catatan" => $request->catatan,
+                "catatan" => $request->catatan ?? "-",
+                "file_pendukung" => $namaFilePendukung ?? "-",
             ];
             Notifikasi::create([
                 "karyawan_id" => $penerima->id,

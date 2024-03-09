@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\StaffController;
@@ -62,6 +63,8 @@ Route::middleware(["auth"])->group(function () {
 
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
     Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
+
+    Route::put("/baca-notif", [NotifikasiController::class, "bacaNotif"]);
 });
 
 Route::get("/logout", [UserController::class, "logout"]);

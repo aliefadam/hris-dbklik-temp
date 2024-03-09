@@ -7,7 +7,7 @@
     <div class="right flex gap-3 text-dbklik">
         <div class="btn-notification relative">
             <i class="notif bi bi-bell-fill text-2xl cursor-pointer"></i>
-            @if (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->count() > 0)
+            @if (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->count() > 0)
                 <div class="jumlah absolute right-0 top-0 w-[12px] h-[12px] bg-yellow-dbklik text-black rounded-full">
                 </div>
             @endif
@@ -32,11 +32,11 @@
     <div
         class="duration-300 w-[400px] notification-extra fixed top-[60px] right-[90px] bg-white flex-col rounded-xl shadow-[0_0_10px_1px_rgba(0,0,0,0.2)] hidden">
         <div class="py-3 px-5 flex justify-between">
-            <h1>Notifikasi</h1>
-            <span>{{ App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->count() }}</span>
+            <h1>Notifikasi Baru</h1>
+            <span>{{ App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->count() }}</span>
         </div>
         <hr>
-        @foreach (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->paginate(3) as $notifikasi)
+        @foreach (App\Models\Notifikasi::where('karyawan_id', auth()->user()->id)->where('status_dibaca', false)->paginate(3) as $notifikasi)
             @php
                 $pesan = json_decode($notifikasi->pesan, true);
             @endphp

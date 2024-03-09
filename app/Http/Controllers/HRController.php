@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
+use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use Illuminate\Http\Request;
 
@@ -101,7 +102,10 @@ class HRController extends Controller
 
     public function notification()
     {
-        return view('hr.notification', ["title" => "Notifikasi"]);
+        return view('hr.notification', [
+            "title" => "Notifikasi",
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+        ]);
     }
 
     public function profile()
