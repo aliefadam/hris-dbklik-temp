@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HRController extends Controller
@@ -26,16 +27,16 @@ class HRController extends Controller
         });
 
         $data_cuti = Perizinan::whereDate('tanggal_mulai', '<=', now())
-        ->whereDate('tanggal_akhir', '>=', now())
-        ->where('status', 'disetujui')
-        ->pluck('karyawan_id');
+            ->whereDate('tanggal_akhir', '>=', now())
+            ->where('status', 'disetujui')
+            ->pluck('karyawan_id');
 
         $kehadiran = $dataKaryawan->map(function ($karyawan) use ($data_cuti) {
             $hadir = in_array($karyawan['id'], $data_cuti->toArray());
             $karyawan['status'] = $hadir ? 'Tidak Hadir' : 'Hadir';
             return $karyawan;
         });
-        
+
         return view('hr.welcome', [
             "title" => "Beranda",
             "dataDiri" => [
@@ -44,7 +45,7 @@ class HRController extends Controller
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
-            ], 
+            ],
             "dataKaryawan" => $dataKaryawan,
             "data_cuti" => $data_cuti,
             "kehadiran" => $kehadiran
@@ -166,6 +167,35 @@ class HRController extends Controller
         return view('hr.ganti_password', ["title" => "Ganti Password"]);
     }
 
+    public function simpanPasswordBaru(Request $request)
+    {
+        $kataSandiLama = $request->kata_sandi_lama;
+        $kataSandiBaru = $request->kata_sandi_baru;
+        $konfirmasiKataSandiBaru = $request->konfirmasi_kata_sandi_baru;
+
+        if (password_verify($kataSandiLama, auth()->user()->password)) {
+            if ($kataSandiBaru == $konfirmasiKataSandiBaru) {
+                $user = User::find(auth()->user()->id);
+                $user->update([
+                    "password" => $kataSandiBaru,
+                ]);
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "berhasil",
+                    "body" => "Berhasil Mengganti Kata Sandi",
+                ]);
+            } else {
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "gagal",
+                    "body" => "Konfirmasi Kata Sandi Tidak Cocok",
+                ]);
+            }
+        } else {
+            return redirect()->back()->with("pesan", [
+                "jenis" => "gagal",
+                "body" => "Kata Sandi Lama Tidak Cocok",
+            ]);
+        }
+    }
     public function updateCatatan(Request $request)
     {
         $karyawan_id = $request->karyawan_id;

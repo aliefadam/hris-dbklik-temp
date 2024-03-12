@@ -22,7 +22,8 @@
                 </div>
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-5 py-6">
-                <form action="/ajukan-perizinan" class="w-full" method="post" enctype="multipart/form-data">
+                <form action="/ajukan-perizinan" class="w-full form-ajukan-perizinan" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="w-[50%] flex items-center gap-2">
                         {{-- <label for="" class="text-dbklik font-medium">Izin</label> --}}
@@ -73,4 +74,24 @@
             </ol>
         </div>
     </div>
+
+    {{-- <script>
+        $(".form-ajukan-perizinan").on("submit", function(e) {
+            // e.preventDefault();
+            const formData = new FormData(this);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/ajukan-perizinan",
+                data: formData,
+                contentType: false,
+                processData: false,
+            });
+        });
+    </script> --}}
 @endsection
