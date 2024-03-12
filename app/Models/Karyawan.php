@@ -19,6 +19,11 @@ class Karyawan extends Model
         return $this->belongsTo(SubDivisi::class);
     }
 
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class);
+    }
+
     public function cabang()
     {
         return $this->belongsTo(Cabang::class);

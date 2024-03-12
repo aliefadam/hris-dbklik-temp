@@ -54,7 +54,9 @@ class OwnerController extends Controller
     public function strukturPegawai()
     {
         return view('owner.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            "data_pegawai" => Karyawan::orderBy("jabatan_id", "ASC")->get(),
+            "jabatan_id" => auth()->user()->karyawan->jabatan_id,
+            "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
         ]);
     }
