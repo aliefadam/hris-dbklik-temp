@@ -40,7 +40,8 @@
             @php
                 $pesan = json_decode($notifikasi->pesan, true);
             @endphp
-            <a href="" class="flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
+            <a href="/hr/notification/{{ $notifikasi->id }}"
+                class="notification-list flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
                 <div class="flex-[2]">
                     <h1 class="text-dbklik">{{ $pesan['judul'] }}</h1>
                     <span class="block text-[13px]">{{ substr($pesan['pesan'], 0, 30) }}...</span>

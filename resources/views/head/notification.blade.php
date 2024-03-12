@@ -59,7 +59,7 @@
                     <div class="mt-3 flex gap-1 flex-col">
                         <span class="text-dbklik text-sm">File Pendukung</span>
                         <span
-                            class="text-black text-[17px] leading-none {{ $pesan['file_pendukung'] != '-' ? `underline cursor-pointer open-file` : '' }}">{{ $pesan['file_pendukung'] }}</span>
+                            class="text-black text-[17px] leading-none {{ $pesan['file_pendukung'] != '-' ? 'underline cursor-pointer open-file' : '' }}">{{ $pesan['file_pendukung'] }}</span>
                     </div>
                 </div>
             @else
@@ -71,6 +71,10 @@
     </div>
 
     <script>
+        $(".open-file").on("click", function() {
+            window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+        });
+
         function notifDetail(notif) {
 
             $(".notifikasi-list").removeClass("!bg-gray-100");
@@ -142,17 +146,6 @@
                     $(".open-file").on("click", function() {
                         window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
                     })
-
-                    // if (status != 1) {
-                    //     $.ajax({
-                    //         url: "/baca-notif",
-                    //         type: "put",
-                    //         data: {
-                    //             _token: $("meta[name=csrf-token]").attr("content"),
-                    //             id: id,
-                    //         }
-                    //     });
-                    // }
                 },
             });
         }
