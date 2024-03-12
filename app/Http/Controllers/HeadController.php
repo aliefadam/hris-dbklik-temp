@@ -116,7 +116,6 @@ class HeadController extends Controller
         return view('head.notification', [
             "title" => "Notifikasi",
             "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
-            // "selected_notifikasi" => $request->id
         ]);
     }
 
