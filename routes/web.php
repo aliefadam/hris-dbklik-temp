@@ -50,6 +50,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/daftar-karyawan', [HRController::class, 'daftarKaryawan'])->middleware("role:3");
         Route::get('/data-karyawan/{karyawan}', [HRController::class, 'dataKaryawan'])->middleware("role:3");
         Route::get('/notification', [HRController::class, 'notification'])->middleware("role:3");
+        Route::get("/notification/{notifikasi}", [HRController::class, 'notificationSelected'])->middleware("role:3");
         Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");
         Route::get('/ganti-password', [HRController::class, 'gantiPassword'])->middleware("role:3");
     });
@@ -60,6 +61,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/struktur-pegawai', [StaffController::class, 'strukturPegawai'])->middleware("role:4");
     Route::get('/ganti-password', [StaffController::class, 'gantiPassword'])->middleware("role:4");
     Route::get('/notification', [StaffController::class, 'notification'])->middleware("role:4");
+    Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
 
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);

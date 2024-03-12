@@ -108,6 +108,12 @@ class HRController extends Controller
         ]);
     }
 
+    public function notificationSelected(Notifikasi $notifikasi)
+    {
+        $notifikasi->update(["status_dibaca" => true]);
+        return redirect("/hr/notification")->with("selected_notifikasi", $notifikasi);
+    }
+
     public function profile()
     {
         return view('hr.profile', [
