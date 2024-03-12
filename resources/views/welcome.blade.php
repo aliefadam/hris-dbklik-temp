@@ -29,7 +29,6 @@
         <h1 class="text-dbklik font-bold text-3xl text-center">Kehadiran Divisi {{ $dataDiri['divisi'] }}</h1>
         <div class="mt-5 w-full flex gap-10 overflow-x-scroll pb-10 pt-5 px-2 kehadiran-list">
             @foreach ($kehadiran as $data)
-<<<<<<< HEAD
                     <div
                         class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.2)] px-3 py-5 flex flex-col justify-center items-center">
                         <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
@@ -41,20 +40,6 @@
                             <span class="mt-5 text-red-500 text-2xl font-bold drop-shadow-md">TIDAK HADIR</span>
                         @endif
                     </div>
-=======
-                <div
-                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.2)] px-3 py-5 flex flex-col justify-center items-center">
-                    <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
-                    <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
-                    <span
-                        class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['sub_divisi'] }}</span>
-                    @if ($data['status'] == 'Hadir')
-                        <span class="mt-5 text-green-500 text-2xl font-bold drop-shadow-md">HADIR</span>
-                    @else
-                        <span class="mt-5 text-red-500 text-2xl font-bold drop-shadow-md">TIDAK HADIR</span>
-                    @endif
-                </div>
->>>>>>> e44467e240ad50afb52a08202e0c79fb376c670c
             @endforeach
         </div>
     </div>

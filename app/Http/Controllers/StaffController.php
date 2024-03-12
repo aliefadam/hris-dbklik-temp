@@ -13,16 +13,15 @@ class StaffController extends Controller
 {
     public function index()
     {
-        $user_divisi = auth()->user()->karyawan->subDivisi->divisi->id;
-        $dataKaryawan = Karyawan::whereHas('subDivisi.divisi', function ($query) use ($user_divisi) {
+        $user_divisi = auth()->user()->karyawan->divisi->id;
+        $dataKaryawan = Karyawan::whereHas('divisi', function ($query) use ($user_divisi) {
             $query->where('id', $user_divisi);
         })->where("id", "!=", auth()->user()->id)->get()->map(function ($karyawan) {
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
                 // "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
-                "divisi_id" => $karyawan->subDivisi->divisi->id,
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi
             ];
         });
 
@@ -42,7 +41,7 @@ class StaffController extends Controller
             "dataDiri" => [
                 "id" => auth()->user()->karyawan->id,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
