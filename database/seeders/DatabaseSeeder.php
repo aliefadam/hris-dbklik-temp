@@ -372,7 +372,7 @@ class DatabaseSeeder extends Seeder
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Eva Turner',
             'nama_panggilan' => 'Eva',
-            'email' => 'eva.turner@example.com',
+            'email' => 'aliefadam21@gmail.com',
             'jabatan_id' => 3,
             'tanggal_masuk_kerja' => '2023-04-15',
             'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
@@ -549,7 +549,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             "karyawan_id" => 4,
-            "email" => 'eva.turner@example.com',
+            "email" => 'aliefadam21@gmail.com',
             "password" => "123",
             "roleLevel" => "2",
         ]);

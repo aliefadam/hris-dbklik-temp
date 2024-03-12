@@ -66,6 +66,7 @@ Route::middleware(["auth"])->group(function () {
 
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
     Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
+    Route::post("/kirim-email", [PerizinanController::class, "kirimEmail"]);
 
     Route::put("/baca-notif", [NotifikasiController::class, "bacaNotif"]);
 });

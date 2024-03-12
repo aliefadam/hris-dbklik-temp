@@ -16,6 +16,7 @@ class PerizinanController extends Controller
 {
     public function ajukanPerizinan(Request $request)
     {
+
         $namaFilePendukung = $request->file_pendukung;
         if ($request->hasFile("file_pendukung")) {
             $namaFilePendukung = auth()->user()->id;
@@ -71,6 +72,7 @@ class PerizinanController extends Controller
 
         return redirect()->back();
     }
+
 
     public function balasPerizinan(Request $request, Perizinan $perizinan)
     {
