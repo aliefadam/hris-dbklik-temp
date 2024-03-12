@@ -21,7 +21,7 @@ class StaffController extends Controller
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
                 "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
-                "divisi_id" => $karyawan->subDivisi->divisi->id,
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
             ];
         });
 
