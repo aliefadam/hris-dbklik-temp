@@ -249,6 +249,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 10, 
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'John Doe',
             'nama_panggilan' => 'John',
@@ -289,6 +290,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 11, 
             'sub_divisi_id' => 21,
             'nama_lengkap' => 'Jane Smith',
             'nama_panggilan' => 'Jane',
@@ -329,6 +331,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 6, 
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Alex Johnson',
             'nama_panggilan' => 'Alex',
@@ -368,7 +371,8 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
-        Karyawan::create([
+        Karyawan::create([            
+            'divisi_id' => 6, 
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Eva Turner',
             'nama_panggilan' => 'Eva',
@@ -409,6 +413,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 4, 
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Mark Bennett',
             'nama_panggilan' => 'Mark',
@@ -449,6 +454,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 4, 
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Tom Holland',
             'nama_panggilan' => 'Tom',
@@ -489,6 +495,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
+            'divisi_id' => 10, 
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'Alee Feyy',
             'nama_panggilan' => 'Alee',
