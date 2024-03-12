@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotifikasiEmail;
+use App\Mail\NotifikasiEmailBalasan;
 use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 class PerizinanController extends Controller
 {
     public function ajukanPerizinan(Request $request)
     {
-
         $namaFilePendukung = $request->file_pendukung;
         if ($request->hasFile("file_pendukung")) {
             $namaFilePendukung = auth()->user()->id;
@@ -38,11 +40,12 @@ class PerizinanController extends Controller
             $pesan = [
                 "judul" => "Pengajuan Izin Baru",
                 "pesan" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "izin" => Izin::where("id", $request->jenis_izin)->get(),
+                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                "izin" => Izin::find($request->jenis_izin)->jenis_izin,
                 "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
-                "catatan" => $request->catatan,
+                "catatan" => $request->catatan ?? "-",
+                "file_pendukung" => $namaFilePendukung ?? "-",
             ];
             Notifikasi::create([
                 "karyawan_id" => $penerima->id,
@@ -50,6 +53,20 @@ class PerizinanController extends Controller
                 "pesan" => json_encode($pesan),
                 "status_dibaca" => false,
             ]);
+            $dataEmail = [
+                "subject" => "Pengajuan Izin Baru",
+                "sender_name" => auth()->user()->email,
+                "message" => [
+                    "desc" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
+                    "nama" => auth()->user()->karyawan->nama_lengkap,
+                    "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                    "izin" => Izin::find($request->jenis_izin)->jenis_izin,
+                    "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
+                    "catatan" => $request->catatan ?? "-",
+                    "file_pendukung" => $namaFilePendukung ?? "-",
+                ],
+            ];
+            // Mail::to($penerima->email)->send(new NotifikasiEmail($dataEmail));
         }
 
         return redirect()->back();
@@ -63,6 +80,7 @@ class PerizinanController extends Controller
         ]);
 
         $penerimaNotif = $perizinan->karyawan->id;
+        $penerimaEmail = $perizinan->karyawan->email;
         $pesan = [
             "judul" => "Pengajuan Izin Diterima",
             "pesan" => "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku.",
@@ -75,6 +93,17 @@ class PerizinanController extends Controller
             "pesan" => json_encode($pesan),
             "status_dibaca" => false,
         ]);
+
+        $dataEmail = [
+            "subject" => "Pengajuan Izin Diterima",
+            "sender_name" => auth()->user()->email,
+            "message" => [
+                "desc" => "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku.",
+                "feedback" => $request->feedback,
+            ],
+        ];
+
+        // Mail::to($penerimaEmail)->send(new NotifikasiEmailBalasan($dataEmail));
 
         return redirect()->back();
     }

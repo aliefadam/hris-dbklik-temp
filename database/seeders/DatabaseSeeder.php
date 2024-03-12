@@ -412,7 +412,7 @@ class DatabaseSeeder extends Seeder
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Mark Bennett',
             'nama_panggilan' => 'Mark',
-            'email' => 'mark.bennett@example.com',
+            'email' => 'mark.bennett@gmail.com',
             'jabatan_id' => 3,
             'tanggal_masuk_kerja' => '2023-05-01',
             'alamat_domisili' => 'Jl. Fiktif No. 512, Kota Buatan',
@@ -488,6 +488,46 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
+        Karyawan::create([
+            'sub_divisi_id' => 20,
+            'nama_lengkap' => 'Alee Feyy',
+            'nama_panggilan' => 'Alee',
+            'email' => 'aleefeyy@gmail.com',
+            'jabatan_id' => 4,
+            'tanggal_masuk_kerja' => '2023-01-15',
+            'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
+            'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
+            'no_nik' => 1234567890123456,
+            'no_kk' => 1234567890123456,
+            'no_npwp' => 1234567890,
+            'no_bpjs_ktk' => 12345678901234,
+            'no_bpjs_kes' => 12345678901234,
+            'tempat_lahir' => 'Contoh City',
+            'tanggal_lahir' => '1990-05-25',
+            'pendidikan_terakhir' => 'S1 Teknik Informatika',
+            'tahun_lulus' => 2012,
+            'status_pernikahan' => 'Belum Menikah',
+            'no_telephone' => 81234567890,
+            'no_whatsapp' => 81234567890,
+            'no_rekening_bca' => 1234567890,
+            'inventaris_kantor' => 'Laptop, Monitor, Keyboard, Mouse',
+            'berakhir_kerja' => "2029-05-25",
+            'range_kontrak' => '1 tahun',
+            'kontak_darurat' => 81234567891,
+            'cabang_id' => 1,
+            'jatah_cuti' => 6,
+            'cv_file' => 'alee_feyy_cv.pdf',
+            'ksk_file' => 'alee_feyy_ksk.pdf',
+            'ijasah_file' => 'alee_feyy_ijazah.pdf',
+            'transkrip_nilai_file' => 'alee_feyy_transkrip.pdf',
+            'ktp_file' => 'alee_feyy_ktp.pdf',
+            'bpjs_ktk_file' => 'alee_feyy_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'alee_feyy_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'alee_feyy_referensi.pdf',
+            'status_karyawan' => 'Aktif',
+            'catatan' => '-',
+        ]);
+
         // User
         User::create([
             "karyawan_id" => 1,
@@ -524,6 +564,12 @@ class DatabaseSeeder extends Seeder
             "email" => 'tom.holland@example.com',
             "password" => "123",
             "roleLevel" => "1",
+        ]);
+        User::create([
+            "karyawan_id" => 7,
+            "email" => 'aleefeyy@gmail.com',
+            "password" => "123",
+            "roleLevel" => "4",
         ]);
     }
 }

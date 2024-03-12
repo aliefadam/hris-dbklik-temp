@@ -84,12 +84,20 @@ class HeadController extends Controller
         ]);
     }
 
-    public function notification()
+    public function notification(Request $request)
     {
+
         return view('head.notification', [
             "title" => "Notifikasi",
             "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+            // "selected_notifikasi" => $request->id
         ]);
+    }
+
+    public function notificationSelected(Notifikasi $notifikasi)
+    {
+        $notifikasi->update(["status_dibaca" => true]);
+        return redirect("/head/notification")->with("selected_notifikasi", $notifikasi);
     }
 
     public function profile()

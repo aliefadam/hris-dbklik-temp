@@ -77,6 +77,24 @@ body::-webkit-scrollbar-thumb:hover {
     background: #0f2370;
 }
 
+/* notifikasi */
+.notifikasi-detail::-webkit-scrollbar {
+    width: 5px;
+}
+
+.notifikasi-detail::-webkit-scrollbar-track {
+    background: white;
+}
+
+.notifikasi-detail::-webkit-scrollbar-thumb {
+    background-color: #152c89;
+    border-radius: 6px;
+}
+
+.notifikasi-detail::-webkit-scrollbar-thumb:hover {
+    background: #0f2370;
+}
+
 /*  */
 
 .notif-list::-webkit-scrollbar {

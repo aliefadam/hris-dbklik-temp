@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\StaffController;
@@ -35,6 +36,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/daftar-karyawan", [HeadController::class, 'daftarKaryawan'])->middleware("role:2");
         Route::get("/data-karyawan/{id}", [HeadController::class, 'dataKaryawan'])->middleware("role:2");
         Route::get("/notification", [HeadController::class, 'notification'])->middleware("role:2");
+        Route::get("/notification/{notifikasi}", [HeadController::class, 'notificationSelected'])->middleware("role:2");
         Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
     });
@@ -62,6 +64,8 @@ Route::middleware(["auth"])->group(function () {
 
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
     Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
+
+    Route::put("/baca-notif", [NotifikasiController::class, "bacaNotif"]);
 });
 
 Route::get("/logout", [UserController::class, "logout"]);
