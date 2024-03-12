@@ -219,7 +219,8 @@
         const btnMutasi = $(".btn-mutasi");
 
         btnResign.on("click", function() {
-            showOverlay("overlay-resign");
+            showOverlay("overlay-resign");            
+            const id = this.getAttribute("data-id");
         });
         btnKontrak.on("click", function() {
             showOverlay("overlay-kontrak");

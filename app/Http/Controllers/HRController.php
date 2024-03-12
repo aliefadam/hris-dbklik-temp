@@ -122,7 +122,7 @@ class HRController extends Controller
     {
         return view('hr.karyawan-detail', [
             "data_karyawan" => $karyawan,
-            "title" => "Detail Karyawan",
+            "title" => "Detail Karyawan",                        
         ]);
     }
 
@@ -164,5 +164,16 @@ class HRController extends Controller
     public function gantiPassword()
     {
         return view('hr.ganti_password', ["title" => "Ganti Password"]);
+    }
+
+    public function updateCatatan(Request $request)
+    {
+        $karyawan_id = $request->karyawan_id;
+        $karyawan=Karyawan::find($karyawan_id);
+        $karyawan->update([
+            "catatan" => $request->catatan
+        ]);
+
+        return redirect()->back();
     }
 }

@@ -41,7 +41,7 @@ class PerizinanController extends Controller
                 "judul" => "Pengajuan Izin Baru",
                 "pesan" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "izin" => Izin::find($request->jenis_izin)->jenis_izin,
                 "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
                 "catatan" => $request->catatan ?? "-",
@@ -59,7 +59,7 @@ class PerizinanController extends Controller
                 "message" => [
                     "desc" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
                     "nama" => auth()->user()->karyawan->nama_lengkap,
-                    "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                    "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                     "izin" => Izin::find($request->jenis_izin)->jenis_izin,
                     "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
                     "catatan" => $request->catatan ?? "-",

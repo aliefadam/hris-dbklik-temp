@@ -5,6 +5,7 @@ use App\Http\Controllers\HRController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PerizinanController;
+use App\Http\Controllers\ResignController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,8 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/notification/{notifikasi}", [HRController::class, 'notificationSelected'])->middleware("role:3");
         Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");
         Route::get('/ganti-password', [HRController::class, 'gantiPassword'])->middleware("role:3");
+        Route::post('/resign', [ResignController::class, 'resign'])->middleware("role:3");
+        Route::post('/catatan', [HRController::class, 'updateCatatan'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");
