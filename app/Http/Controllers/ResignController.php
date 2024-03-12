@@ -9,7 +9,6 @@ use App\Models\Karyawan;
 
 class ResignController extends Controller
 {
-<<<<<<< HEAD
     public function resign(Request $request)
     {
         $karyawan_id = $request->input('karyawan_id');
@@ -36,6 +35,4 @@ class ResignController extends Controller
 
         return redirect()->back();
     }
-=======
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
 }
