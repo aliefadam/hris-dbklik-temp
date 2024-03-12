@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\Karyawan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
@@ -97,6 +98,36 @@ class StaffController extends Controller
         return view("ganti_password", [
             "title" => "Ganti Password",
         ]);
+    }
+
+    public function simpanPasswordBaru(Request $request)
+    {
+        $kataSandiLama = $request->kata_sandi_lama;
+        $kataSandiBaru = $request->kata_sandi_baru;
+        $konfirmasiKataSandiBaru = $request->konfirmasi_kata_sandi_baru;
+
+        if (password_verify($kataSandiLama, auth()->user()->password)) {
+            if ($kataSandiBaru == $konfirmasiKataSandiBaru) {
+                $user = User::find(auth()->user()->id);
+                $user->update([
+                    "password" => $kataSandiBaru,
+                ]);
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "berhasil",
+                    "body" => "Berhasil Mengganti Kata Sandi",
+                ]);
+            } else {
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "gagal",
+                    "body" => "Konfirmasi Kata Sandi Tidak Cocok",
+                ]);
+            }
+        } else {
+            return redirect()->back()->with("pesan", [
+                "jenis" => "gagal",
+                "body" => "Kata Sandi Lama Tidak Cocok",
+            ]);
+        }
     }
 
     public function notification()

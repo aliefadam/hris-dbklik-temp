@@ -25,6 +25,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/notification', [OwnerController::class, 'notification'])->middleware("role:1");
         Route::get('/profile', [OwnerController::class, 'profile'])->middleware("role:1");
         Route::get('/ganti-password', [OwnerController::class, 'gantiPassword'])->middleware("role:1");
+        Route::put('/ganti-password', [OwnerController::class, 'simpanPasswordBaru'])->middleware("role:1");
     });
 
     Route::prefix("/head")->group(function () {
@@ -39,6 +40,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/notification/{notifikasi}", [HeadController::class, 'notificationSelected'])->middleware("role:2");
         Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
+        Route::put('/ganti-password', [HeadController::class, 'simpanPasswordBaru'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {
@@ -53,6 +55,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/notification/{notifikasi}", [HRController::class, 'notificationSelected'])->middleware("role:3");
         Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");
         Route::get('/ganti-password', [HRController::class, 'gantiPassword'])->middleware("role:3");
+        Route::put('/ganti-password', [HRController::class, 'simpanPasswordBaru'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");
@@ -60,6 +63,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/riwayat', [StaffController::class, 'riwayat'])->middleware("role:4");
     Route::get('/struktur-pegawai', [StaffController::class, 'strukturPegawai'])->middleware("role:4");
     Route::get('/ganti-password', [StaffController::class, 'gantiPassword'])->middleware("role:4");
+    Route::put('/ganti-password', [StaffController::class, 'simpanPasswordBaru'])->middleware("role:4");
     Route::get('/notification', [StaffController::class, 'notification'])->middleware("role:4");
     Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
