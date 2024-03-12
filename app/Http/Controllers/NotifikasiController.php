@@ -12,5 +12,7 @@ class NotifikasiController extends Controller
         $notifikasi = Notifikasi::find($request->id);
         $notifikasi->status_dibaca = true;
         $notifikasi->save();
+
+        return response()->json($notifikasi);
     }
 }

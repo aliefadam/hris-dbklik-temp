@@ -20,15 +20,16 @@ class StaffController extends Controller
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
+                // "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
                 "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
+                "divisi_id" => $karyawan->subDivisi->divisi->id,
             ];
         });
 
         $data_cuti = Perizinan::whereDate('tanggal_mulai', '<=', now())
-        ->whereDate('tanggal_akhir', '>=', now())
-        ->where('status', 'disetujui')
-        ->pluck('karyawan_id');
+            ->whereDate('tanggal_akhir', '>=', now())
+            ->where('status', 'disetujui')
+            ->pluck('karyawan_id');
 
         $kehadiran = $dataKaryawan->map(function ($karyawan) use ($data_cuti) {
             $hadir = in_array($karyawan['id'], $data_cuti->toArray());
@@ -45,7 +46,7 @@ class StaffController extends Controller
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
-            ],    
+            ],
             "dataKaryawan" => $dataKaryawan,
             "data_cuti" => $data_cuti,
             "kehadiran" => $kehadiran

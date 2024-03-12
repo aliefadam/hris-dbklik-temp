@@ -10,4 +10,10 @@ class Notifikasi extends Model
     use HasFactory;
 
     protected $guarded = ["id"];
+    public $selectedNotifikasi = 0;
+
+    public function setSelectedNotifikasi($id)
+    {
+        $this->selectedNotifikasi = $id;
+    }
 }

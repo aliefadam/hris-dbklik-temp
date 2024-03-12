@@ -41,7 +41,7 @@
                 $pesan = json_decode($notifikasi->pesan, true);
             @endphp
             <a href="/head/notification/{{ $notifikasi->id }}"
-                class="flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
+                class="notification-list flex items-center justify-between py-3 px-5 hover:bg-gray-100 rounded-lg">
                 <div class="flex-[2]">
                     <h1 class="text-dbklik">{{ $pesan['judul'] }}</h1>
                     <span class="block text-[13px]">{{ substr($pesan['pesan'], 0, 30) }}...</span>
@@ -57,3 +57,20 @@
             Notifikasi</a>
     </div>
 </nav>
+
+{{-- <script>
+    const notificationList = document.querySelectorAll(".notification-list");
+    notificationList.forEach(notification => {
+        notification.addEventListener("click", (e) => {
+            e.preventDefault();
+            $.ajax({
+                url: "/head/notification",
+                data: {
+                    _token: $("meta[name=csrf-token]").attr("content"),
+                    selected: true,
+                },
+                success: function(data) {}
+            });
+        });
+    });
+</script> --}}
