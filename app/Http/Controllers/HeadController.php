@@ -14,15 +14,15 @@ class HeadController extends Controller
 {
     public function welcome()
     {
-        $user_divisi = auth()->user()->karyawan->subDivisi->divisi->id;
+        $user_divisi = auth()->user()->karyawan->divisi->id;
         $dataKaryawan = Karyawan::whereHas('subDivisi.divisi', function ($query) use ($user_divisi) {
             $query->where('id', $user_divisi);
         })->where("id", "!=", auth()->user()->id)->get()->map(function ($karyawan) {
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => $karyawan->divisi->nama_divisi,
+                "sub_divisi" => $karyawan->nama_sub_divisi,
             ];
         });
 
@@ -41,8 +41,8 @@ class HeadController extends Controller
             "title" => "Beranda",
             "dataDiri" => [
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
+                "sub_divisi" => auth()->user()->karyawan->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
@@ -86,7 +86,8 @@ class HeadController extends Controller
     public function strukturPegawai()
     {
         return view('head.struktur_pegawai', [
-            "data_pegawai" => Karyawan::orderBy("jabatan_id", "ASC")->get(),
+            "data_pegawai" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+                ->get(),
             "jabatan_id" => auth()->user()->karyawan->jabatan_id,
             "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",

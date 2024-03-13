@@ -290,8 +290,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'divisi_id' => 11,
-            'sub_divisi_id' => 21,
+            'divisi_id' => 10,
+            'sub_divisi_id' => 20,
             'nama_lengkap' => 'Jane Smith',
             'nama_panggilan' => 'Jane',
             'email' => 'jane.smith@example.com',
@@ -331,8 +331,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'divisi_id' => 6,
-            'sub_divisi_id' => 10,
+            'divisi_id' => 10,
+            'sub_divisi_id' => 20,
             'nama_lengkap' => 'Alex Johnson',
             'nama_panggilan' => 'Alex',
             'email' => 'alex.johnson@example.com',
@@ -372,11 +372,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'divisi_id' => 6,
-            'sub_divisi_id' => 10,
+            'divisi_id' => 10,
+            'sub_divisi_id' => 0,
             'nama_lengkap' => 'Eva Turner',
             'nama_panggilan' => 'Eva',
-            'email' => 'aliefadam21@gmail.com',
+            'email' => 'eva.turner@example.com',
             'jabatan_id' => 3,
             'tanggal_masuk_kerja' => '2023-04-15',
             'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
@@ -414,7 +414,7 @@ class DatabaseSeeder extends Seeder
 
         Karyawan::create([
             'divisi_id' => 4,
-            'sub_divisi_id' => 8,
+            'sub_divisi_id' => 0,
             'nama_lengkap' => 'Mark Bennett',
             'nama_panggilan' => 'Mark',
             'email' => 'mark.bennett@gmail.com',
@@ -454,8 +454,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'divisi_id' => 4,
-            'sub_divisi_id' => 8,
+            'divisi_id' => 0,
+            'sub_divisi_id' => 0,
             'nama_lengkap' => 'Tom Holland',
             'nama_panggilan' => 'Tom',
             'email' => 'tom.holland@example.com',
@@ -482,25 +482,25 @@ class DatabaseSeeder extends Seeder
             'kontak_darurat' => 85678901235,
             'cabang_id' => 1,
             'jatah_cuti' => 6,
-            'cv_file' => 'mark_bennett_cv.pdf',
-            'ksk_file' => 'mark_bennett_ksk.pdf',
-            'ijasah_file' => 'mark_bennett_ijazah.pdf',
-            'transkrip_nilai_file' => 'mark_bennett_transkrip.pdf',
-            'ktp_file' => 'mark_bennett_ktp.pdf',
-            'bpjs_ktk_file' => 'mark_bennett_bpjs_ktk.pdf',
-            'bpjs_kes_file' => 'mark_bennett_bpjs_kes.pdf',
-            'referensi_kerja_file' => 'mark_bennett_referensi.pdf',
+            'cv_file' => 'tom_holland_cv.pdf',
+            'ksk_file' => 'tom_holland_ksk.pdf',
+            'ijasah_file' => 'tom_holland_ijazah.pdf',
+            'transkrip_nilai_file' => 'tom_holland_transkrip.pdf',
+            'ktp_file' => 'tom_holland_ktp.pdf',
+            'bpjs_ktk_file' => 'tom_holland_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'tom_holland_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'tom_holland_referensi.pdf',
             'status_karyawan' => 'Aktif',
             'catatan' => '-',
         ]);
 
         Karyawan::create([
-            'divisi_id' => 10,
-            'sub_divisi_id' => 20,
+            'divisi_id' => 4,
+            'sub_divisi_id' => 0,
             'nama_lengkap' => 'Alee Feyy',
             'nama_panggilan' => 'Alee',
             'email' => 'aleefeyy@gmail.com',
-            'jabatan_id' => 4,
+            'jabatan_id' => 2,
             'tanggal_masuk_kerja' => '2023-01-15',
             'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
             'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
@@ -538,10 +538,10 @@ class DatabaseSeeder extends Seeder
         Karyawan::create([
             'divisi_id' => 10,
             'sub_divisi_id' => 20,
-            'nama_lengkap' => 'Lukkman Hakim',
+            'nama_lengkap' => 'Lukman',
             'nama_panggilan' => 'Lukman',
-            'email' => 'lukman.hakim@example.com',
-            'jabatan_id' => 2,
+            'email' => 'lukman@example.com',
+            'jabatan_id' => 4,
             'tanggal_masuk_kerja' => '2023-01-15',
             'alamat_domisili' => 'Jl. Contoh No. 123, Kota Contoh',
             'alamat_ktp' => 'Jl. Contoh No. 123, Kota Contoh',
@@ -597,7 +597,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             "karyawan_id" => 4,
-            "email" => 'aliefadam21@gmail.com',
+            "email" => 'eva.turner@example.com',
             "password" => "123",
             "roleLevel" => "2",
         ]);
@@ -622,7 +622,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             "karyawan_id" => 8,
-            "email" => 'lukman.hakim@example.com',
+            "email" => 'lukman@example.com',
             "password" => "123",
             "roleLevel" => "2",
         ]);

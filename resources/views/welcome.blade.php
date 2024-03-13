@@ -30,7 +30,7 @@
         <div class="mt-5 w-full flex gap-10 overflow-x-scroll pb-10 pt-5 px-2 kehadiran-list">
             @foreach ($kehadiran as $data)
                 <div
-                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.2)] px-3 py-5 flex flex-col justify-center items-center">
+                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.4)] px-3 py-5 flex flex-col justify-center items-center">
                     <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
                     <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
                     <span
