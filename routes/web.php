@@ -56,12 +56,9 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/notification/{notifikasi}", [HRController::class, 'notificationSelected'])->middleware("role:3");
         Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");
         Route::get('/ganti-password', [HRController::class, 'gantiPassword'])->middleware("role:3");
-<<<<<<< HEAD
         Route::post('/resign', [ResignController::class, 'resign'])->middleware("role:3");
-        Route::post('/catatan', [HRController::class, 'updateCatatan'])->middleware("role:3");
-=======
-        Route::put('/ganti-password', [HRController::class, 'simpanPasswordBaru'])->middleware("role:3");
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
+        Route::post('/updateCatatan', [HRController::class, 'updateCatatan'])->middleware("role:3");
+        Route::post('/updateKontrak', [HRController::class, 'updateKontrak'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

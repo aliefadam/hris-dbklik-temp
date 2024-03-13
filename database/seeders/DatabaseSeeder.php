@@ -249,11 +249,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 10, 
-=======
-            'divisi_id' => 10,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'John Doe',
             'nama_panggilan' => 'John',
@@ -294,11 +290,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 11, 
-=======
-            'divisi_id' => 11,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 21,
             'nama_lengkap' => 'Jane Smith',
             'nama_panggilan' => 'Jane',
@@ -339,11 +331,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 6, 
-=======
-            'divisi_id' => 6,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Alex Johnson',
             'nama_panggilan' => 'Alex',
@@ -383,13 +371,8 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
-<<<<<<< HEAD
         Karyawan::create([            
             'divisi_id' => 6, 
-=======
-        Karyawan::create([
-            'divisi_id' => 6,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 10,
             'nama_lengkap' => 'Eva Turner',
             'nama_panggilan' => 'Eva',
@@ -430,11 +413,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 4, 
-=======
-            'divisi_id' => 4,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Mark Bennett',
             'nama_panggilan' => 'Mark',
@@ -475,11 +454,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 4, 
-=======
-            'divisi_id' => 4,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 8,
             'nama_lengkap' => 'Tom Holland',
             'nama_panggilan' => 'Tom',
@@ -520,11 +495,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-<<<<<<< HEAD
             'divisi_id' => 10, 
-=======
-            'divisi_id' => 10,
->>>>>>> 38ee78253b3684f6bb79dcb8e1fb1721915326a9
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'Alee Feyy',
             'nama_panggilan' => 'Alee',

@@ -159,6 +159,10 @@
     </div>
 </div>
 
+<?php
+use Carbon\Carbon;
+?>
+
 <div
     class="overlay-kontrak bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
     <div class="w-[40%] animate__animated animate__fadeInDown container-overlay-kontrak">
@@ -168,21 +172,23 @@
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-kontrak"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="" class="w-full flex flex-col gap-3">
+            <form action="/hr/updateKontrak" method="post" class="w-full flex flex-col gap-3">
+                @csrf              
+                <input type="hidden" name="karyawan_id" value="{{ isset($data_karyawan->id) ? $data_karyawan->id : "" }}">
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Mulai Kontrak</span>
-                    <span class="tanggal_mulai_kontrak text-xl">15 Maret 2024</span>
+                    <span class="tanggal_mulai_kontrak text-xl">{{ isset ($data_karyawan->tanggal_masuk_kerja) ? Carbon::parse($data_karyawan->tanggal_masuk_kerja)->formatLocalized('%d %B %Y') : ""  }}</span>
                 </div>
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Akhir Kontrak</span>
-                    <span class="tanggal_akhir_kontrak text-xl">14 September 2024</span>
+                    <span id="tanggal_akhir_kontrak" class="tanggal_akhir_kontrak text-xl">{{ isset ($data_karyawan->berakhir_kerja) ? Carbon::parse($data_karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') :"" }}</span>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="durasi" class="text-dbklik">Durasi</label>
-                    <select name="" id="durasi" class="outline-none bg-transparent">
-                        <option value="3 bulan">3 Bulan</option>
-                        <option value="6 bulan">6 Bulan</option>
-                        <option value="12 bulan">12 Bulan</option>
+                    <select name="durasi" id="durasi" class="outline-none bg-transparent">
+                        <option value=3>3 Bulan</option>
+                        <option value=6>6 Bulan</option>
+                        <option value=12>12 Bulan</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
@@ -190,7 +196,7 @@
                     <input type="file" name="file_surat" id="file_surat" class="outline-none">
                 </div>
                 <div class="flex justify-end">
-                    <button class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Perpanjang</button>
+                    <button type="submit" class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Perpanjang</button>
                 </div>
             </form>
         </div>
@@ -206,12 +212,12 @@
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-catatan"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="/hr/catatan/" method="post" class="w-full flex flex-col gap-3">  
+            <form action="/hr/updateCatatan/" method="post" class="w-full flex flex-col gap-3">  
                 @csrf              
                 <input type="hidden" name="karyawan_id" value="{{ isset($data_karyawan->id) ? $data_karyawan->id : "" }}">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="catatan" class="text-dbklik">Catatan</label>
-                    <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[150px]"></textarea>
+                    <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[150px]">{{ isset($data_karyawan->catatan) ? $data_karyawan->catatan : '' }}</textarea>
                 </div>
                 <div class="flex justify-end">
                     <button type="submit" class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Simpan</button>

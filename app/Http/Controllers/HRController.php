@@ -9,6 +9,7 @@ use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HRController extends Controller
 {
@@ -206,4 +207,30 @@ class HRController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function updateKontrak(Request $request)
+    {
+        $karyawan_id = $request->karyawan_id;
+        $karyawan=Karyawan::find($karyawan_id);
+        $durasi = (int)$request->durasi;
+        $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
+        $karyawan->update([
+            "berakhir_kerja" => $tanggal_akhir_kontrak
+        ]);
+
+        return redirect()->back();
+    }
+
+    // public function catatan($id)
+    // {
+    //     $data_karyawan = Karyawan::findOrFail($id);
+    //     compact('data_karyawan');
+    // }
+
+    // public function kontrak($id)
+    // {
+    //     $data_karyawan = Karyawan::findOrFail($id);
+    //     compact('data_karyawan');
+    // }
 }
