@@ -61,8 +61,7 @@
                         <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
                         <span
                             class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['divisi'] }}
-                            -
-                            {{ $dataDiri['sub_divisi'] }}</span>
+                            {{ $dataDiri['sub_divisi'] != null ? '- ' . $dataDiri['sub_divisi'] : '' }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Jabatan</span>

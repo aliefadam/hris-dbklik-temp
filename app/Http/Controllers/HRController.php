@@ -23,8 +23,8 @@ class HRController extends Controller
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                "divisi" => $karyawan->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? " ",
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
+                "jabatan" => $karyawan->jabatan->nama_jabatan,
             ];
         });
 
@@ -44,7 +44,7 @@ class HRController extends Controller
             "dataDiri" => [
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? " ",
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
@@ -173,8 +173,8 @@ class HRController extends Controller
                 "tanggal_mulai_kontrak" => auth()->user()->karyawan->tanggal_masuk_kerja,
                 "tanggal_akhir_kontrak" => auth()->user()->karyawan->berakhir_kerja,
                 "no_rekening" => auth()->user()->karyawan->no_rekening_bca,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],

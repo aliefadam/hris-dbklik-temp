@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\Karyawan;
+use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,12 +18,12 @@ class StaffController extends Controller
         $user_divisi = auth()->user()->karyawan->divisi->id;
         $dataKaryawan = Karyawan::whereHas('divisi', function ($query) use ($user_divisi) {
             $query->where('id', $user_divisi);
-        })->where("id", "!=", auth()->user()->id)->get()->map(function ($karyawan) {
+        })->where("id", "!=", auth()->user()->id)->orderBy("jabatan_id", "ASC")->get()->map(function ($karyawan) {
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                // "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
+                "jabatan" => $karyawan->jabatan->nama_jabatan,
             ];
         });
 
@@ -58,6 +59,7 @@ class StaffController extends Controller
         return view('perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
+            "rulesHRD" => RulesHRD::all(),
         ]);
     }
 

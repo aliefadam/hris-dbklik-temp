@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cabang;
 use App\Models\DaftarPengajuan;
 use App\Models\Karyawan;
 use App\Models\Perizinan;
@@ -12,7 +13,10 @@ class OwnerController extends Controller
 {
     public function welcome()
     {
-        return view('owner.welcome', ["title" => "Beranda"]);
+        return view('owner.welcome', [
+            "title" => "Beranda",
+            "dataCabang" => Cabang::all(),
+        ]);
     }
 
     public function daftarPengajuan(Request $request)
@@ -54,8 +58,7 @@ class OwnerController extends Controller
     public function strukturPegawai()
     {
         return view('owner.struktur_pegawai', [
-            "data_pegawai" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
-                ->get(),
+            "data_pegawai" => Karyawan::all(),
             "jabatan_id" => auth()->user()->karyawan->jabatan_id,
             "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
@@ -80,8 +83,8 @@ class OwnerController extends Controller
                 "tanggal_mulai_kontrak" => auth()->user()->karyawan->tanggal_masuk_kerja,
                 "tanggal_akhir_kontrak" => auth()->user()->karyawan->berakhir_kerja,
                 "no_rekening" => auth()->user()->karyawan->no_rekening_bca,
-                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi ?? "",
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],

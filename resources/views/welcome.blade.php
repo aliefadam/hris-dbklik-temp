@@ -34,7 +34,8 @@
                     <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
                     <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
                     <span
-                        class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['sub_divisi'] }}</span>
+                        class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['jabatan'] }}
+                        {{ $data['sub_divisi'] != null ? '- ' . $data['sub_divisi'] : '' }}</span>
                     @if ($data['status'] == 'Hadir')
                         <span class="mt-5 text-green-500 text-2xl font-bold drop-shadow-md">HADIR</span>
                     @else
