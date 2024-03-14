@@ -123,8 +123,14 @@ class HRController extends Controller
 
     public function dataKaryawan(Karyawan $karyawan)
     {
+        $data_karyawan = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
+        ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+        ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
+        ->where("karyawans.id", $karyawan->id)
+        ->get();
+
         return view('hr.karyawan-detail', [
-            "data_karyawan" => $karyawan,
+            "data_karyawan" => $data_karyawan,
             "title" => "Detail Karyawan",
         ]);
     }

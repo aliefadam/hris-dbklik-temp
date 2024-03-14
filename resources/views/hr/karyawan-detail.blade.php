@@ -21,8 +21,24 @@
             <div class="flex mt-5 gap-10">
                 <div class="flex-[1] flex flex-col gap-4 ">
                     <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Nama</span>
-                        <span
+                        {{-- <span class="text-dbklik text-[14px]">Nama</span> --}}
+                        @php
+                            $columnCounter = 0; 
+                        @endphp
+                        @foreach ($data_karyawan as $karyawan ) 
+                            @foreach ($karyawan->getAttributes() as $columnName => $columnValue ) 
+                                @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
+                                    @php
+                                        // Transform column name to readable format
+                                        $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                        $columnCounter++; // Increment column counter
+                                    @endphp
+                                    <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                    <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
+                                @endif
+                            @endforeach                        
+                        @endforeach
+                        {{-- <span
                             class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->nama_lengkap }}</span>
                     </div>
                     <div class="flex flex-col">
@@ -77,7 +93,7 @@
                         <span class="text-dbklik text-[14px]">Lokasi Kerja</span>
                         <span
                             class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->cabang->nama_cabang }}</span>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
