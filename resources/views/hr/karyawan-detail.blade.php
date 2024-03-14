@@ -21,9 +21,29 @@
             <div class="flex mt-5 gap-10">
                 <div class="flex-[1] flex flex-col gap-4 ">
                     @php $counter = 0; @endphp
-                    @foreach ($data_karyawan_1 as $karyawan ) 
+                    @foreach ($biodata as $karyawan ) 
                             <div class="flex flex-col">
-                                @foreach ($karyawan as $columnName => $columnValue ) 
+                                @foreach ($karyawan->getAttributes() as $columnName => $columnValue ) 
+                                    @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
+                                        @if ($counter < count($biodata) / 2)
+                                            @php
+                                                // Transform column name to readable format
+                                                $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                            @endphp
+                                            <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                            <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
+                                        @endif
+                                    @endif
+                                @endforeach            
+                            </div>   
+                            @php $counter++; @endphp       
+                    @endforeach
+                </div>                
+                <div class="flex-[1] flex flex-col gap-3 ">
+                    @foreach ($biodata as $karyawan ) 
+                        @if ($counter < count($biodata) / 2)
+                            <div class="flex flex-col">
+                                @foreach ($karyawan->getAttributes() as $columnName => $columnValue ) 
                                     @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
                                         @php
                                             // Transform column name to readable format
@@ -34,21 +54,8 @@
                                     @endif
                                 @endforeach            
                             </div>   
-                    @endforeach
-                </div>                
-                <div class="flex-[1] flex flex-col gap-3 ">
-                    @foreach ($data_karyawan_2 as $karyawan ) 
-                            <div class="flex flex-col">
-                                @foreach ($karyawan as $columnName => $columnValue ) 
-                                    @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
-                                        @php
-                                            $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
-                                        @endphp
-                                        <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
-                                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
-                                    @endif
-                                @endforeach            
-                            </div>                                   
+                            @php $counter++; @endphp 
+                        @endif        
                     @endforeach
                 </div>
             </div>

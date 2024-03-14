@@ -7,7 +7,6 @@ use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
-use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -60,7 +59,6 @@ class HRController extends Controller
         return view('hr.perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
-            "rulesHRD" => RulesHRD::all(),
         ]);
     }
 
@@ -123,35 +121,27 @@ class HRController extends Controller
         ]);
     }
 
-    public function dataKaryawan(Karyawan $karyawan)
+    // public function dataKaryawan(Karyawan $karyawan)
+    // {
+    //     return view('hr.karyawan-detail', [
+    //         "data_karyawan" => $karyawan,
+    //         "title" => "Detail Karyawan",
+    //     ]);
+    // }
+
+    public function biodata(Karyawan $karyawan)
     {
-        $data_karyawan = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
+        
+        $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
         ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
         ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
         ->where("karyawans.id", $karyawan->id)
         ->get();
 
-    $data_karyawan_1 = [];
-    $data_karyawan_2 = [];
-    $counter = 0;
-
-    foreach ($data_karyawan as $karyawan) {
-        // Get the attributes of the current Karyawan object
-        $attributes = $karyawan->getAttributes();
-
-        // Divide the data into two arrays based on the counter
-        if ($counter < count($data_karyawan) / 2) {
-            $data_karyawan_1[] = $attributes;
-        } else {
-            $data_karyawan_2[] = $attributes;
-        }
-        $counter++;
-    }
 
         return view('hr.karyawan-detail', [
-            "data_karyawan" => $data_karyawan,
-            "data_karyawan_1" => $data_karyawan_1,
-            "data_karyawan_2" => $data_karyawan_2,
+            "data_karyawan" => $karyawan,
+            "biodata" => $biodata,
             "title" => "Detail Karyawan",
         ]);
     }

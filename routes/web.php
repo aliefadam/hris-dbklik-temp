@@ -53,6 +53,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/daftar-pengajuan', [HRController::class, 'daftarPengajuan'])->middleware("role:3");
         Route::get('/daftar-karyawan', [HRController::class, 'daftarKaryawan'])->middleware("role:3");
         Route::get('/data-karyawan/{karyawan}', [HRController::class, 'dataKaryawan'])->middleware("role:3");
+        Route::get('/biodata/{karyawan}', [HRController::class, 'biodata'])->middleware("role:3");
         Route::get('/notification', [HRController::class, 'notification'])->middleware("role:3");
         Route::get("/notification/{notifikasi}", [HRController::class, 'notificationSelected'])->middleware("role:3");
         Route::get('/profile', [HRController::class, 'profile'])->middleware("role:3");

@@ -211,7 +211,7 @@
         const rowData3 = $("#table-karyawan tbody tr");
         rowData3.on("click", function() {
             const id = this.getAttribute("data-id");
-            window.location.href = `/hr/data-karyawan/${id}`;
+            window.location.href = `/hr/biodata/${id}`;
         });
 
         const btnResign = $(".btn-resign");
