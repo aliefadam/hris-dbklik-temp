@@ -78,20 +78,24 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 /* notifikasi */
-.notifikasi-detail::-webkit-scrollbar {
+.notifikasi-detail::-webkit-scrollbar,
+.karyawan-detail::-webkit-scrollbar {
     width: 5px;
 }
 
-.notifikasi-detail::-webkit-scrollbar-track {
+.notifikasi-detail::-webkit-scrollbar-track,
+.karyawan-detail::-webkit-scrollbar-track {
     background: white;
 }
 
-.notifikasi-detail::-webkit-scrollbar-thumb {
+.notifikasi-detail::-webkit-scrollbar-thumb,
+.karyawan-detail::-webkit-scrollbar-thumb {
     background-color: #152c89;
     border-radius: 6px;
 }
 
-.notifikasi-detail::-webkit-scrollbar-thumb:hover {
+.notifikasi-detail::-webkit-scrollbar-thumb:hover,
+.karyawan-detail::-webkit-scrollbar-thumb:hover {
     background: #0f2370;
 }
 
