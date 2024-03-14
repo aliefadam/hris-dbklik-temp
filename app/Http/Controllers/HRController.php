@@ -131,8 +131,27 @@ class HRController extends Controller
         ->where("karyawans.id", $karyawan->id)
         ->get();
 
+    $data_karyawan_1 = [];
+    $data_karyawan_2 = [];
+    $counter = 0;
+
+    foreach ($data_karyawan as $karyawan) {
+        // Get the attributes of the current Karyawan object
+        $attributes = $karyawan->getAttributes();
+
+        // Divide the data into two arrays based on the counter
+        if ($counter < count($data_karyawan) / 2) {
+            $data_karyawan_1[] = $attributes;
+        } else {
+            $data_karyawan_2[] = $attributes;
+        }
+        $counter++;
+    }
+
         return view('hr.karyawan-detail', [
             "data_karyawan" => $data_karyawan,
+            "data_karyawan_1" => $data_karyawan_1,
+            "data_karyawan_2" => $data_karyawan_2,
             "title" => "Detail Karyawan",
         ]);
     }

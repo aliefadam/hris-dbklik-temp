@@ -20,77 +20,36 @@
             <h1 class="text-dbklik text-3xl font-semibold text-center">Data Karyawan</h1>
             <div class="flex mt-5 gap-10">
                 <div class="flex-[1] flex flex-col gap-4 ">
-                    <div class="flex flex-col">
-                        {{-- <span class="text-dbklik text-[14px]">Nama</span> --}}
-                        
-                        @foreach ($data_karyawan as $karyawan ) 
-                            @foreach ($karyawan->getAttributes() as $columnName => $columnValue ) 
-                                @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
-                                    @php
-                                        // Transform column name to readable format
-                                        $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
-                                    @endphp
-                                    <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
-                                    <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
-                                @endif
-                            @endforeach                        
-                        @endforeach
-                        {{-- <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->nama_lengkap }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Email</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->email }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">No Telephone</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_telephone }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">No Telephone Whatsapp</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_whatsapp }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Alamat</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->alamat_domisili }}</span>
-                    </div>
-                </div>
+                    @php $counter = 0; @endphp
+                    @foreach ($data_karyawan_1 as $karyawan ) 
+                            <div class="flex flex-col">
+                                @foreach ($karyawan as $columnName => $columnValue ) 
+                                    @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
+                                        @php
+                                            // Transform column name to readable format
+                                            $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                        @endphp
+                                        <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
+                                    @endif
+                                @endforeach            
+                            </div>   
+                    @endforeach
+                </div>                
                 <div class="flex-[1] flex flex-col gap-3 ">
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Tanggal Mulai Kontrak</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->tanggal_masuk_kerja }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Tanggal Berakhir Kontrak</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->berakhir_kerja }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Nomor Rekening</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_rekening_bca }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->subDivisi->divisi->nama_divisi }}
-                            - {{ $data_karyawan->subDivisi->nama_sub_divisi }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Jabatan</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->jabatan->nama_jabatan }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Lokasi Kerja</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->cabang->nama_cabang }}</span>
-                    </div> --}}
+                    @foreach ($data_karyawan_2 as $karyawan ) 
+                            <div class="flex flex-col">
+                                @foreach ($karyawan as $columnName => $columnValue ) 
+                                    @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
+                                        @php
+                                            $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                        @endphp
+                                        <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                        <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
+                                    @endif
+                                @endforeach            
+                            </div>                                   
+                    @endforeach
                 </div>
             </div>
         </div>
