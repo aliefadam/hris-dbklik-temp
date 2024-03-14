@@ -42,7 +42,7 @@ class HeadController extends Controller
             "dataDiri" => [
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
@@ -101,7 +101,9 @@ class HeadController extends Controller
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
-            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+            $dataPerizinan = Perizinan::join("karyawans", "perizinans.karyawan_id", "=", "karyawans.id")
+                ->whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->where("karyawans.divisi_id", auth()->user()->karyawan->divisi_id)
                 ->orderBy("updated_at", "DESC")
                 ->get();
         }

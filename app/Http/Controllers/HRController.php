@@ -10,6 +10,7 @@ use App\Models\Perizinan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class HRController extends Controller
 {
