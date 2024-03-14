@@ -224,3 +224,31 @@ span.ditolak {
     color: rgb(220 38 38) !important;
     font-weight: 600;
 }
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 0;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50px);
+    }
+}
+
+@keyframes fadeOutUpBtn {
+    to {
+        transform: translateY(-215px);
+    }
+}

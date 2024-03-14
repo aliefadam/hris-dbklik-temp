@@ -9,6 +9,7 @@ use App\Models\Divisi;
 use App\Models\Izin;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
+use App\Models\RulesHRD;
 use App\Models\SubDivisi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -246,6 +247,16 @@ class DatabaseSeeder extends Seeder
         Cabang::create([
             "nama_cabang" => "Bali",
             "alamat" => "Jl. Raya Sesetan No.119a, Sesetan, Denpasar Selatan, Kota Denpasar, Bali 80223"
+        ]);
+
+        RulesHRD::create([
+            "judul" => "Izin Cuti atau Tidak Masuk bagi yang belum punya jatah cuti (Max Diambil 2 Hari Berturut)",
+            "aturan" => "Karyawan menulis form h-2 minggu sebelum hari cuti.",
+        ]);
+
+        RulesHRD::create([
+            "judul" => "Izin Sakit (akan masuk ke cuti-apabila memiliki cuti)",
+            "aturan" => "Karyawan menulis form max jam 8 pagi di hari bekerja.",
         ]);
 
         Karyawan::create([

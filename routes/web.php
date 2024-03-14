@@ -6,6 +6,7 @@ use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\ResignController;
+use App\Http\Controllers\RulesHRDController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,9 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/resign', [ResignController::class, 'resign'])->middleware("role:3");
         Route::post('/updateCatatan', [HRController::class, 'updateCatatan'])->middleware("role:3");
         Route::post('/updateKontrak', [HRController::class, 'updateKontrak'])->middleware("role:3");
+        Route::post('/tambah-aturan', [RulesHRDController::class, 'tambahAturan'])->middleware("role:3");
+        Route::post('/edit-aturan/{aturan}', [RulesHRDController::class, 'editAturan'])->middleware("role:3");
+        Route::post('/hapus-aturan/{aturan}', [RulesHRDController::class, 'hapusAturan'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");
