@@ -65,8 +65,8 @@
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
                         <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->subDivisi->divisi->nama_divisi }}
-                            - {{ $data_karyawan->subDivisi->nama_sub_divisi }}</span>
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->divisi->nama_divisi ?? '' }}
+                            {{ $data_karyawan->sub_divisi != null ? '- ' . $data_karyawan->sub_divisi : '' }}</span>
                     </div>
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Jabatan</span>

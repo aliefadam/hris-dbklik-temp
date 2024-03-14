@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
+use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,8 @@ class HeadController extends Controller
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                "divisi" => $karyawan->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
+                "jabatan" => $karyawan->jabatan->nama_jabatan,
             ];
         });
 
@@ -57,6 +58,7 @@ class HeadController extends Controller
         return view('head.perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
+            "rulesHRD" => RulesHRD::all(),
         ]);
     }
 
@@ -144,8 +146,8 @@ class HeadController extends Controller
                 "tanggal_mulai_kontrak" => auth()->user()->karyawan->tanggal_masuk_kerja,
                 "tanggal_akhir_kontrak" => auth()->user()->karyawan->berakhir_kerja,
                 "no_rekening" => auth()->user()->karyawan->no_rekening_bca,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
