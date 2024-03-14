@@ -7,6 +7,7 @@ use App\Models\Izin;
 use App\Models\Karyawan;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
+use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -59,6 +60,7 @@ class HRController extends Controller
         return view('hr.perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
+            "rulesHRD" => RulesHRD::all(),
         ]);
     }
 
