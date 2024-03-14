@@ -87,7 +87,8 @@ class StaffController extends Controller
     public function strukturPegawai()
     {
         return view('struktur_pegawai', [
-            "data_pegawai" => Karyawan::orderBy("divisi_id", "ASC")->get(),
+            "data_pegawai" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+                ->get(),
             "jabatan_id" => auth()->user()->karyawan->jabatan_id,
             "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
