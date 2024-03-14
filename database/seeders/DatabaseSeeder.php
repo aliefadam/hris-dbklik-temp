@@ -249,7 +249,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Karyawan::create([
-            'divisi_id' => 10, 
+            'divisi_id' => 10,
             'sub_divisi_id' => 20,
             'nama_lengkap' => 'John Doe',
             'nama_panggilan' => 'John',

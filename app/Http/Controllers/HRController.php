@@ -23,7 +23,7 @@ class HRController extends Controller
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
                 "divisi" => $karyawan->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? " ",
             ];
         });
 
@@ -43,7 +43,7 @@ class HRController extends Controller
             "dataDiri" => [
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? " ",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
@@ -115,7 +115,7 @@ class HRController extends Controller
     public function daftarKaryawan()
     {
         return view('hr.daftar-karyawan', [
-            "data_karyawan" => Karyawan::all(),
+            "data_karyawan" => Karyawan::where("jabatan_id", "!=", "1")->get(),
             "title" => "Daftar Karyawan",
         ]);
     }
@@ -124,7 +124,7 @@ class HRController extends Controller
     {
         return view('hr.karyawan-detail', [
             "data_karyawan" => $karyawan,
-            "title" => "Detail Karyawan",                        
+            "title" => "Detail Karyawan",
         ]);
     }
 
@@ -200,7 +200,7 @@ class HRController extends Controller
     public function updateCatatan(Request $request)
     {
         $karyawan_id = $request->karyawan_id;
-        $karyawan=Karyawan::find($karyawan_id);
+        $karyawan = Karyawan::find($karyawan_id);
         $karyawan->update([
             "catatan" => $request->catatan
         ]);
@@ -212,7 +212,7 @@ class HRController extends Controller
     public function updateKontrak(Request $request)
     {
         $karyawan_id = $request->karyawan_id;
-        $karyawan=Karyawan::find($karyawan_id);
+        $karyawan = Karyawan::find($karyawan_id);
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
         $karyawan->update([
@@ -221,16 +221,4 @@ class HRController extends Controller
 
         return redirect()->back();
     }
-
-    // public function catatan($id)
-    // {
-    //     $data_karyawan = Karyawan::findOrFail($id);
-    //     compact('data_karyawan');
-    // }
-
-    // public function kontrak($id)
-    // {
-    //     $data_karyawan = Karyawan::findOrFail($id);
-    //     compact('data_karyawan');
-    // }
 }
