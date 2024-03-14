@@ -6,13 +6,13 @@
             <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit">
                 <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
             </div>
-            <button
+            <button 
                 class="btn-resign shadow-md flex gap-2 justify-center duration-500 mt-4 bg-gradient-to-r from-red-600 to-red-400 w-full text-white py-[10px] px-3 rounded-lg"><i
                     class="bi bi-door-open-fill"></i> Resign</button>
             <button
                 class="btn-kontrak shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-cyan-600 to-cyan-400 w-full text-white py-[10px] px-3 rounded-lg"><i
                     class="bi bi-file-earmark-plus"></i> Perpanjang Kontrak</button>
-            <button
+            <button  
                 class="btn-catatan shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-green-600 to-green-400 w-full text-white py-[10px] px-3 rounded-lg"><i
                     class="bi bi-pencil-square"></i> Edit Catatan</button>
         </div>
@@ -22,16 +22,13 @@
                 <div class="flex-[1] flex flex-col gap-4 ">
                     <div class="flex flex-col">
                         {{-- <span class="text-dbklik text-[14px]">Nama</span> --}}
-                        @php
-                            $columnCounter = 0; 
-                        @endphp
+                        
                         @foreach ($data_karyawan as $karyawan ) 
                             @foreach ($karyawan->getAttributes() as $columnName => $columnValue ) 
                                 @if((strpos($columnName, 'id') === false) && (strpos($columnName, '_at') === false))
                                     @php
                                         // Transform column name to readable format
                                         $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
-                                        $columnCounter++; // Increment column counter
                                     @endphp
                                     <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
                                     <span class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
