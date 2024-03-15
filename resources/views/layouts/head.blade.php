@@ -126,7 +126,6 @@
             $("span.overlay-head-file-pendukung").removeClass("cursor-pointer");
             $("span.overlay-head-file-pendukung").off("click");
 
-
             $("span.overlay-head-status").addClass(statusText);
             if (filePendukung != "-") {
                 $("span.overlay-head-file-pendukung").addClass("underline");

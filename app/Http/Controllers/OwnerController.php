@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cabang;
 use App\Models\DaftarPengajuan;
 use App\Models\Karyawan;
+use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -83,7 +84,16 @@ class OwnerController extends Controller
 
     public function notification()
     {
-        return view('owner.notification', ["title" => "Notifikasi"]);
+        return view('owner.notification', [
+            "title" => "Notifikasi",
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+        ]);
+    }
+
+    public function notificationSelected(Notifikasi $notifikasi)
+    {
+        $notifikasi->update(["status_dibaca" => true]);
+        return redirect("/owner/notification")->with("selected_notifikasi", $notifikasi);
     }
 
     public function profile()

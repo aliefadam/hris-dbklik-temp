@@ -57,20 +57,3 @@
             Notifikasi</a>
     </div>
 </nav>
-
-{{-- <script>
-    const notificationList = document.querySelectorAll(".notification-list");
-    notificationList.forEach(notification => {
-        notification.addEventListener("click", (e) => {
-            e.preventDefault();
-            $.ajax({
-                url: "/head/notification",
-                data: {
-                    _token: $("meta[name=csrf-token]").attr("content"),
-                    selected: true,
-                },
-                success: function(data) {}
-            });
-        });
-    });
-</script> --}}
