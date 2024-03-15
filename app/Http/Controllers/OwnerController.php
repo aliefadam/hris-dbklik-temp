@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cabang;
 use App\Models\DaftarPengajuan;
 use App\Models\Karyawan;
 use App\Models\Perizinan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
 {
     public function welcome()
     {
-        return view('owner.welcome', ["title" => "Beranda"]);
+        return view('owner.welcome', [
+            "title" => "Beranda",
+            "dataCabang" => Cabang::all(),
+        ]);
     }
 
     public function daftarPengajuan(Request $request)
@@ -53,7 +58,9 @@ class OwnerController extends Controller
     public function strukturPegawai()
     {
         return view('owner.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            "data_pegawai" => Karyawan::all(),
+            "jabatan_id" => auth()->user()->karyawan->jabatan_id,
+            "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
         ]);
     }
@@ -76,8 +83,8 @@ class OwnerController extends Controller
                 "tanggal_mulai_kontrak" => auth()->user()->karyawan->tanggal_masuk_kerja,
                 "tanggal_akhir_kontrak" => auth()->user()->karyawan->berakhir_kerja,
                 "no_rekening" => auth()->user()->karyawan->no_rekening_bca,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi ?? "",
+                "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
             ],
@@ -89,5 +96,35 @@ class OwnerController extends Controller
         return view('owner.ganti_password', [
             "title" => "Ganti Password",
         ]);
+    }
+
+    public function simpanPasswordBaru(Request $request)
+    {
+        $kataSandiLama = $request->kata_sandi_lama;
+        $kataSandiBaru = $request->kata_sandi_baru;
+        $konfirmasiKataSandiBaru = $request->konfirmasi_kata_sandi_baru;
+
+        if (password_verify($kataSandiLama, auth()->user()->password)) {
+            if ($kataSandiBaru == $konfirmasiKataSandiBaru) {
+                $user = User::find(auth()->user()->id);
+                $user->update([
+                    "password" => $kataSandiBaru,
+                ]);
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "berhasil",
+                    "body" => "Berhasil Mengganti Kata Sandi",
+                ]);
+            } else {
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "gagal",
+                    "body" => "Konfirmasi Kata Sandi Tidak Cocok",
+                ]);
+            }
+        } else {
+            return redirect()->back()->with("pesan", [
+                "jenis" => "gagal",
+                "body" => "Kata Sandi Lama Tidak Cocok",
+            ]);
+        }
     }
 }

@@ -7,22 +7,23 @@ use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\Karyawan;
+use App\Models\RulesHRD;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StaffController extends Controller
 {
     public function index()
     {
-        $user_divisi = auth()->user()->karyawan->subDivisi->divisi->id;
-        $dataKaryawan = Karyawan::whereHas('subDivisi.divisi', function ($query) use ($user_divisi) {
+        $user_divisi = auth()->user()->karyawan->divisi->id;
+        $dataKaryawan = Karyawan::whereHas('divisi', function ($query) use ($user_divisi) {
             $query->where('id', $user_divisi);
-        })->where("id", "!=", auth()->user()->id)->get()->map(function ($karyawan) {
+        })->where("id", "!=", auth()->user()->id)->orderBy("jabatan_id", "ASC")->get()->map(function ($karyawan) {
             return [
                 "id" => $karyawan->id,
                 "nama" => $karyawan->nama_lengkap,
-                // "divisi" => $karyawan->subDivisi->divisi->nama_divisi,
-                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi,
-                "divisi_id" => $karyawan->subDivisi->divisi->id,
+                "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
+                "jabatan" => $karyawan->jabatan->nama_jabatan,
             ];
         });
 
@@ -42,7 +43,7 @@ class StaffController extends Controller
             "dataDiri" => [
                 "id" => auth()->user()->karyawan->id,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
-                "divisi" => auth()->user()->karyawan->subDivisi->divisi->nama_divisi,
+                "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
@@ -58,6 +59,7 @@ class StaffController extends Controller
         return view('perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
+            "rulesHRD" => RulesHRD::all(),
         ]);
     }
 
@@ -87,7 +89,10 @@ class StaffController extends Controller
     public function strukturPegawai()
     {
         return view('struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            "data_pegawai" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+                ->get(),
+            "jabatan_id" => auth()->user()->karyawan->jabatan_id,
+            "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
         ]);
     }
@@ -97,6 +102,36 @@ class StaffController extends Controller
         return view("ganti_password", [
             "title" => "Ganti Password",
         ]);
+    }
+
+    public function simpanPasswordBaru(Request $request)
+    {
+        $kataSandiLama = $request->kata_sandi_lama;
+        $kataSandiBaru = $request->kata_sandi_baru;
+        $konfirmasiKataSandiBaru = $request->konfirmasi_kata_sandi_baru;
+
+        if (password_verify($kataSandiLama, auth()->user()->password)) {
+            if ($kataSandiBaru == $konfirmasiKataSandiBaru) {
+                $user = User::find(auth()->user()->id);
+                $user->update([
+                    "password" => $kataSandiBaru,
+                ]);
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "berhasil",
+                    "body" => "Berhasil Mengganti Kata Sandi",
+                ]);
+            } else {
+                return redirect()->back()->with("pesan", [
+                    "jenis" => "gagal",
+                    "body" => "Konfirmasi Kata Sandi Tidak Cocok",
+                ]);
+            }
+        } else {
+            return redirect()->back()->with("pesan", [
+                "jenis" => "gagal",
+                "body" => "Kata Sandi Lama Tidak Cocok",
+            ]);
+        }
     }
 
     public function notification()

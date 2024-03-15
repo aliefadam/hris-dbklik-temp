@@ -32,7 +32,7 @@
                 <tr data-id="{{ $karyawan->id }}">
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $karyawan->nama_lengkap }}</td>
-                    <td class="">{{ $karyawan->subDivisi->divisi->nama_divisi }}</td>
+                    <td class="">{{ $karyawan->divisi->nama_divisi }}</td>
                     <td class="">{{ $karyawan->jabatan->nama_jabatan }}</td>
                     <td class="">{{ $karyawan->status_karyawan }}</td>
                     <td class="">{{ $karyawan->cabang->nama_cabang }}</td>

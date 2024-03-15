@@ -22,7 +22,8 @@
                 </div>
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-5 py-6">
-                <form action="/ajukan-perizinan" class="w-full" method="post" enctype="multipart/form-data">
+                <form action="/ajukan-perizinan" class="w-full form-ajukan-perizinan" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="w-[50%] flex items-center gap-2">
                         {{-- <label for="" class="text-dbklik font-medium">Izin</label> --}}
@@ -63,13 +64,16 @@
         <div class="bg-white shadow-xl rounded-lg px-5 py-6 gap-2 w-[40%] h-fit">
             <h1 class="text-2xl text-dbklik font-semibold text-center">Ketentuan Izin dan Cuti</h1>
             <ol class="list-decimal ml-2 mt-5 text-dbklik text-[15px] text-justify flex flex-col gap-2">
-                <li><span class="font-medium">Izin Cuti atau Tidak Masuk bagi yang belum punya jatah cuti (Max Diambil 2
-                        Hari Berturut)</span><span class="block italic text-sm">Karyawan menulis form h-2 minggu sebelum
-                        hari
-                        cuti.</span></li>
-                <li><span class="font-medium">Izin Sakit (akan masuk ke cuti-apabila memiliki cuti)</span><span
-                        class="block italic text-sm">Karyawan
-                        menulis form max jam 8 pagi di hari bekerja</span></li>
+                @foreach ($rulesHRD as $rules)
+                    <li class="relative">
+                        <input class="hidden py-1 px-2 outline-none border font-medium w-[85%]" type="text"
+                            name="" id="">
+                        <input class="hidden py-1 px-2 outline-none border italic text-sm w-[85%]" type="text"
+                            name="" id="">
+                        <span class="font-medium rules-judul">{{ $rules->judul }}</span>
+                        <span class="block italic text-sm rules-aturan">{{ $rules->aturan }}</span>
+                    </li>
+                @endforeach
             </ol>
         </div>
     </div>

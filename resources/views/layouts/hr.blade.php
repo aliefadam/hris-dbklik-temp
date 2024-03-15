@@ -38,6 +38,7 @@
 
 <body class="relative top-0 left-0 w-full bg-gradient-to-b bg-gray-100 font-[poppins] pb-5">
     @include('overlay')
+    @include('partials.overlay_message')
     @include('partials.hr_sidebar')
     @include('partials.hr_topbar')
     <main class="ml-[250px] mt-[84px] py-5 px-10">
@@ -210,7 +211,7 @@
         const rowData3 = $("#table-karyawan tbody tr");
         rowData3.on("click", function() {
             const id = this.getAttribute("data-id");
-            window.location.href = `/hr/data-karyawan/${id}`;
+            window.location.href = `/hr/biodata/${id}`;
         });
 
         const btnResign = $(".btn-resign");
@@ -219,7 +220,8 @@
         const btnMutasi = $(".btn-mutasi");
 
         btnResign.on("click", function() {
-            showOverlay("overlay-resign");
+            showOverlay("overlay-resign");            
+            const id = this.getAttribute("data-id");
         });
         btnKontrak.on("click", function() {
             showOverlay("overlay-kontrak");

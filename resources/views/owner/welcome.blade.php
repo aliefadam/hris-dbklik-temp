@@ -6,10 +6,10 @@
             <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                 <label for="durasi" class="text-dbklik">Cabang</label>
                 <select name="" id="durasi" class="outline-none bg-transparent">
-                    <option value="3 bulan">Semua Cabang</option>
-                    <option class="" value="3 bulan">Surabaya</option>
-                    <option value="6 bulan">Malang</option>
-                    <option value="12 bulan">Semarang</option>
+                    <option value="">Semua Cabang</option>
+                    @foreach ($dataCabang as $cabang)
+                        <option class="" value="{{ $cabang->id }}">{{ $cabang->nama_cabang }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="border border-indigo-600 mt-5">

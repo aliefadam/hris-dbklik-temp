@@ -13,4 +13,9 @@ class SubDivisi extends Model
     {
         return $this->belongsTo(Divisi::class);
     }
+
+    public function karyawan()
+    {
+        return $this->hasMany(Karyawan::class);
+    }
 }

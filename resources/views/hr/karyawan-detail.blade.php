@@ -16,68 +16,48 @@
                 class="btn-catatan shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-green-600 to-green-400 w-full text-white py-[10px] px-3 rounded-lg"><i
                     class="bi bi-pencil-square"></i> Edit Catatan</button>
         </div>
-        <div class="shadow-xl bg-white rounded-xl p-5 flex-[1.7]">
+        <div class="shadow-xl bg-white rounded-xl p-5 flex-[1.7] h-[420px]">
             <h1 class="text-dbklik text-3xl font-semibold text-center">Data Karyawan</h1>
-            <div class="flex mt-5 gap-10">
-                <div class="flex-[1] flex flex-col gap-4 ">
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Nama</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->nama_lengkap }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Email</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->email }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">No Telephone</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_telephone }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">No Telephone Whatsapp</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_whatsapp }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Alamat</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->alamat_domisili }}</span>
-                    </div>
+            <div class="flex mt-5 gap-10 karyawan-detail overflow-auto h-[calc(100%-80px)]">
+                <div class="flex-[1] flex flex-col gap-3">
+                    @php $counter = 0; @endphp
+                    {{-- @dd(collect($biodata)) --}}
+                    @foreach (collect($biodata) as $columnName => $columnValue)
+                        @if (strpos($columnName, 'id') === false && strpos($columnName, '_at') === false)
+                            {{-- @dump($counter) --}}
+                            @if ($counter < count(collect($biodata)) / 2)
+                                @php
+                                    $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                @endphp
+                                <div class="flex flex-col">
+                                    <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                    <span
+                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $columnValue }}</span>
+                                </div>
+                            @endif
+                        @endif
+                        @php $counter++; @endphp
+                    @endforeach
                 </div>
                 <div class="flex-[1] flex flex-col gap-3 ">
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Tanggal Mulai Kontrak</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->tanggal_masuk_kerja }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Tanggal Berakhir Kontrak</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->berakhir_kerja }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Nomor Rekening</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->no_rekening_bca }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Divisi - Sub Divisi</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->subDivisi->divisi->nama_divisi }}
-                            - {{ $data_karyawan->subDivisi->nama_sub_divisi }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Jabatan</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->jabatan->nama_jabatan }}</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="text-dbklik text-[14px]">Lokasi Kerja</span>
-                        <span
-                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $data_karyawan->cabang->nama_cabang }}</span>
-                    </div>
+                    @php $counter = 0; @endphp
+                    {{-- @dd(collect($biodata)) --}}
+                    @foreach (collect($biodata) as $columnName => $columnValue)
+                        @if (strpos($columnName, 'id') === false && strpos($columnName, '_at') === false)
+                            {{-- @dump($counter) --}}
+                            @if ($counter >= count(collect($biodata)) / 2)
+                                @php
+                                    $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
+                                @endphp
+                                <div class="flex flex-col">
+                                    <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
+                                    <span
+                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium {{ strpos($columnValue, '.') ? 'underline cursor-pointer open-file' : '' }}">{{ $columnValue }}</span>
+                                </div>
+                            @endif
+                        @endif
+                        @php $counter++; @endphp
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -125,4 +105,10 @@
             </tr>
         </tbody>
     </table>
+
+    <script>
+        $(".open-file").on("click", function() {
+            window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+        });
+    </script>
 @endsection

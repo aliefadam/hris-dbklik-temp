@@ -10,8 +10,7 @@
             <div class="mt-4 flex flex-col gap-1">
                 <span class="text-[13px] leading-none block text-dbklik">Divisi - Sub Divisi</span>
                 <h1 class="leading-none text-yellow-dbklik drop-shadow-md font-medium text-lg">{{ $dataDiri['divisi'] }}
-                    -
-                    {{ $dataDiri['sub_divisi'] }}</h1>
+                    {{ $dataDiri['sub_divisi'] != null ? '- ' . $dataDiri['sub_divisi'] : '' }}</h1>
             </div>
             <div class="mt-4 flex flex-col gap-1">
                 <span class="text-[13px] leading-none block text-dbklik">Jabatan</span>
@@ -30,13 +29,15 @@
         <div class="mt-5 w-full flex gap-10 overflow-x-scroll pb-10 pt-5 px-2 kehadiran-list">
             @foreach ($kehadiran as $data)
                 <div
-                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.2)] px-3 py-5 flex flex-col justify-center items-center">
+                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.4)] px-3 py-5 flex flex-col justify-center items-center">
                     <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
                     <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
-                    <span class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['sub_divisi'] }}</span>
-                    @if ($data['status']=="Hadir")
+                    <span
+                        class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['jabatan'] }}
+                        {{ $data['sub_divisi'] != null ? '- ' . $data['sub_divisi'] : '' }}</span>
+                    @if ($data['status'] == 'Hadir')
                         <span class="mt-5 text-green-500 text-2xl font-bold drop-shadow-md">HADIR</span>
-                    @else            
+                    @else
                         <span class="mt-5 text-red-500 text-2xl font-bold drop-shadow-md">TIDAK HADIR</span>
                     @endif
                 </div>

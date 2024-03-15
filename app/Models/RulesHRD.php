@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RulesHRD extends Model
 {
     use HasFactory;
+
+    protected $guarded = ["id"];
 }

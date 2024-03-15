@@ -60,17 +60,145 @@
                 </form>
             </div>
         </div>
-        <div class="bg-white shadow-xl rounded-lg px-5 py-6 gap-2 w-[40%] h-fit">
-            <h1 class="text-2xl text-dbklik font-semibold text-center">Ketentuan Izin dan Cuti</h1>
-            <ol class="list-decimal ml-2 mt-5 text-dbklik text-[15px] text-justify flex flex-col gap-2">
-                <li><span class="font-medium">Izin Cuti atau Tidak Masuk bagi yang belum punya jatah cuti (Max Diambil 2
-                        Hari Berturut)</span><span class="block italic text-sm">Karyawan menulis form h-2 minggu sebelum
-                        hari
-                        cuti.</span></li>
-                <li><span class="font-medium">Izin Sakit (akan masuk ke cuti-apabila memiliki cuti)</span><span
-                        class="block italic text-sm">Karyawan
-                        menulis form max jam 8 pagi di hari bekerja</span></li>
-            </ol>
+        <div class="w-[40%] h-fit flex flex-col gap-3">
+            <div class="bg-white shadow-xl rounded-lg px-5 py-6 relative">
+                <h1 class="text-2xl text-dbklik font-semibold text-center">Ketentuan Izin dan Cuti</h1>
+                <ol class="list-decimal ml-2 mt-5 text-dbklik text-[15px] text-justify flex flex-col gap-2">
+                    @foreach ($rulesHRD as $rules)
+                        <li class="relative">
+                            <input class="hidden py-1 px-2 outline-none border font-medium w-[85%]" type="text"
+                                name="" id="">
+                            <input class="hidden py-1 px-2 outline-none border italic text-sm w-[85%]" type="text"
+                                name="" id="">
+                            <span class="font-medium rules-judul">{{ $rules->judul }}</span>
+                            <span class="block italic text-sm rules-aturan">{{ $rules->aturan }}</span>
+                            <div data-show="true"
+                                class="container-edit gap-1 absolute right-0 top-0 hidden bg-white shadow-lg border px-3 py-2 rounded-sm">
+                                <i data-id="{{ $rules->id }}" data-isEdit="true"
+                                    class="bi bi-pencil-square flex cursor-pointer btn-edit-izin"></i>
+                                <i data-id="{{ $rules->id }}"
+                                    class="bi bi-trash text-red-500 flex cursor-pointer btn-hapus-izin"></i>
+                            </div>
+                        </li>
+                    @endforeach
+                </ol>
+            </div>
+            <div class="tambah-aturan bg-white shadow-xl rounded-lg px-5 py-6 hidden">
+                <form action="/hr/tambah-aturan" class="flex flex-col gap-2" method="post">
+                    @csrf
+                    <input
+                        class="p-3 rounded-md border border-gray-800 placeholder:text-gray-800 focus:outline-dbklik focus:placeholder:text-dbklik text-dbklik"
+                        type="text" name="judul" id="judul" placeholder="Masukkan judul">
+                    <input
+                        class="p-3 rounded-md border border-gray-800 placeholder:text-gray-800 focus:outline-dbklik focus:placeholder:text-dbklik text-dbklik"
+                        type="text" name="aturan" id="aturan" placeholder="Masukkan aturan">
+                    <div class="flex">
+                        <button type="submit" class="py-2 px-5 rounded-md bg-yellow-dbklik text-black">Tambah</button>
+                    </div>
+                </form>
+            </div>
+            <button data-show="true"
+                class="duration-300 bg-dbklik text-yellow-dbklik shadow-xl rounded-lg py-3 btn-handle-overlay">Edit
+                Aturan</button>
         </div>
     </div>
+
+    <script>
+        $(".btn-handle-overlay").on("click", function() {
+            if ($(".btn-handle-overlay").attr("data-show") == "true") {
+                $(".tambah-aturan").css("display", "block");
+                $(".tambah-aturan").css("animation", "fadeInDown 1000ms forwards");
+                $(".btn-handle-overlay").css("animation", "fadeInDown 1000ms forwards");
+                $(".btn-handle-overlay").attr("data-show", "false")
+
+                $(".container-edit").removeClass("hidden");
+                $(".container-edit").addClass("flex");
+
+                $(".btn-handle-overlay").html("Tutup")
+            } else {
+                $(".tambah-aturan").css("animation", "fadeOutUp 1000ms forwards");
+                $(".btn-handle-overlay").css("animation", "fadeOutUpBtn 1000ms");
+                $(".btn-handle-overlay").attr("data-show", "true")
+                $(".btn-handle-overlay").html("Edit Aturan")
+
+                $(".container-edit").removeClass("flex");
+                $(".container-edit").addClass("hidden");
+
+                setTimeout(() => {
+                    $(".tambah-aturan").css("display", "none");
+                }, 1000);
+            }
+        });
+
+        $(".btn-edit-izin").on("click", function() {
+            if ($(this).attr("data-isEdit") == "true") {
+                $(this).parent().prev().css("display", "none");
+                $(this).parent().prev().prev().css("display", "none");
+
+                $(this).parent().prev().prev().prev().removeClass("hidden");
+                $(this).parent().prev().prev().prev().prev().removeClass("hidden");
+
+                $(this).parent().prev().prev().prev().val($(this).parent().prev().html());
+                $(this).parent().prev().prev().prev().prev().val($(this).parent().prev().prev().html());
+
+                $(this).parent().prev().prev().prev().addClass("block");
+                $(this).parent().prev().prev().prev().prev().addClass("block");
+
+                $(this).removeClass("bi-pencil-square");
+                $(this).addClass("bi-check2-square");
+                $(this).addClass("text-emerald-700");
+
+                $(this).attr("data-isEdit", "false");
+            } else {
+                $(this).parent().prev().css("display", "block");
+                $(this).parent().prev().prev().css("display", "block");
+
+                $(this).parent().prev().prev().prev().addClass("hidden");
+                $(this).parent().prev().prev().prev().prev().addClass("hidden");
+
+                $(this).removeClass("bi-check2-square");
+                $(this).removeClass("text-emerald-700");
+                $(this).addClass("bi-pencil-square");
+
+                $(this).attr("data-isEdit", "true");
+
+                $(this).parent().prev().prev().html($(this).parent().prev().prev().prev().prev().val());
+                $(this).parent().prev().html($(this).parent().prev().prev().prev().val());
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: "post",
+                    url: `/hr/edit-aturan/${$(this).attr("data-id")}`,
+                    data: {
+                        judul: $(this).parent().prev().prev().prev().prev().val(),
+                        aturan: $(this).parent().prev().prev().prev().val(),
+                    }
+                });
+            }
+        });
+
+        $(".btn-hapus-izin").on("click", function() {
+            $(this).parent().parent().remove();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: `/hr/hapus-aturan/${$(this).attr("data-id")}`,
+                data: {
+                    judul: $(this).parent().prev().prev().prev().prev().val(),
+                    aturan: $(this).parent().prev().prev().prev().val(),
+                }
+            });
+        });
+    </script>
 @endsection

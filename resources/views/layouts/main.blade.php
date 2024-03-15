@@ -38,6 +38,7 @@
 
 <body class="relative top-0 left-0 w-full bg-gradient-to-b bg-gray-100 font-[poppins] pb-5">
     @include('overlay')
+    @include('partials.overlay_message')
     @include('partials.sidebar')
     @include('partials.topbar')
     <main class="ml-[250px] mt-[84px] py-5 px-10">
