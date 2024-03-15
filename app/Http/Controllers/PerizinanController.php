@@ -84,8 +84,8 @@ class PerizinanController extends Controller
         $penerimaNotif = $perizinan->karyawan->id;
         $penerimaEmail = $perizinan->karyawan->email;
         $pesan = [
-            "judul" => "Pengajuan Izin Diterima",
-            "pesan" => "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku.",
+            "judul" => $request->status == "disetujui" ? "Pengajuan Izin Diterima" : "Pengajuan Izin Ditolak",
+            "pesan" => $request->status == "disetujui" ? "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku." : "Kami menghargai waktu dan usaha Anda dalam mengajukan izin. Setelah melalui pertimbangan yang cermat, kami harus menyampaikan bahwa pengajuan izin Anda tidak dapat kami setujui pada kesempatan ini. Keputusan ini diambil berdasarkan pedoman dan kriteria yang telah ditetapkan",
             "feedback" => $request->feedback,
         ];
 
@@ -97,10 +97,10 @@ class PerizinanController extends Controller
         ]);
 
         $dataEmail = [
-            "subject" => "Pengajuan Izin Diterima",
+            "subject" => $request->status == "disetujui" ? "Pengajuan Izin Diterima" : "Pengajuan Izin Ditolak",
             "sender_name" => auth()->user()->email,
             "message" => [
-                "desc" => "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku.",
+                "desc" => $request->status == "disetujui" ? "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku." : "Kami menghargai waktu dan usaha Anda dalam mengajukan izin. Setelah melalui pertimbangan yang cermat, kami harus menyampaikan bahwa pengajuan izin Anda tidak dapat kami setujui pada kesempatan ini. Keputusan ini diambil berdasarkan pedoman dan kriteria yang telah ditetapkan",
                 "feedback" => $request->feedback,
             ],
         ];
@@ -108,5 +108,44 @@ class PerizinanController extends Controller
         // Mail::to($penerimaEmail)->send(new NotifikasiEmailBalasan($dataEmail));
 
         return redirect()->back();
+    }
+
+    public function tampilJumlahIzin(Request $request)
+    {
+        if ($request->id == 0) {
+            $dataSemuaCabangHariIni = Perizinan::where("tanggal_mulai", today())
+                ->where("status", "disetujui")
+                ->count();
+
+            $dataSemuaCabangBulanIni = Perizinan::where('status', 'disetujui')
+                ->whereMonth('tanggal_mulai', now()->month)
+                ->whereYear('tanggal_mulai', now()->year)
+                ->count();
+
+            $dataYangDikirim = [
+                "data_hari_ini" => $dataSemuaCabangHariIni,
+                "data_bulan_ini" => $dataSemuaCabangBulanIni,
+            ];
+        } else {
+            $dataCabangTertentuHariIni = Perizinan::where("tanggal_mulai", today())
+                ->where("status", "disetujui")
+                ->whereHas("karyawan", function ($query) use ($request) {
+                    $query->where("cabang_id", $request->id);
+                })->count();
+
+            $dataCabangTertentuBulanIni = Perizinan::where('status', 'disetujui')
+                ->whereMonth('tanggal_mulai', now()->month)
+                ->whereYear('tanggal_mulai', now()->year)
+                ->whereHas('karyawan', function ($query) use ($request) {
+                    $query->where('cabang_id', $request->id);
+                })->count();
+
+            $dataYangDikirim = [
+                "data_hari_ini" => $dataCabangTertentuHariIni,
+                "data_bulan_ini" => $dataCabangTertentuBulanIni,
+            ];
+        }
+
+        return response()->json($dataYangDikirim);
     }
 }

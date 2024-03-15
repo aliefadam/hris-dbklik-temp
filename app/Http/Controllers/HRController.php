@@ -125,11 +125,18 @@ class HRController extends Controller
 
     public function biodata(Karyawan $karyawan)
     {
-        $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
-            ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
-            ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
-            ->where("karyawans.id", $karyawan->id)
-            ->get();
+        if ($karyawan->sub_divisi_id == null) {
+            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi')
+                ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->where("karyawans.id", $karyawan->id)
+                ->get();
+        } else {
+            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
+                ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
+                ->where("karyawans.id", $karyawan->id)
+                ->get();
+        }
 
         return view('hr.karyawan-detail', [
             "data_karyawan" => $karyawan,

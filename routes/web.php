@@ -28,6 +28,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/profile', [OwnerController::class, 'profile'])->middleware("role:1");
         Route::get('/ganti-password', [OwnerController::class, 'gantiPassword'])->middleware("role:1");
         Route::put('/ganti-password', [OwnerController::class, 'simpanPasswordBaru'])->middleware("role:1");
+        Route::post('/tampil-jumlah-izin/', [PerizinanController::class, 'tampilJumlahIzin'])->middleware("role:1");
     });
 
     Route::prefix("/head")->group(function () {

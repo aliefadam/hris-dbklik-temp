@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- csrf token --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- web icon --}}
     <link rel="icon" href="{{ asset('imgs/db-logo.png') }}">
     {{-- bootstrap icons --}}
