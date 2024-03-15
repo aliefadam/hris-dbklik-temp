@@ -253,7 +253,7 @@ use Carbon\Carbon;
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="awal" class="text-dbklik">Awal</label>
                     <input readonly type="text" name="awal" id="awal" class="outline-none bg-transparent"
-                        value="Kondisi Awal">
+                        value={{ isset($data_karyawan->Jabatan->nama_jabatan) ? $data_karyawan->Jabatan->nama_jabatan : '' }}>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="jenis_mutasi" class="text-dbklik">Tujuan</label>
@@ -272,3 +272,27 @@ use Carbon\Carbon;
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // Listen for change event on the jenis_mutasi dropdown
+        $('#jenis_mutasi').change(function () {
+            // Get the selected value from jenis_mutasi dropdown
+            var jenisMutasi = $(this).val();
+            var idToFetch;
+            
+            // Determine which ID to fetch based on the selected value of jenis_mutasi
+            if (jenisMutasi === 'Pindah Cabang') {
+                idToFetch = "{{ $data_karyawan->Cabang->cabang_id }}";
+            } else if (jenisMutasi === 'Pindah Jabatan') {
+                idToFetch = "{{ isset($data_karyawan->jabatan_id) ? $data_karyawan->jabatan_id : '' }}";
+            } else {
+                // Handle other cases if needed
+                idToFetch = ''; // Set default value
+            }
+
+            // Set the fetched ID to the "awal" input field
+            $('#awal').val(idToFetch);
+        });
+    });
+</script>

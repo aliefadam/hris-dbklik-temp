@@ -231,4 +231,5 @@ class HRController extends Controller
 
         return redirect()->back();
     }
+
 }

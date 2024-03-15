@@ -48,7 +48,7 @@
                                 <div class="flex flex-col">
                                     <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
                                     <span
-                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium {{ strpos($columnValue, '.') ? 'underline cursor-pointer open-file' : '' }}">{{ $columnValue }}</span>
+                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium {{ strpos($columnName, 'file') ? 'underline cursor-pointer open-file' : '' }}">{{ $columnValue }}</span>
                                 </div>
                             @endif
                         @endif
