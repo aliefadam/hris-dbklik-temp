@@ -55,11 +55,19 @@ class HeadController extends Controller
 
     public function formPerizinan()
     {
+        $tanggalMasukKerja = Karyawan::find(auth()->user()->id)->tanggal_masuk_kerja;
+        $tanggalSekarang = date("Y-m-d");
+        $diffYears = date_diff(date_create($tanggalMasukKerja), date_create($tanggalSekarang))->y;
+        $isOneYear = $diffYears >= 1;
+
         return view('head.perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
             "rulesHRD" => RulesHRD::all(),
-            "jatah_cuti" => Karyawan::find(auth()->user()->id)->jatah_cuti,
+            "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
+                ->where("status", "disetujui")
+                ->whereYear("tanggal_mulai", date("Y"))
+                ->count() : 0
         ]);
     }
 
@@ -152,6 +160,7 @@ class HeadController extends Controller
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
+                "agama" => auth()->user()->karyawan->agama,
             ],
         ]);
     }

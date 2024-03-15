@@ -191,6 +191,7 @@ use Carbon\Carbon;
                         <option value=3>3 Bulan</option>
                         <option value=6>6 Bulan</option>
                         <option value=12>12 Bulan</option>
+                        <option value=tetap>Tetap</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">

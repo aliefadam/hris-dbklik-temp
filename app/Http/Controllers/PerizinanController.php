@@ -23,7 +23,7 @@ class PerizinanController extends Controller
             $namaFilePendukung .= "_" . date("Y-m-d_H-i-s");
             $extension = $request->file("file_pendukung")->extension();
             $namaFilePendukung = "$namaFilePendukung.$extension";
-            File::move($request->file("file_pendukung")->path(), public_path("upload/file_pendukung/$namaFilePendukung"));
+            File::move($request->file("file_pendukung")->path(), public_path("storage/upload/file_pendukung/$namaFilePendukung"));
         }
 
         Perizinan::create([
@@ -80,12 +80,6 @@ class PerizinanController extends Controller
             "feedback" => $request->feedback,
             "status" => $request->status
         ]);
-
-        if ($request->status == "disetujui") {
-            $perizinan->karyawan->update([
-                "jatah_cuti" => $perizinan->karyawan->jatah_cuti - 1,
-            ]);
-        }
 
         $penerimaNotif = $perizinan->karyawan->id;
         $penerimaEmail = $perizinan->karyawan->email;
