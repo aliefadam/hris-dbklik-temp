@@ -119,9 +119,7 @@
             </div>
             <form action="/balas-perizinan/" class="form-balasan" method="post">
                 @csrf
-                <div class="mt-5 kolom-balasan">
-
-                </div>
+                <div class="mt-5 kolom-balasan"></div>
             </form>
         </div>
     </div>
@@ -136,9 +134,10 @@
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-resign"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="/hr/resign" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-3"> 
-                @csrf               
-                <input type="hidden" name="karyawan_id" value="{{ isset($data_karyawan->id) ? $data_karyawan->id : "" }}">
+            <form action="/hr/resign" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-3">
+                @csrf
+                <input type="hidden" name="karyawan_id"
+                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="tanggal_resign" class="text-dbklik">Tanggal Resign</label>
                     <input type="date" name="tanggal_resign" id="tanggal_resign" class="bg-transparent outline-none">
@@ -173,15 +172,18 @@ use Carbon\Carbon;
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
             <form action="/hr/updateKontrak" method="post" class="w-full flex flex-col gap-3">
-                @csrf              
-                <input type="hidden" name="karyawan_id" value="{{ isset($data_karyawan->id) ? $data_karyawan->id : "" }}">
+                @csrf
+                <input type="hidden" name="karyawan_id"
+                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Mulai Kontrak</span>
-                    <span class="tanggal_mulai_kontrak text-xl">{{ isset ($data_karyawan->tanggal_masuk_kerja) ? Carbon::parse($data_karyawan->tanggal_masuk_kerja)->formatLocalized('%d %B %Y') : ""  }}</span>
+                    <span
+                        class="tanggal_mulai_kontrak text-xl">{{ isset($data_karyawan->tanggal_masuk_kerja) ? Carbon::parse($data_karyawan->tanggal_masuk_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
                 </div>
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Akhir Kontrak</span>
-                    <span id="tanggal_akhir_kontrak" class="tanggal_akhir_kontrak text-xl">{{ isset ($data_karyawan->berakhir_kerja) ? Carbon::parse($data_karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') :"" }}</span>
+                    <span id="tanggal_akhir_kontrak"
+                        class="tanggal_akhir_kontrak text-xl">{{ isset($data_karyawan->berakhir_kerja) ? Carbon::parse($data_karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="durasi" class="text-dbklik">Durasi</label>
@@ -196,7 +198,8 @@ use Carbon\Carbon;
                     <input type="file" name="file_surat" id="file_surat" class="outline-none">
                 </div>
                 <div class="flex justify-end">
-                    <button type="submit" class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Perpanjang</button>
+                    <button type="submit"
+                        class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Perpanjang</button>
                 </div>
             </form>
         </div>
@@ -212,9 +215,10 @@ use Carbon\Carbon;
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-catatan"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="/hr/updateCatatan/" method="post" class="w-full flex flex-col gap-3">  
-                @csrf              
-                <input type="hidden" name="karyawan_id" value="{{ isset($data_karyawan->id) ? $data_karyawan->id : "" }}">
+            <form action="/hr/updateCatatan/" method="post" class="w-full flex flex-col gap-3">
+                @csrf
+                <input type="hidden" name="karyawan_id"
+                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="catatan" class="text-dbklik">Catatan</label>
                     <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[150px]">{{ isset($data_karyawan->catatan) ? $data_karyawan->catatan : '' }}</textarea>
@@ -248,11 +252,14 @@ use Carbon\Carbon;
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="awal" class="text-dbklik">Awal</label>
-                    <input type="text" name="awal" id="awal" class="outline-none bg-transparent">
+                    <input readonly type="text" name="awal" id="awal" class="outline-none bg-transparent"
+                        value="Kondisi Awal">
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
-                    <label for="akhir" class="text-dbklik">Akhir</label>
-                    <input type="text" name="akhir" id="akhir" class="outline-none bg-transparent">
+                    <label for="jenis_mutasi" class="text-dbklik">Tujuan</label>
+                    <select name="" id="jenis_mutasi" class="outline-none bg-transparent">
+                        <option value="pindah-jabatan">Tujuan Mutasi</option>
+                    </select>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="surat_mutasi" class="text-dbklik">Surat Mutasi</label>

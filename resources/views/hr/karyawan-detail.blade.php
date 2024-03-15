@@ -21,10 +21,8 @@
             <div class="flex mt-5 gap-10 karyawan-detail overflow-auto h-[calc(100%-80px)]">
                 <div class="flex-[1] flex flex-col gap-3">
                     @php $counter = 0; @endphp
-                    {{-- @dd(collect($biodata)) --}}
                     @foreach (collect($biodata) as $columnName => $columnValue)
                         @if (strpos($columnName, 'id') === false && strpos($columnName, '_at') === false)
-                            {{-- @dump($counter) --}}
                             @if ($counter < count(collect($biodata)) / 2)
                                 @php
                                     $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
@@ -41,10 +39,8 @@
                 </div>
                 <div class="flex-[1] flex flex-col gap-3 ">
                     @php $counter = 0; @endphp
-                    {{-- @dd(collect($biodata)) --}}
                     @foreach (collect($biodata) as $columnName => $columnValue)
                         @if (strpos($columnName, 'id') === false && strpos($columnName, '_at') === false)
-                            {{-- @dump($counter) --}}
                             @if ($counter >= count(collect($biodata)) / 2)
                                 @php
                                     $columnNameFormatted = ucwords(str_replace('_', ' ', $columnName));
