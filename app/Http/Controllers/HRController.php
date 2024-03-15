@@ -61,6 +61,7 @@ class HRController extends Controller
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
             "rulesHRD" => RulesHRD::all(),
+            "jatah_cuti" => Karyawan::find(auth()->user()->id)->jatah_cuti,
         ]);
     }
 
@@ -118,7 +119,9 @@ class HRController extends Controller
     public function daftarKaryawan()
     {
         return view('hr.daftar-karyawan', [
-            "data_karyawan" => Karyawan::where("jabatan_id", "!=", "1")->get(),
+            "data_karyawan" => Karyawan::where("jabatan_id", "!=", "1")
+                ->where("status", "!=", "resign")
+                ->get(),
             "title" => "Daftar Karyawan",
         ]);
     }

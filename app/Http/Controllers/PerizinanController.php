@@ -81,6 +81,12 @@ class PerizinanController extends Controller
             "status" => $request->status
         ]);
 
+        if ($request->status == "disetujui") {
+            $perizinan->karyawan->update([
+                "jatah_cuti" => $perizinan->karyawan->jatah_cuti - 1,
+            ]);
+        }
+
         $penerimaNotif = $perizinan->karyawan->id;
         $penerimaEmail = $perizinan->karyawan->email;
         $pesan = [

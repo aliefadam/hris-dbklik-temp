@@ -30,6 +30,12 @@ class DatabaseSeeder extends Seeder
 
         // Izin
         Izin::create([
+            "jenis_izin" => "Cuti",
+            "min_pengajuan" => "336",
+            "max_hari_izin" => "48"
+        ]);
+
+        Izin::create([
             "jenis_izin" => "Sakit",
             "min_pengajuan" => "1",
             "max_hari_izin" => "48"

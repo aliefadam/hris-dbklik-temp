@@ -60,6 +60,7 @@ class StaffController extends Controller
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
             "rulesHRD" => RulesHRD::all(),
+            "jatah_cuti" => Karyawan::find(auth()->user()->id)->jatah_cuti,
         ]);
     }
 

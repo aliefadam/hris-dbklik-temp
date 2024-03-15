@@ -27,10 +27,10 @@ class ResignController extends Controller
             'catatan' => $request->catatan,
             "surat_resign_file" => $namaFile,
         ]);
-        
-        $karyawan=Karyawan::find($karyawan_id);
+
+        $karyawan = Karyawan::find($karyawan_id);
         $karyawan->update([
-            "status_karyawan" => "Resign"
+            "status_karyawan" => "resign"
         ]);
 
         return redirect()->back();

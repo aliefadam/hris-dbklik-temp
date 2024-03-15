@@ -59,6 +59,7 @@ class HeadController extends Controller
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
             "rulesHRD" => RulesHRD::all(),
+            "jatah_cuti" => Karyawan::find(auth()->user()->id)->jatah_cuti,
         ]);
     }
 
@@ -99,15 +100,16 @@ class HeadController extends Controller
     public function daftarPengajuan(Request $request)
     {
         if ($request->s == "") {
-            $dataPerizinan = Perizinan::orderBy("updated_at", "DESC")->get();
+            $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
+                $query->where("divisi_id", auth()->user()->karyawan->divisi_id);
+            })->orderBy("updated_at", "DESC")->get();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
-            $dataPerizinan = Perizinan::join("karyawans", "perizinans.karyawan_id", "=", "karyawans.id")
-                ->whereBetween("tanggal_mulai", [$mulai, $akhir])
-                ->where("karyawans.divisi_id", auth()->user()->karyawan->divisi_id)
-                ->orderBy("updated_at", "DESC")
-                ->get();
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->whereHas("karyawan", function ($query) {
+                    $query->where("divisi_id", auth()->user()->karyawan->divisi_id);
+                })->orderBy("updated_at", "DESC")->get();
         }
 
         return view('head.daftar-pengajuan', [
