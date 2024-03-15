@@ -113,8 +113,9 @@ class PerizinanController extends Controller
     public function tampilJumlahIzin(Request $request)
     {
         if ($request->id == 0) {
-            $dataSemuaCabangHariIni = Perizinan::where("tanggal_mulai", today())
-                ->where("status", "disetujui")
+            $dataSemuaCabangHariIni = Perizinan::where("status", "disetujui")
+                ->whereDate('tanggal_mulai', '<=', today())
+                ->whereDate('tanggal_akhir', '>=', today())
                 ->count();
 
             $dataSemuaCabangBulanIni = Perizinan::where('status', 'disetujui')
@@ -127,10 +128,11 @@ class PerizinanController extends Controller
                 "data_bulan_ini" => $dataSemuaCabangBulanIni,
             ];
         } else {
-            $dataCabangTertentuHariIni = Perizinan::where("tanggal_mulai", today())
-                ->where("status", "disetujui")
-                ->whereHas("karyawan", function ($query) use ($request) {
-                    $query->where("cabang_id", $request->id);
+            $dataCabangTertentuHariIni = Perizinan::where('status', 'disetujui')
+                ->whereDate('tanggal_mulai', '<=', today())
+                ->whereDate('tanggal_akhir', '>=', today())
+                ->whereHas('karyawan', function ($query) use ($request) {
+                    $query->where('cabang_id', $request->id);
                 })->count();
 
             $dataCabangTertentuBulanIni = Perizinan::where('status', 'disetujui')

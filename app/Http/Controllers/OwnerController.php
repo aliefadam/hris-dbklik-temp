@@ -13,8 +13,9 @@ class OwnerController extends Controller
 {
     public function welcome()
     {
-        $dataSemuaCabangHariIni = Perizinan::where("tanggal_mulai", today())
-            ->where("status", "disetujui")
+        $dataSemuaCabangHariIni = Perizinan::where("status", "disetujui")
+            ->whereDate('tanggal_mulai', '<=', today())
+            ->whereDate('tanggal_akhir', '>=', today())
             ->count();
 
         $dataSemuaCabangBulanIni = Perizinan::where('status', 'disetujui')
