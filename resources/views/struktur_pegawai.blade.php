@@ -36,9 +36,9 @@
                     
                     <div class="-mt-10 border-l-2 absolute h-10 border-indigo-600"></div>
                     @foreach ($pegawaiPerJabatan as $index => $pegawai)
-                        <li class="relative p-6">
+                        <li class="relative pt-6 px-6">
                             @if (!$loop->first && !$loop->last)
-                                <div class="border-t-2 w-[100%] absolute h-8 border-indigo-600 top-0"></div>
+                                <div class="border-t-2 w-[100%] absolute h-8 border-indigo-600 top-0 left-0 right-0"></div>
                             @elseif ($loop->count > 1)
                                 @if ($loop->last)
                                     <div class="border-t-2 w-[50%] absolute h-8 border-indigo-600 top-0 right-[50%]"></div>
