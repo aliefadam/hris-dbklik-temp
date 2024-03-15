@@ -40,8 +40,13 @@
                         <span
                             class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['alamat'] }}</span>
                     </div>
+                    <div class="flex flex-col">
+                        <span class="text-dbklik text-[14px]">Agama</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $dataDiri['agama'] }}</span>
+                    </div>
                 </div>
-                <div class="flex-[1] flex flex-col gap-3 ">
+                <div class="flex-[1] flex flex-col gap-4">
                     <div class="flex flex-col">
                         <span class="text-dbklik text-[14px]">Tanggal Mulai Kontrak</span>
                         <span

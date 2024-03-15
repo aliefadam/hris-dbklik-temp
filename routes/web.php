@@ -25,6 +25,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/data-karyawan/{karyawan}', [OwnerController::class, 'dataKaryawan'])->middleware("role:1");
         Route::get('/struktur-pegawai', [OwnerController::class, 'strukturPegawai'])->middleware("role:1");
         Route::get('/notification', [OwnerController::class, 'notification'])->middleware("role:1");
+        Route::get("/notification/{notifikasi}", [OwnerController::class, 'notificationSelected'])->middleware("role:1");
         Route::get('/profile', [OwnerController::class, 'profile'])->middleware("role:1");
         Route::get('/ganti-password', [OwnerController::class, 'gantiPassword'])->middleware("role:1");
         Route::put('/ganti-password', [OwnerController::class, 'simpanPasswordBaru'])->middleware("role:1");

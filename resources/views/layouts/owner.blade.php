@@ -132,15 +132,22 @@
             if (filePendukung != "-") {
                 $("span.overlay-file-pendukung").addClass("underline");
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-file-pendukung").on("click", function() {
+                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                });
             }
 
             $("span.overlay-divisi").html(divisi);
             $("span.overlay-nama").html(nama);
-            $("span.overlay-izin").html(izin);
+            $("span.overlay-izin").html(
+                izin);
             $("span.overlay-tanggal-diajukan").html(tanggalDiajukan);
-            $("span.overlay-tanggal-izin").html(tanggalIzin);
+            $("span.overlay-tanggal-izin").html(
+                tanggalIzin);
             $("span.overlay-catatan").html(catatan);
-            $("span.overlay-file-pendukung").html(filePendukung);
+            $("span.overlay-file-pendukung").html(
+                filePendukung);
             $("span.overlay-status").html(status);
 
             if (statusText != "pending") {

@@ -64,10 +64,19 @@ class HRController extends Controller
 
     public function formPerizinan()
     {
+        $tanggalMasukKerja = Karyawan::find(auth()->user()->id)->tanggal_masuk_kerja;
+        $tanggalSekarang = date("Y-m-d");
+        $diffYears = date_diff(date_create($tanggalMasukKerja), date_create($tanggalSekarang))->y;
+        $isOneYear = $diffYears >= 1;
+
         return view('hr.perizinan', [
             "title" => "Perizinan",
             "jenis_izin" => Izin::all(),
             "rulesHRD" => RulesHRD::all(),
+            "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
+                ->where("status", "disetujui")
+                ->whereYear("tanggal_mulai", date("Y"))
+                ->count() : 0,
         ]);
     }
 
@@ -125,7 +134,9 @@ class HRController extends Controller
     public function daftarKaryawan()
     {
         return view('hr.daftar-karyawan', [
-            "data_karyawan" => Karyawan::where("jabatan_id", "!=", "1")->get(),
+            "data_karyawan" => Karyawan::where("jabatan_id", "!=", "1")
+                ->where("status_karyawan", "!=", "resign")
+                ->get(),
             "title" => "Daftar Karyawan",
         ]);
     }
@@ -185,6 +196,7 @@ class HRController extends Controller
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
+                "agama" => auth()->user()->karyawan->agama,
             ],
         ]);
     }

@@ -134,7 +134,7 @@
                 $("span.overlay-head-file-pendukung").addClass("underline-offset-1");
                 $("span.overlay-head-file-pendukung").addClass("cursor-pointer");
                 $("span.overlay-head-file-pendukung").on("click", function() {
-                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                    window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
                 });
             }
 
@@ -203,7 +203,7 @@
                 $("span.overlay-file-pendukung").addClass("underline-offset-1");
                 $("span.overlay-file-pendukung").addClass("cursor-pointer");
                 $("span.overlay-file-pendukung").on("click", function() {
-                    window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                    window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
                 });
             }
 

@@ -72,7 +72,7 @@
 
     <script>
         $(".open-file").on("click", function() {
-            window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+            window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
         });
 
         function notifDetail(notif) {
@@ -144,7 +144,7 @@
                     `);
 
                     $(".open-file").on("click", function() {
-                        window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+                        window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
                     })
                 },
             });

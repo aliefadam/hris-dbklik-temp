@@ -29,6 +29,7 @@ return new class extends Migration
             $table->bigInteger("no_bpjs_kes");
             $table->string("tempat_lahir");
             $table->date("tanggal_lahir");
+            $table->string("agama");
             $table->string("pendidikan_terakhir");
             $table->integer("tahun_lulus");
             $table->string("status_pernikahan");

@@ -4,21 +4,21 @@
     <div class="flex gap-5">
         <div class="w-[60%]">
             <div class="grid grid-cols-4 gap-2 h-fit">
-                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2">
-                    <h1 class="leading-none text-center h-[70px] text-white font-medium">JATAH CUTI</h1>
-                    <span class="block text-center font-bold text-xl text-yellow-dbklik">3 HARI</span>
+                <div class="bg-gradient-to-r from-blue-600 to-blue-400 shadow-xl rounded-lg px-5 py-6 gap-2 h-[150px]">
+                    <h1 class="leading-none text-center h-[70px] text-white font-medium">SISA CUTI TAHUNAN</h1>
+                    <span class="block text-center font-bold text-4xl text-yellow-dbklik">{{ $jatah_cuti }}</span>
                 </div>
-                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2">
+                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2 h-[150px]">
                     <h1 class="leading-none text-center h-[70px] text-white font-medium">JATAH BERDUKA</h1>
                     <span class="block text-center font-bold text-xl text-yellow-dbklik">3 HARI</span>
                 </div>
-                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2">
+                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2 h-[150px]">
                     <h1 class="leading-none text-center h-[70px] text-white font-medium">JATAH MENIKAH</h1>
                     <span class="block text-center font-bold text-xl text-yellow-dbklik">3 HARI</span>
                 </div>
-                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2">
+                <div class="bg-dbklik shadow-xl rounded-lg px-5 py-6 gap-2 h-[150px]">
                     <h1 class="leading-none text-center h-[70px] text-white font-medium">JATAH MELAHIRKAN</h1>
-                    <span class="block text-center font-bold text-xl text-yellow-dbklik">3 HARI</span>
+                    <span class="block text-center font-bold text-xl text-yellow-dbklik">3 BULAN</span>
                 </div>
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-5 py-6">
