@@ -104,7 +104,9 @@
         const rowData = $("#table-daftar-pengajuan tbody tr");
         rowData.on("click", function() {
             $(".kolom-feedback").html("");
+            $(".kolom-balasan").html("");
 
+            const id = this.getAttribute("data-id");
             const no = this.children[0].innerHTML;
             const divisi = this.children[1].innerHTML;
             const nama = this.children[2].innerHTML;
@@ -117,32 +119,34 @@
             const statusText = this.children[6].children[1].innerHTML;
             const feedback = this.getAttribute("data-feedback");
 
-            $("span.overlay-status").removeClass("pending")
-            $("span.overlay-status").removeClass("disetujui")
-            $("span.overlay-status").removeClass("ditolak")
-            $("span.overlay-file-pendukung").removeClass("underline");
-            $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-            $("span.overlay-file-pendukung").removeClass("cursor-pointer");
-            $("span.overlay-file-pendukung").off("click");
-            $("span.overlay-status").addClass(statusText);
+            $("span.overlay-head-status").removeClass("pending")
+            $("span.overlay-head-status").removeClass("disetujui")
+            $("span.overlay-head-status").removeClass("ditolak")
+            $("span.overlay-head-file-pendukung").removeClass("underline");
+            $("span.overlay-head-file-pendukung").removeClass("underline-offset-1");
+            $("span.overlay-head-file-pendukung").removeClass("cursor-pointer");
+            $("span.overlay-head-file-pendukung").off("click");
 
+
+            $("span.overlay-head-status").addClass(statusText);
             if (filePendukung != "-") {
-                $("span.overlay-file-pendukung").addClass("underline");
-                $("span.overlay-file-pendukung").addClass("underline-offset-1");
-                $("span.overlay-file-pendukung").addClass("cursor-pointer");
-                $("span.overlay-file-pendukung").on("click", function() {
+                $("span.overlay-head-file-pendukung").addClass("underline");
+                $("span.overlay-head-file-pendukung").addClass("underline-offset-1");
+                $("span.overlay-head-file-pendukung").addClass("cursor-pointer");
+                $("span.overlay-head-file-pendukung").on("click", function() {
                     window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
                 });
             }
 
-            $("span.overlay-divisi").html(divisi);
-            $("span.overlay-nama").html(nama);
-            $("span.overlay-izin").html(izin);
-            $("span.overlay-tanggal-diajukan").html(tanggalDiajukan);
-            $("span.overlay-tanggal-izin").html(tanggalIzin);
-            $("span.overlay-catatan").html(catatan);
-            $("span.overlay-file-pendukung").html(filePendukung);
-            $("span.overlay-status").html(status);
+            $(".form-balasan").attr("action", `/balas-perizinan/${id}`)
+            $("span.overlay-head-divisi").html(divisi);
+            $("span.overlay-head-nama").html(nama);
+            $("span.overlay-head-izin").html(izin);
+            $("span.overlay-head-tanggal-diajukan").html(tanggalDiajukan);
+            $("span.overlay-head-tanggal-izin").html(tanggalIzin);
+            $("span.overlay-head-catatan").html(catatan);
+            $("span.overlay-head-file-pendukung").html(filePendukung);
+            $("span.overlay-head-status").html(status);
 
             if (statusText != "pending") {
                 $(".kolom-feedback").html(`
@@ -151,8 +155,23 @@
                 `);
             }
 
-            $(".overlay").removeClass("hidden");
-            $(".overlay").addClass("flex");
+            if (statusText == "pending") {
+                $(".kolom-balasan").html(`
+                    <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md mt-3">
+                        <label for="feedback" class="text-dbklik">Beri Tanggapan</label>
+                        <textarea name="feedback" id="feedback" class="bg-transparent outline-none resize-none h-[100px]"></textarea>
+                    </div>
+                    <div class="flex gap-3 border mt-3">
+                        <button name="status" value="disetujui"
+                            class="btn-terima-perizinan flex-[1] bg-gradient-to-r hover:from-green-900 hover:to-green-700 from-green-800 to-green-600 text-white p-3 rounded-lg">Terima</button>
+                        <button name="status" value="ditolak"
+                            class="btn-tolak-perizinan flex-[1] bg-gradient-to-r hover:from-red-900 hover:to-red-700 from-red-800 to-red-600 text-white p-3 rounded-lg">Tolak</button>
+                    </div>
+                `);
+            }
+
+            $(".overlay-head").removeClass("hidden");
+            $(".overlay-head").addClass("flex");
         });
 
         const rowData2 = $("#table-riwayat tbody tr");
@@ -220,7 +239,7 @@
         const btnMutasi = $(".btn-mutasi");
 
         btnResign.on("click", function() {
-            showOverlay("overlay-resign");            
+            showOverlay("overlay-resign");
             const id = this.getAttribute("data-id");
         });
         btnKontrak.on("click", function() {
@@ -267,16 +286,15 @@
             }, 500);
         }
 
-
-        const btnCloseOverlay = $(".btn-close-overlay");
-        btnCloseOverlay.on("click", function() {
-            $(".container-overlay").removeClass("animate__fadeInDown");
-            $(".container-overlay").addClass("animate__fadeOutUp");
+        const btnCloseOverlayHead = $(".btn-close-overlay-head");
+        btnCloseOverlayHead.on("click", function() {
+            $(".container-overlay-head").removeClass("animate__fadeInDown");
+            $(".container-overlay-head").addClass("animate__fadeOutUp");
             setTimeout(() => {
-                $(".overlay").removeClass("flex");
-                $(".overlay").addClass("hidden");
-                $(".container-overlay").removeClass("animate__fadeOutUp");
-                $(".container-overlay").addClass("animate__fadeInDown");
+                $(".overlay-head").removeClass("flex");
+                $(".overlay-head").addClass("hidden");
+                $(".container-overlay-head").removeClass("animate__fadeOutUp");
+                $(".container-overlay-head").addClass("animate__fadeInDown");
             }, 500);
         });
     </script>
