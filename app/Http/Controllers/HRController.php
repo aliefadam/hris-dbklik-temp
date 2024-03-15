@@ -9,6 +9,13 @@ use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\RulesHRD;
 use App\Models\User;
+use App\Models\Cabang;
+use App\Models\Jabatan;
+use App\Models\Divisi;
+use App\Models\SubDivisi;
+use App\Models\Mutasi;
+use Illuminate\Support\Facades\File;
+
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -138,9 +145,11 @@ class HRController extends Controller
                 ->get();
         }
 
+
         return view('hr.karyawan-detail', [
-            "data_karyawan" => $karyawan,
+            "karyawan" => $karyawan,
             "biodata" => $biodata[0],
+            "jabatan" => Jabatan::all(),
             "title" => "Detail Karyawan",
         ]);
     }
@@ -239,4 +248,90 @@ class HRController extends Controller
         return redirect()->back();
     }
 
+    public function mutasi(Request $request)
+    {
+        $jenisMutasi = $request->jenis_mutasi;
+        $karyawan = Karyawan::find($request->karyawan_id);
+
+        if ($jenisMutasi == "pindah-cabang") {
+            $awal = $karyawan->cabang->nama_cabang;
+            $akhir = Cabang::all();
+            $dataYangDikirim = [
+                "awal" => $awal,
+                "akhir" => $akhir,
+                "jenis_mutasi" => $jenisMutasi,
+            ];
+        } else if ($jenisMutasi == "pindah-divisi") {
+            $awal = $karyawan->divisi->nama_divisi;
+            $akhir = Divisi::all();
+            $dataYangDikirim = [
+                "awal" => $awal,
+                "akhir" => $akhir,
+                "jenis_mutasi" => $jenisMutasi,
+            ];
+        } else if ($jenisMutasi == "pindah-sub-divisi") {
+            $awal = $karyawan->subDivisi->nama_sub_divisi;
+            $akhir = SubDivisi::all();
+            $dataYangDikirim = [
+                "awal" => $awal,
+                "akhir" => $akhir,
+                "jenis_mutasi" => $jenisMutasi,
+            ];
+        } else if ($jenisMutasi == "pindah-jabatan") {
+            $awal = $karyawan->jabatan->nama_jabatan;
+            $akhir = Jabatan::all();
+            $dataYangDikirim = [
+                "awal" => $awal,
+                "akhir" => $akhir,
+                "jenis_mutasi" => $jenisMutasi,
+            ];
+        }
+
+        return response()->json($dataYangDikirim);
+    }
+
+    public function tambahMutasi(Request $request)
+    {
+        $namaFilePendukung = auth()->user()->id;
+        $namaFilePendukung .= "_" . date("Y-m-d_H-i-s");
+        $extension = $request->file("surat_mutasi")->extension();
+        $namaFilePendukung = "$namaFilePendukung.$extension";
+        File::move($request->file("surat_mutasi")->path(), public_path("/upload/file_pendukung/$namaFilePendukung"));
+        $karyawan = Karyawan::find($request->karyawan_id);
+
+        Mutasi::create([
+            "karyawan_id" => $karyawan->id,
+            "jenis_mutasi" => $request->jenis_mutasi,
+            "awal" => $request->awal,
+            "tujuan" => $request->tujuanString,
+            "surat_mutasi_file" => $namaFilePendukung,
+        ]);
+
+        $jenisMutasi = $request->jenis_mutasi;
+        $kolomUserUpdate = explode("-", $jenisMutasi)[1];
+        $kolomUserUpdate .= "_id";
+        $karyawan->update([
+            $kolomUserUpdate => $request->tujuan
+        ]);
+
+        // if ($request->jenis_mutasi == "pindah-jabatan") {
+        //     $karyawan->update([
+        //         "jabatan_id" => $request->tujuan
+        //     ]);
+        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
+        //     $karyawan->update([
+        //         "jabatan_id" => $request->tujuan
+        //     ]);
+        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
+        //     $karyawan->update([
+        //         "jabatan_id" => $request->tujuan
+        //     ]);
+        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
+        //     $karyawan->update([
+        //         "jabatan_id" => $request->tujuan
+        //     ]);
+        // }
+
+        return redirect()->back();
+    }
 }

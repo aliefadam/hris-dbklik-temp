@@ -240,30 +240,38 @@ use Carbon\Carbon;
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-mutasi"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="" class="w-full flex flex-col gap-3">
+            <form action="/hr/tambahMutasi" class="w-full flex flex-col gap-3" method="post" enctype="multipart/form-data">
+                @csrf                
+                <input type="hidden" id="karyawan_id" name="karyawan_id"
+                    value="{{ isset($karyawan->id) ? $karyawan->id : '' }}">
+                    <input type="hidden" name="tujuanString" value="">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="jenis_mutasi" class="text-dbklik">Jenis Mutasi</label>
-                    <select name="" id="jenis_mutasi" class="outline-none bg-transparent">
+                    <select name="jenis_mutasi" id="jenis_mutasi" class="outline-none bg-transparent">
                         <option value="pindah-jabatan">Pindah Jabatan</option>
                         <option value="pindah-cabang">Pindah Cabang</option>
-                        <option value="pindah-cabang">Pindah Divisi</option>
-                        <option value="pindah-cabang">Pindah Sub Divisi</option>
+                        <option value="pindah-divisi">Pindah Divisi</option>
+                        <option value="pindah-sub-divisi">Pindah Sub Divisi</option>
                     </select>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
-                    <label for="awal" class="text-dbklik">Awal</label>
+                    <label for="awal" class="text-dbklik">Awal </label>
                     <input readonly type="text" name="awal" id="awal" class="outline-none bg-transparent"
-                        value={{ isset($data_karyawan->Jabatan->nama_jabatan) ? $data_karyawan->Jabatan->nama_jabatan : '' }}>
+                        value={{ isset($karyawan) ? $karyawan->jabatan->nama_jabatan : '' }}>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
-                    <label for="jenis_mutasi" class="text-dbklik">Tujuan</label>
-                    <select name="" id="jenis_mutasi" class="outline-none bg-transparent">
-                        <option value="pindah-jabatan">Tujuan Mutasi</option>
+                    <label for="tujuan" class="text-dbklik">Tujuan</label>
+                    <select name="tujuan" id="tujuan" class="outline-none bg-transparent">
+                        @if (isset($jabatan))
+                            @foreach($jabatan as $jabatan)
+                                <option value={{$jabatan->id}}>{{ $jabatan->nama_jabatan }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="surat_mutasi" class="text-dbklik">Surat Mutasi</label>
-                    <input type="file" name="surat_mutasi" id="surat_mutasi" class="outline-none">
+                    <input required type="file" name="surat_mutasi" id="surat_mutasi" class="outline-none">
                 </div>
                 <div class="flex justify-end">
                     <button class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Tambah</button>
@@ -274,25 +282,109 @@ use Carbon\Carbon;
 </div>
 
 <script>
-    $(document).ready(function () {
-        // Listen for change event on the jenis_mutasi dropdown
-        $('#jenis_mutasi').change(function () {
-            // Get the selected value from jenis_mutasi dropdown
-            var jenisMutasi = $(this).val();
-            var idToFetch;
-            
-            // Determine which ID to fetch based on the selected value of jenis_mutasi
-            if (jenisMutasi === 'Pindah Cabang') {
-                idToFetch = "{{ $data_karyawan->Cabang->cabang_id }}";
-            } else if (jenisMutasi === 'Pindah Jabatan') {
-                idToFetch = "{{ isset($data_karyawan->jabatan_id) ? $data_karyawan->jabatan_id : '' }}";
-            } else {
-                // Handle other cases if needed
-                idToFetch = ''; // Set default value
-            }
 
-            // Set the fetched ID to the "awal" input field
-            $('#awal').val(idToFetch);
-        });
+    function setTujuanString(select) {
+        const opt = select.find("option:selected").text();
+        $("input[name=tujuanString]").val(opt);
+    }
+
+    $("select[name=tujuan]").on("change", function() {
+        const opt = $(this).find("option:selected").text();
+        $("input[name=tujuanString]").val(opt);
+        // setTujuanString($(this));
+    })
+
+    $("select[name=jenis_mutasi]").on("change", function() {
+        // setTujuanString($("select[name=tujuan]"));
+        
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
+            }
+        })
+        $.ajax({
+            url: "/hr/mutasi",
+            type: "POST",
+            data: {
+                jenis_mutasi: $(this).val(),
+                karyawan_id: $("#karyawan_id").val(),
+            },beforeSend: function() {
+                    $("#awal").val("Loading..");
+                    $("#tujuan").html("<option value=''>Loading..</option>");
+                },
+            success: function(res) {
+                $("select#tujuan").html("");
+                $("input#awal").val(res.awal);
+                if(res.jenis_mutasi == "pindah-cabang") {
+                    $.each(res.akhir, function(i, opt) {
+                        $("select#tujuan").append(`<option value="${opt.id}">${opt.nama_cabang}</option>`);
+                    });
+
+                    $("input[name=tujuanString]").val(res.akhir[0].nama_cabang);
+                } else if(res.jenis_mutasi == "pindah-divisi") {
+                    $.each(res.akhir, function(i, opt) {
+                        $("select#tujuan").append(`<option value="${opt.id}">${opt.nama_divisi}</option>`);
+                    });
+                    $("input[name=tujuanString]").val(res.akhir[0].nama_divisi);
+                } else if(res.jenis_mutasi == "pindah-sub-divisi") {
+                    $.each(res.akhir, function(i, opt) {
+                        $("select#tujuan").append(`<option value="${opt.id}">${opt.nama_sub_divisi}</option>`);
+                    });
+                    $("input[name=tujuanString]").val(res.akhir[0].nama_sub_divisi);
+                }else if(res.jenis_mutasi == "pindah-jabatan") {
+                    $.each(res.akhir, function(i, opt) {
+                        $("select#tujuan").append(`<option value="${opt.id}">${opt.nama_jabatan}</option>`);
+                    });
+                    $("input[name=tujuanString]").val(res.akhir[0].nama_jabatan);
+                }
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        })
+
+        
     });
+    // $("select[name=jenis_mutasi]").on("change", function() {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
+    //         }
+    //     })
+    //     $.ajax({
+    //         url: "/hr/mutasi",
+    //         type: "POST",
+    //         data: {
+    //             karyawanId: $("#karyawan_id"),
+    //         },
+    //         success: function(response) {
+    //             console.log(response);
+    //         },
+    //         error: function(e) {
+                
+    //         }
+    //     });
+        // $.ajax({
+        //         type: "POST",
+        //         url: "/hr/mutasi", 
+        //         data: {
+        //             jenisMutasi: $(this).val(),
+        //             id: $data_karyawan->id
+        //         },
+        //         beforeSend: function() {
+        //             $("#awal").val("Loading..");
+        //             $("#tujuan").html("<option value=''>Loading..</option>");
+        //         },
+        //         success: function(response) {
+        //             $("#awal").val(response.awal);
+        //             $("#tujuan").empty();
+        //             $.each(response.akhir, function(index, option) {
+        //                 console.log(option); // Debugging: Log each option to check its structure
+        //                 $("#tujuan").append('<option value="' + option.value + '">' + option.text + '</option>');
+        //             });
+        //         },
+
+        //     });
+    // });
 </script>

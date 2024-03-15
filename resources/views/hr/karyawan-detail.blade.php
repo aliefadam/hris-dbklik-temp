@@ -61,7 +61,7 @@
 
     <div class="mt-10 flex justify-between leading-none items-center">
         <h1 class="text-dbklik font-semibold text-3xl">Riwayat Mutasi</h1>
-        <button
+        <button 
             class="btn-mutasi bg-gradient-to-r from-dbklik to-indigo-600 text-white px-7 py-3 rounded-lg shadow-lg block"><i
                 class="bi bi-plus-lg"></i>Tambah
             Mutasi</button>

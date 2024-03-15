@@ -30,7 +30,7 @@ class ResignController extends Controller
         
         $karyawan=Karyawan::find($karyawan_id);
         $karyawan->update([
-            "status_karyawan" => "Resign"
+            "status_karyawan" => "resign"
         ]);
 
         return redirect()->back();
