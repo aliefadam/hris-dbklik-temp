@@ -156,12 +156,12 @@ class HRController extends Controller
                 ->get();
         }
 
-
         return view('hr.karyawan-detail', [
             "karyawan" => $karyawan,
             "biodata" => $biodata[0],
             "jabatan" => Jabatan::all(),
             "title" => "Detail Karyawan",
+            "data_mutasi" => Mutasi::all()
         ]);
     }
 
@@ -308,7 +308,7 @@ class HRController extends Controller
         $namaFilePendukung .= "_" . date("Y-m-d_H-i-s");
         $extension = $request->file("surat_mutasi")->extension();
         $namaFilePendukung = "$namaFilePendukung.$extension";
-        File::move($request->file("surat_mutasi")->path(), public_path("/upload/file_pendukung/$namaFilePendukung"));
+        File::move($request->file("surat_mutasi")->path(), public_path("/storage/upload/file_pendukung/$namaFilePendukung"));
         $karyawan = Karyawan::find($request->karyawan_id);
 
         Mutasi::create([

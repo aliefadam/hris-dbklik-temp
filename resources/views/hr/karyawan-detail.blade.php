@@ -61,8 +61,8 @@
 
     <div class="mt-10 flex justify-between leading-none items-center">
         <h1 class="text-dbklik font-semibold text-3xl">Riwayat Mutasi</h1>
-        <button 
-            class="btn-mutasi bg-gradient-to-r from-dbklik to-indigo-600 text-white px-7 py-3 rounded-lg shadow-lg block"><i
+        <button
+            class="btn-mutasi bg-gradient-to-r from-dbklik to-indigo-600 text-white px-5 py-4 rounded-lg shadow-lg block"><i
                 class="bi bi-plus-lg"></i>Tambah
             Mutasi</button>
     </div>
@@ -79,32 +79,28 @@
             </tr>
         </thead>
         <tbody class="">
-            <tr>
-                <td class="">1</td>
-                <td class="">Senin 29, Januari 2024</td>
-                <td class="">Perpindahan Cabang</td>
-                <td class="">Surabaya</td>
-                <td class="">Malang</td>
-                <td class="">
-                    <a href="" class="underline underline-offset-2">mutasi-01.pdf</a>
-                </td>
-            </tr>
-            <tr>
-                <td class="">2</td>
-                <td class="">Senin 29, Januari 2024</td>
-                <td class="">Perpindahan Divisi</td>
-                <td class="">Marketing</td>
-                <td class="">IT</td>
-                <td class="">
-                    <a href="" class="underline underline-offset-2">mutasi-02.pdf</a>
-                </td>
-            </tr>
+            @foreach ($data_mutasi as $mutasi)
+                <tr>
+                    <td class="">{{ $loop->iteration }}</td>
+                    <td class="">{{ $mutasi->created_at }}</td>
+                    <td class="capitalize">{{ explode('-', $mutasi->jenis_mutasi)[0] }}
+                        {{ explode('-', $mutasi->jenis_mutasi)[1] }}</td>
+                    <td class="">{{ $mutasi->awal }}</td>
+                    <td class="">{{ $mutasi->tujuan }}</td>
+                    <td class="">
+                        <a href="{{ asset("storage/upload/file_pendukung/$mutasi->surat_mutasi_file") }}"
+                            class="underline underline-offset-2" target="_blank">
+                            {{ $mutasi->surat_mutasi_file }}
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 
     <script>
         $(".open-file").on("click", function() {
-            window.open(`/upload/file_pendukung/${$(this).html()}`, "_blank");
+            window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
         });
     </script>
 @endsection
