@@ -88,7 +88,11 @@ class HRController extends Controller
     public function strukturPegawai()
     {
         return view('hr.struktur_pegawai', [
-            "data_pengajuan" => DaftarPengajuan::getAll(),
+            // "data_pengajuan" => DaftarPengajuan::getAll(), ini kenapa pake daftar pengajuan??
+            "data_pegawai" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+                ->get(),
+            "jabatan_id" => auth()->user()->karyawan->jabatan_id,
+            "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
         ]);
     }

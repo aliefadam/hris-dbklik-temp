@@ -6,7 +6,7 @@
 
         <div class="scroll flex justify-center items-center flex-col">
 
-            @for ($i = $diatas_satu_level; $i <= 5; $i++)
+            @for ($i = $diatas_satu_level; $i <= $diatas_satu_level+2; $i++)
                 
                 @php
                     $pegawaiPerJabatan = $data_pegawai->where('jabatan_id', $jabatan_id - ($jabatan_id - $i));
