@@ -36,6 +36,10 @@ class PerizinanController extends Controller
         ]);
 
         $penerimaNotif = Karyawan::where("jabatan_id", 3)->get();
+        if (auth()->user()->karyawan->jabatan_id == 3) {
+            $penerimaNotif = Karyawan::where("jabatan_id", auth()->user()->karyawan->jabatan_id - 1)->get();
+        }
+
         foreach ($penerimaNotif as $penerima) {
             $pesan = [
                 "judul" => "Pengajuan Izin Baru",
