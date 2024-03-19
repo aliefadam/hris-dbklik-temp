@@ -67,6 +67,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/edit-aturan/{aturan}', [RulesHRDController::class, 'editAturan'])->middleware("role:3");
         Route::post('/hapus-aturan/{aturan}', [RulesHRDController::class, 'hapusAturan'])->middleware("role:3");
         Route::post('/mutasi', [HRController::class, 'mutasi'])->middleware("role:3");
+        Route::post('/kontrak', [HRController::class, 'kontrak'])->middleware("role:3");
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
     });
 

@@ -253,11 +253,37 @@ class HRController extends Controller
         $karyawan = Karyawan::find($karyawan_id);
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
-        $karyawan->update([
-            "berakhir_kerja" => $tanggal_akhir_kontrak
-        ]);
+        
+        if ($request->durasi != "tetap"){
+            $karyawan->update([
+                "berakhir_kerja" => $tanggal_akhir_kontrak
+            ]);
+        }else{
+            $karyawan->update([
+                "berakhir_kerja" => null,
+                "status_karyawan" => "Karyawan Tetap"
+            ]);
+        }
+        
 
         return redirect()->back();
+    }
+
+    public function kontrak (Request $request){    
+        $karyawan_id = $request->karyawan_id;
+        $karyawan = Karyawan::find($karyawan_id);    
+        if ($request->durasi != "tetap"){
+            $durasi = (int)$request->durasi;
+            $tanggalBaru = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
+            $tanggalBaru = Carbon::parse($tanggalBaru)->format('d F Y');            
+        } else{
+            $tanggalBaru='Karyawan Tetap';
+        };
+        
+        $dataYangDikirim = [
+            "tanggal_baru" => $tanggalBaru
+        ];
+        return response($dataYangDikirim);
     }
 
     public function mutasi(Request $request)

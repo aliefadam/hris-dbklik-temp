@@ -18,7 +18,7 @@ class ResignController extends Controller
             $namaFile .= "_" . date("Y-m-d_H-i-s");
             $extension = $request->file("file_surat")->extension();
             $namaFile = "$namaFile.$extension";
-            File::move($request->file("file_surat")->path(), public_path("upload/file_surat/$namaFile"));
+            File::move($request->file("file_surat")->path(), public_path("upload/file_pendukung/$namaFile"));
         }
 
         Resign::create([

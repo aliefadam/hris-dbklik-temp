@@ -137,7 +137,7 @@
             <form action="/hr/resign" method="post" enctype="multipart/form-data" class="w-full flex flex-col gap-3">
                 @csrf
                 <input type="hidden" name="karyawan_id"
-                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
+                    value="{{ isset($karyawan->id) ? $karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="tanggal_resign" class="text-dbklik">Tanggal Resign</label>
                     <input type="date" name="tanggal_resign" id="tanggal_resign" class="bg-transparent outline-none">
@@ -171,23 +171,24 @@ use Carbon\Carbon;
                 class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-kontrak"></i>
         </div>
         <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg">
-            <form action="/hr/updateKontrak" method="post" class="w-full flex flex-col gap-3">
+            <form action="/hr/updateKontrak" method="post" class="w-full flex flex-col gap-3" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="karyawan_id"
-                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
+                <input type="hidden" name="karyawan_id" id="karyawan_id"
+                    value="{{ isset($karyawan->id) ? $karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 leading-none">
-                    <span class="text-dbklik text-sm">Tanggal Mulai Kontrak</span>
+                    <span class="text-dbklik text-sm">Tanggal Berakhir Kontrak</span>
                     <span
-                        class="tanggal_mulai_kontrak text-xl">{{ isset($data_karyawan->tanggal_masuk_kerja) ? Carbon::parse($data_karyawan->tanggal_masuk_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
+                        class="tanggal_akhir_kontrak text-xl">{{ isset($karyawan->berakhir_kerja) ? Carbon::parse($karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
                 </div>
                 <div class="flex flex-col gap-1 leading-none">
-                    <span class="text-dbklik text-sm">Tanggal Akhir Kontrak</span>
-                    <span id="tanggal_akhir_kontrak"
-                        class="tanggal_akhir_kontrak text-xl">{{ isset($data_karyawan->berakhir_kerja) ? Carbon::parse($data_karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
+                    <span class="text-dbklik text-sm">Tanggal Akhir Kontrak Baru</span>
+                    <span id="tanggal_akhir_kontrak_baru"
+                        class="font-medium tanggal_akhir_kontrak_baru text-xl">-</span>
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="durasi" class="text-dbklik">Durasi</label>
                     <select name="durasi" id="durasi" class="outline-none bg-transparent">
+                        <option disabled selected>-- Pilih Durasi --</option>
                         <option value=3>3 Bulan</option>
                         <option value=6>6 Bulan</option>
                         <option value=12>12 Bulan</option>
@@ -200,7 +201,7 @@ use Carbon\Carbon;
                 </div>
                 <div class="flex justify-end">
                     <button type="submit"
-                        class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Perpanjang</button>
+                        class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Simpan</button>
                 </div>
             </form>
         </div>
@@ -219,10 +220,10 @@ use Carbon\Carbon;
             <form action="/hr/updateCatatan/" method="post" class="w-full flex flex-col gap-3">
                 @csrf
                 <input type="hidden" name="karyawan_id"
-                    value="{{ isset($data_karyawan->id) ? $data_karyawan->id : '' }}">
+                    value="{{ isset($karyawan->id) ? $karyawan->id : '' }}">
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="catatan" class="text-dbklik">Catatan</label>
-                    <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[150px]">{{ isset($data_karyawan->catatan) ? $data_karyawan->catatan : '' }}</textarea>
+                    <textarea name="catatan" id="catatan" class="bg-transparent outline-none resize-none h-[150px]">{{ isset($karyawan->catatan) ? $karyawan->catatan : '' }}</textarea>
                 </div>
                 <div class="flex justify-end">
                     <button type="submit" class="bg-yellow-dbklik px-10 py-2 rounded-lg font-medium">Simpan</button>
@@ -347,45 +348,24 @@ use Carbon\Carbon;
 
         
     });
-    // $("select[name=jenis_mutasi]").on("change", function() {
-    //     $.ajaxSetup({
-    //         headers: {
-    //             "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
-    //         }
-    //     })
-    //     $.ajax({
-    //         url: "/hr/mutasi",
-    //         type: "POST",
-    //         data: {
-    //             karyawanId: $("#karyawan_id"),
-    //         },
-    //         success: function(response) {
-    //             console.log(response);
-    //         },
-    //         error: function(e) {
-                
-    //         }
-    //     });
-        // $.ajax({
-        //         type: "POST",
-        //         url: "/hr/mutasi", 
-        //         data: {
-        //             jenisMutasi: $(this).val(),
-        //             id: $data_karyawan->id
-        //         },
-        //         beforeSend: function() {
-        //             $("#awal").val("Loading..");
-        //             $("#tujuan").html("<option value=''>Loading..</option>");
-        //         },
-        //         success: function(response) {
-        //             $("#awal").val(response.awal);
-        //             $("#tujuan").empty();
-        //             $.each(response.akhir, function(index, option) {
-        //                 console.log(option); // Debugging: Log each option to check its structure
-        //                 $("#tujuan").append('<option value="' + option.value + '">' + option.text + '</option>');
-        //             });
-        //         },
+    
+    $("select[name=durasi]").on("change", function() {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $("meta[name=csrf-token]").attr("content"),
+            }
+        })
+        $.ajax({
+            url: "/hr/kontrak",
+            type: "POST",
+            data: {
+                durasi: $(this).val(),
+                karyawan_id: $("#karyawan_id").val(),
+            },
+            success: function(res) {
+                $("span.tanggal_akhir_kontrak_baru").html(res.tanggal_baru);
+            }
+        })
+    });
 
-        //     });
-    // });
 </script>
