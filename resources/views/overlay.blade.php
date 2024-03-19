@@ -158,9 +158,6 @@
     </div>
 </div>
 
-<?php
-use Carbon\Carbon;
-?>
 
 <div
     class="overlay-kontrak bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
@@ -178,7 +175,7 @@ use Carbon\Carbon;
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Berakhir Kontrak</span>
                     <span
-                        class="tanggal_akhir_kontrak text-xl">{{ isset($karyawan->berakhir_kerja) ? Carbon::parse($karyawan->berakhir_kerja)->formatLocalized('%d %B %Y') : '' }}</span>
+                        class="tanggal_akhir_kontrak text-xl">{{ isset($karyawan->berakhir_kerja) ? Carbon\Carbon::parse($karyawan->berakhir_kerja)->translatedFormat('d F Y') : '' }}</span>
                 </div>
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Akhir Kontrak Baru</span>

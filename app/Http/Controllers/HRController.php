@@ -254,6 +254,7 @@ class HRController extends Controller
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
         
+        
         if ($request->durasi != "tetap"){
             $karyawan->update([
                 "berakhir_kerja" => $tanggal_akhir_kontrak
@@ -275,7 +276,7 @@ class HRController extends Controller
         if ($request->durasi != "tetap"){
             $durasi = (int)$request->durasi;
             $tanggalBaru = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
-            $tanggalBaru = Carbon::parse($tanggalBaru)->format('d F Y');            
+            $tanggalBaru = Carbon::parse($tanggalBaru)->translatedFormat('d F Y');            
         } else{
             $tanggalBaru='Karyawan Tetap';
         };
