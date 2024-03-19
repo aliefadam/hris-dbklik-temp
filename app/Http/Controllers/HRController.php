@@ -253,34 +253,35 @@ class HRController extends Controller
         $karyawan = Karyawan::find($karyawan_id);
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
-        
-        
-        if ($request->durasi != "tetap"){
+
+
+        if ($request->durasi != "tetap") {
             $karyawan->update([
                 "berakhir_kerja" => $tanggal_akhir_kontrak
             ]);
-        }else{
+        } else {
             $karyawan->update([
                 "berakhir_kerja" => null,
                 "status_karyawan" => "Karyawan Tetap"
             ]);
         }
-        
+
 
         return redirect()->back();
     }
 
-    public function kontrak (Request $request){    
+    public function kontrak(Request $request)
+    {
         $karyawan_id = $request->karyawan_id;
-        $karyawan = Karyawan::find($karyawan_id);    
-        if ($request->durasi != "tetap"){
+        $karyawan = Karyawan::find($karyawan_id);
+        if ($request->durasi != "tetap") {
             $durasi = (int)$request->durasi;
             $tanggalBaru = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
-            $tanggalBaru = Carbon::parse($tanggalBaru)->translatedFormat('d F Y');            
-        } else{
-            $tanggalBaru='Karyawan Tetap';
+            $tanggalBaru = Carbon::parse($tanggalBaru)->translatedFormat('d F Y');
+        } else {
+            $tanggalBaru = 'Karyawan Tetap';
         };
-        
+
         $dataYangDikirim = [
             "tanggal_baru" => $tanggalBaru
         ];
