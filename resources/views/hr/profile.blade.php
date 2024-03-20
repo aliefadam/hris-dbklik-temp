@@ -3,8 +3,13 @@
 @section('content')
     <div class="w-full flex gap-4">
         <div class="flex-[1]">
-            <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit">
-                <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
+            <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit relative">
+                <div class="w-[250px] h-[250px] rounded-full shadow-[0px_0px_15px_1px_rgba(0,0,0,0.2)]">
+                    @php $foto = $dataDiri["foto"] ?? "no_image.jpg" @endphp
+                    <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
+                </div>
+                <i
+                    class="bi bi-image-fill absolute bottom-[10px] right-[10px] cursor-pointer bg-gradient-to-r from-dbklik to-indigo-600 p-2 flex rounded-md text-white btn-edit-image"></i>
             </div>
             <button
                 class="flex gap-2 justify-center duration-500 mt-4 bg-gradient-to-r from-dbklik to-indigo-600 w-full text-white py-[10px] px-3 rounded-lg"><i

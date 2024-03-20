@@ -24,6 +24,7 @@ class HeadController extends Controller
                 "nama" => $karyawan->nama_lengkap,
                 "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => $karyawan->jabatan->nama_jabatan,
+                "foto" => $karyawan->foto,
             ];
         });
 
@@ -41,6 +42,7 @@ class HeadController extends Controller
         return view('head.welcome', [
             "title" => "Beranda",
             "dataDiri" => [
+                "foto" => auth()->user()->karyawan->foto,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi ?? "",
@@ -148,6 +150,7 @@ class HeadController extends Controller
         return view('head.profile', [
             "title" => "Profil",
             "dataDiri" => [
+                "foto" => auth()->user()->karyawan->foto,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "email" => auth()->user()->karyawan->email,
                 "no_telephone" => auth()->user()->karyawan->no_telephone,

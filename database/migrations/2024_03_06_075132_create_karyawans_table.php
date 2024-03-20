@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId("sub_divisi_id");
             $table->string("nama_lengkap");
             $table->string("nama_panggilan");
+            $table->string("jenis_kelamin");
             $table->string("email");
             $table->foreignId("jabatan_id");
             $table->date("tanggal_masuk_kerja");
@@ -50,6 +51,7 @@ return new class extends Migration
             $table->string("bpjs_ktk_file");
             $table->string("bpjs_kes_file");
             $table->string("referensi_kerja_file");
+            $table->string("foto")->nullable();
             $table->string("status_karyawan");
             $table->string("catatan");
             $table->timestamps();

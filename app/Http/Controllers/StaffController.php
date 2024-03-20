@@ -10,6 +10,7 @@ use App\Models\Karyawan;
 use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class StaffController extends Controller
 {
@@ -24,6 +25,7 @@ class StaffController extends Controller
                 "nama" => $karyawan->nama_lengkap,
                 "sub_divisi" => $karyawan->subDivisi->nama_sub_divisi ?? "",
                 "jabatan" => $karyawan->jabatan->nama_jabatan,
+                "foto" => $karyawan->foto,
             ];
         });
 
@@ -42,6 +44,7 @@ class StaffController extends Controller
             "title" => "Beranda",
             "dataDiri" => [
                 "id" => auth()->user()->karyawan->id,
+                "foto" => auth()->user()->karyawan->foto,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "sub_divisi" => auth()->user()->karyawan->subDivisi->nama_sub_divisi,
@@ -162,6 +165,7 @@ class StaffController extends Controller
         return view("profile", [
             "title" => "Profil",
             "dataDiri" => [
+                "foto" => auth()->user()->karyawan->foto,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "email" => auth()->user()->karyawan->email,
                 "no_telephone" => auth()->user()->karyawan->no_telephone,
@@ -177,5 +181,26 @@ class StaffController extends Controller
                 "agama" => auth()->user()->karyawan->agama,
             ],
         ]);
+    }
+
+    public function editFoto(Request $request)
+    {
+        $foto = $request->file("edit_foto");
+        $ekstensi = $foto->extension();
+        $namaUser = strtolower(auth()->user()->karyawan->nama_lengkap);
+        $tanggalJam = date("Y-m-d-H-i-s");
+        $namaFotoBaru = "$namaUser-profile-$tanggalJam.$ekstensi";
+
+        $fotoLama = auth()->user()->karyawan->foto;
+        if ($fotoLama != null) {
+            File::delete("storage/upload/foto_user/$fotoLama");
+        }
+
+        Karyawan::find(auth()->user()->id)->update([
+            "foto" => $namaFotoBaru,
+        ]);
+        File::move($foto->path(), public_path("storage/upload/foto_user/$namaFotoBaru"));
+
+        return redirect()->back();
     }
 }

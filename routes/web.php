@@ -81,6 +81,8 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
 
+
+    Route::post('/edit-foto', [StaffController::class, 'editFoto']);
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
     Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
     Route::post("/kirim-email", [PerizinanController::class, "kirimEmail"]);

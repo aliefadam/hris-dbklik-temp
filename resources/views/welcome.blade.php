@@ -3,7 +3,11 @@
 @section('content')
     <div class="bg-white shadow-xl rounded-lg px-5 py-6 w-[60%] flex gap-2">
         <div class="flex-1 flex justify-center">
-            <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
+            <div class="w-[250px] h-[250px] rounded-full shadow-[0px_0px_15px_1px_rgba(0,0,0,0.2)]">
+                @php $foto = $dataDiri["foto"] ?? "no_image.jpg" @endphp
+                <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
+            </div>
+            {{-- <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl"> --}}
         </div>
         <div class="flex-1 justify-center flex flex-col">
             <h1 class="leading-none text-[35px] font-semibold text-dbklik">{{ $dataDiri['nama'] }}</h1>
@@ -31,7 +35,9 @@
             @foreach ($kehadiran as $data)
                 <div
                     class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.4)] px-3 py-5 flex flex-col justify-center items-center">
-                    <img class="w-[130px] drop-shadow-xl" src="{{ asset('imgs/kehadiran-1.png') }}">
+                    @php $foto = $data["foto"] ?? "no_image.jpg" @endphp
+                    <img class="w-[130px] h-[130px] object-cover rounded-full drop-shadow-xl"
+                        src="{{ asset("storage/upload/foto_user/$foto") }}">
                     <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
                     <span
                         class="text-yellow-dbklik drop-shadow-lg italic leading-none font-medium text-sm">{{ $data['jabatan'] }}
