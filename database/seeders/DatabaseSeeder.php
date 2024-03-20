@@ -291,7 +291,7 @@ class DatabaseSeeder extends Seeder
             'no_whatsapp' => 81234567890,
             'no_rekening_bca' => 1234567890,
             'inventaris_kantor' => 'Laptop, Monitor, Keyboard, Mouse',
-            'berakhir_kerja' => "2029-05-25",
+            'berakhir_kerja' => "2024-01-15",
             'range_kontrak' => '1 tahun',
             'kontak_darurat' => 81234567891,
             'cabang_id' => 1,

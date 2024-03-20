@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use DateTime;
 
 class HRController extends Controller
 {
@@ -279,9 +280,19 @@ class HRController extends Controller
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
 
-        $range_kontrak_lama = (int) Str::before($karyawan->range_kontrak, " bulan");
-        $range_kontrak_baru = $range_kontrak_lama + $request->durasi;
-        $range_kontrak = $range_kontrak_baru . " bulan";
+        $tanggal_masuk_kerja = Carbon::parse($karyawan->tanggal_masuk_kerja);
+        $tanggal_berakhir_kerja = Carbon::parse($request->tanggal_akhir_kontrak_baru)->toDateTime();
+        $selisih = $tanggal_masuk_kerja->diffInMonths($tanggal_berakhir_kerja);
+
+        if ($selisih > 12) {
+            if ($selisih % 12 !== 0) {
+                $range_kontrak = floor($selisih / 12) . " tahun " . $selisih % 12 . " bulan";
+            } else {
+                $range_kontrak = floor($selisih / 12) . " tahun";
+            }
+        } else {
+            $range_kontrak = $selisih . " bulan";
+        }
 
         if ($request->durasi != "tetap") {
             $karyawan->update([
@@ -307,7 +318,7 @@ class HRController extends Controller
         if ($request->durasi != "tetap") {
             $durasi = (int)$request->durasi;
             $tanggalBaru = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
-            $tanggalBaru = Carbon::parse($tanggalBaru)->translatedFormat('d F Y');
+            $tanggalBaru = Carbon::parse($tanggalBaru)->format('d M Y');
         } else {
             $tanggalBaru = 'Karyawan Tetap';
         };
@@ -315,6 +326,7 @@ class HRController extends Controller
         $dataYangDikirim = [
             "tanggal_baru" => $tanggalBaru
         ];
+
         return response($dataYangDikirim);
     }
 

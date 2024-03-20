@@ -173,12 +173,12 @@
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Berakhir Kontrak</span>
                     <span
-                        class="tanggal_akhir_kontrak text-xl">{{ isset($karyawan->berakhir_kerja) ? Carbon\Carbon::parse($karyawan->berakhir_kerja)->translatedFormat('d F Y') : '' }}</span>
+                        class="tanggal_akhir_kontrak text-xl">{{ isset($karyawan->berakhir_kerja) ? Carbon\Carbon::parse($karyawan->berakhir_kerja)->format('d M Y') : '' }}</span>
                 </div>
                 <div class="flex flex-col gap-1 leading-none">
                     <span class="text-dbklik text-sm">Tanggal Akhir Kontrak Baru</span>
-                    <span id="tanggal_akhir_kontrak_baru"
-                        class="font-medium tanggal_akhir_kontrak_baru text-xl">-</span>
+                    <input id="tanggal_akhir_kontrak_baru" name="tanggal_akhir_kontrak_baru"
+                        class="font-medium tanggal_akhir_kontrak_baru text-xl bg-transparent" value="-">
                 </div>
                 <div class="flex flex-col gap-1 border border-dbklik p-3 rounded-md">
                     <label for="durasi" class="text-dbklik">Durasi</label>
@@ -401,7 +401,7 @@
                 karyawan_id: $("#karyawan_id").val(),
             },
             success: function(res) {
-                $("span.tanggal_akhir_kontrak_baru").html(res.tanggal_baru);
+                $("input[name=tanggal_akhir_kontrak_baru]").val(res.tanggal_baru);
             }
         })
     });
