@@ -15,6 +15,7 @@ use App\Models\Divisi;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -278,14 +279,19 @@ class HRController extends Controller
         $durasi = (int)$request->durasi;
         $tanggal_akhir_kontrak = Carbon::parse($karyawan->berakhir_kerja)->addMonths($durasi);
 
+        $range_kontrak_lama = (int) Str::before($karyawan->range_kontrak, " bulan");
+        $range_kontrak_baru = $range_kontrak_lama + $request->durasi;
+        $range_kontrak = $range_kontrak_baru . " bulan";
 
         if ($request->durasi != "tetap") {
             $karyawan->update([
+                "range_kontrak" => $range_kontrak,
                 "berakhir_kerja" => $tanggal_akhir_kontrak
             ]);
         } else {
             $karyawan->update([
                 "berakhir_kerja" => null,
+                "range_kontrak" => null,
                 "status_karyawan" => "Karyawan Tetap"
             ]);
         }
