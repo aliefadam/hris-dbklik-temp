@@ -3,13 +3,17 @@
 @section('content')
     <div class="w-full flex gap-4">
         <div class="flex-[1]">
-            <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit">
-                <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
+            <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit relative">
+                <div
+                    class="w-[250px] h-[250px] rounded-full shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px]">
+                    @php $foto = $dataDiri["foto"] ?? "no_image.png" @endphp
+                    <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
+                </div>
             </div>
             <button
-                class="flex gap-2 justify-center duration-500 mt-4 bg-gradient-to-r from-dbklik to-indigo-600 w-full text-white py-[10px] px-3 rounded-lg"><i
+                class="btn-edit-image flex gap-2 justify-center duration-500 mt-4 bg-gradient-to-r from-dbklik to-indigo-600 w-full text-white py-[10px] px-3 rounded-lg"><i
                     class="bi bi-pencil-square"></i> Edit
-                Profil</button>
+                Foto Profil</button>
         </div>
         <div class="shadow-xl bg-white rounded-xl p-5 flex-[1.7]">
             <h1 class="text-dbklik text-3xl font-semibold text-center">Data Karyawan</h1>

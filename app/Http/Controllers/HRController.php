@@ -157,12 +157,21 @@ class HRController extends Controller
                 ->get();
         }
 
+        $tanggalMasukKerja = $karyawan->tanggal_masuk_kerja;
+        $tanggalSekarang = date("Y-m-d");
+        $diffYears = date_diff(date_create($tanggalMasukKerja), date_create($tanggalSekarang))->y;
+        $isOneYear = $diffYears >= 1;
+
         return view('hr.karyawan-detail', [
             "karyawan" => $karyawan,
             "biodata" => $biodata[0],
             "jabatan" => Jabatan::all(),
             "title" => "Detail Karyawan",
-            "data_mutasi" => Mutasi::all()
+            "data_mutasi" => Mutasi::all(),
+            "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", $karyawan->id)
+                ->where("status", "disetujui")
+                ->whereYear("tanggal_mulai", date("Y"))
+                ->count() : 0,
         ]);
     }
 
@@ -378,23 +387,27 @@ class HRController extends Controller
             $kolomUserUpdate => $request->tujuan
         ]);
 
-        // if ($request->jenis_mutasi == "pindah-jabatan") {
-        //     $karyawan->update([
-        //         "jabatan_id" => $request->tujuan
-        //     ]);
-        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
-        //     $karyawan->update([
-        //         "jabatan_id" => $request->tujuan
-        //     ]);
-        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
-        //     $karyawan->update([
-        //         "jabatan_id" => $request->tujuan
-        //     ]);
-        // } else if ($request->jenis_mutasi == "pindah-jabatan") {
-        //     $karyawan->update([
-        //         "jabatan_id" => $request->tujuan
-        //     ]);
-        // }
+        return redirect()->back();
+    }
+
+    public function editProfileKaryawan(Request $request, Karyawan $karyawan)
+    {
+        if ($karyawan->email !== $request->email) {
+            User::find($karyawan->id)->update(["email" => $request->email]);
+        }
+
+        $karyawan->update([
+            "email" => $request->email,
+            "alamat_domisili" => $request->alamat_domisili,
+            "no_telephone" => $request->no_telephone,
+            "no_whatsapp" => $request->no_whatsapp,
+            "status_pernikahan" => $request->status_pernikahan,
+            "no_bpjs_kes" => $request->no_bpjs_kes,
+            "no_bpjs_ktk" => $request->no_bpjs_ktk,
+            "kontak_darurat" => $request->kontak_darurat,
+            "inventaris_kantor" => $request->inventaris_kantor,
+        ]);
+
 
         return redirect()->back();
     }
