@@ -3,8 +3,9 @@
 @section('content')
     <div class="bg-white shadow-xl rounded-lg px-5 py-6 w-[60%] flex gap-2">
         <div class="flex-1 flex justify-center">
-            <div class="w-[250px] h-[250px] rounded-full shadow-[0px_0px_15px_1px_rgba(0,0,0,0.2)]">
-                @php $foto = $dataDiri["foto"] ?? "no_image.jpg" @endphp
+            <div
+                class="w-[250px] h-[250px] rounded-full shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px]">
+                @php $foto = $dataDiri["foto"] ?? "no_image.png" @endphp
                 <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
             </div>
             {{-- <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl"> --}}
@@ -33,9 +34,9 @@
         <div class="mt-5 w-full flex gap-10 overflow-x-scroll pb-10 pt-5 px-2 kehadiran-list">
             @foreach ($kehadiran as $data)
                 <div
-                    class="min-w-[250px] rounded-lg shadow-[0_0_10px_2px_rgba(0,0,0,0.4)] px-3 py-5 flex flex-col justify-center items-center">
-                    @php $foto = $data["foto"] ?? "no_image.jpg" @endphp
-                    <img class="w-[130px] h-[130px] object-cover rounded-full drop-shadow-xl"
+                    class="min-w-[250px] rounded-lg border-t-2 shadow-[0px_1px_1px_rgba(3,7,18,0.02),0px_3px_3px_rgba(3,7,18,0.04),0px_6px_6px_rgba(3,7,18,0.06),0px_10px_10px_rgba(3,7,18,0.08),0px_16px_16px_rgba(3,7,18,0.10)] px-3 py-5 flex flex-col justify-center items-center">
+                    @php $foto = $data["foto"] ?? "no_image.png" @endphp
+                    <img class="w-[130px] h-[130px] object-cover rounded-full shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px]"
                         src="{{ asset("storage/upload/foto_user/$foto") }}">
                     <span class="text-dbklik font-semibold text-2xl mt-3">{{ $data['nama'] }}</span>
                     <span

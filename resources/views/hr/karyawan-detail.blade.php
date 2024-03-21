@@ -4,21 +4,29 @@
     <div class="w-full flex gap-4">
         <div class="flex-[1]">
             <div class="shadow-xl bg-white rounded-xl p-5 flex justify-center items-center h-fit">
-                <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl">
+                <div
+                    class="w-[250px] h-[250px] rounded-full shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_1px_3px_1px]">
+                    @php $foto = $karyawan->foto ?? "no_image.png" @endphp
+                    <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
+                </div>
+            </div>
+            <div class="flex gap-[10px] mt-[10px]">
+                <button
+                    class="btn-catatan shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-green-600 to-green-400 w-full text-white py-[10px] rounded-lg"><i
+                        class="bi bi-pencil-square"></i> Edit Catatan</button>
+                <button
+                    class="{{ $karyawan->status_karyawan != 'Karyawan Tetap' ? 'btn-kontrak' : 'from-gray-600 to-gray-400 cursor-not-allowed' }} shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-cyan-600 to-cyan-400 w-full text-white py-[10px] rounded-lg"><i
+                        class="bi bi-file-earmark-plus"></i> Perpanjang Kontrak</button>
             </div>
             <button
-                class="btn-resign shadow-md flex gap-2 justify-center duration-500 mt-4 bg-gradient-to-r from-red-600 to-red-400 w-full text-white py-[10px] px-3 rounded-lg"><i
-                    class="bi bi-door-open-fill"></i> Resign</button>
-            <button
-                class="{{ $karyawan->status_karyawan != "Karyawan Tetap" ? "btn-kontrak" : "from-gray-600 to-gray-400 cursor-not-allowed" }} shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-cyan-600 to-cyan-400 w-full text-white py-[10px] px-3 rounded-lg"><i
-                    class="bi bi-file-earmark-plus"></i> Perpanjang Kontrak</button>
-            <button
-                class="btn-catatan shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-green-600 to-green-400 w-full text-white py-[10px] px-3 rounded-lg"><i
-                    class="bi bi-pencil-square"></i> Edit Catatan</button>
+                class="btn-resign shadow-md flex gap-2 justify-center duration-500 mt-[10px] bg-gradient-to-r from-red-600 to-red-400 w-full text-white py-[10px] px-3 rounded-lg">
+                <i class="bi bi-door-open-fill"></i> Resign
+            </button>
+
         </div>
         <div class="shadow-xl bg-white rounded-xl p-5 flex-[1.7] h-[420px]">
             <h1 class="text-dbklik text-3xl font-semibold text-center">Data Karyawan</h1>
-            <div class="flex mt-5 gap-10 karyawan-detail overflow-auto h-[calc(100%-80px)]">
+            <div class="flex mt-5 gap-10 karyawan-detail overflow-auto h-[calc(100%-110px)]">
                 <div class="flex-[1] flex flex-col gap-3">
                     @php $counter = 0; @endphp
                     @foreach (collect($biodata) as $columnName => $columnValue)
@@ -36,6 +44,11 @@
                         @endif
                         @php $counter++; @endphp
                     @endforeach
+                    <div class="flex flex-col">
+                        <span class="text-dbklik text-[14px]">Jatah Cuti</span>
+                        <span
+                            class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ $jatah_cuti }}</span>
+                    </div>
                 </div>
                 <div class="flex-[1] flex flex-col gap-3 ">
                     @php $counter = 0; @endphp
@@ -48,13 +61,18 @@
                                 <div class="flex flex-col">
                                     <span class="text-dbklik text-[14px]">{{ $columnNameFormatted }}</span>
                                     <span
-                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium {{ strpos($columnName, 'file') ? 'underline cursor-pointer open-file' : '' }}">{{ $columnValue ?? "-" }}</span>
+                                        class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium {{ strpos($columnName, 'file') ? 'underline cursor-pointer open-file' : '' }}">{{ $columnValue ?? '-' }}</span>
                                 </div>
                             @endif
                         @endif
                         @php $counter++; @endphp
                     @endforeach
                 </div>
+            </div>
+            <div class="flex justify-end">
+                <button
+                    class="btn-edit-profile shadow-lg flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-emerald-600 to-emerald-400 text-white py-[10px] px-3 rounded-lg w-fit"><i
+                        class="bi bi-person-gear"></i> Edit Profile</button>
             </div>
         </div>
     </div>

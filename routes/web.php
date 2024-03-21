@@ -69,6 +69,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/mutasi', [HRController::class, 'mutasi'])->middleware("role:3");
         Route::post('/kontrak', [HRController::class, 'kontrak'])->middleware("role:3");
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
+        Route::post('/edit-profile-karyawan/{karyawan}', [HRController::class, 'editProfileKaryawan'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

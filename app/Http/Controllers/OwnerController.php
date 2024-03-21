@@ -101,6 +101,7 @@ class OwnerController extends Controller
         return view('owner.profile', [
             "title" => "Profil",
             "dataDiri" => [
+                "foto" => auth()->user()->karyawan->foto,
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "email" => auth()->user()->karyawan->email,
                 "no_telephone" => auth()->user()->karyawan->no_telephone,
