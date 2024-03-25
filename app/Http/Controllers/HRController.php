@@ -117,11 +117,16 @@ class HRController extends Controller
     public function daftarPengajuan(Request $request)
     {
         if ($request->s == "") {
-            $dataPerizinan = Perizinan::orderBy("updated_at", "DESC")->get();
+            $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
+                $query->where("jabatan_id", ">", auth()->user()->id);
+            })->orderBy("updated_at", "DESC")->get();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->whereHas("karyawan", function ($query) {
+                    $query->where("jabatan_id", ">", auth()->user()->id);
+                })
                 ->orderBy("updated_at", "DESC")
                 ->get();
         }

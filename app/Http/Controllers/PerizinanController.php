@@ -79,9 +79,13 @@ class PerizinanController extends Controller
 
     public function balasPerizinan(Request $request, Perizinan $perizinan)
     {
+        $jabatanPenyetuju = Karyawan::find(auth()->user()->id)->jabatan->nama_jabatan;
+        $divisiPenyetuju = Karyawan::find(auth()->user()->id)->divisi->nama_divisi;
+
         $perizinan->update([
             "feedback" => $request->feedback,
-            "status" => $request->status
+            "status" => $request->status,
+            "disetujui_oleh" => "$jabatanPenyetuju - $divisiPenyetuju"
         ]);
 
         $penerimaNotif = $perizinan->karyawan->id;

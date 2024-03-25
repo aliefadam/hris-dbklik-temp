@@ -105,6 +105,7 @@
         rowData.on("click", function() {
             $(".kolom-feedback").html("");
             $(".kolom-balasan").html("");
+            $(".overlay-head-disetujui-oleh").html("");
 
             const id = this.getAttribute("data-id");
             const no = this.children[0].innerHTML;
@@ -118,6 +119,7 @@
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
             const feedback = this.getAttribute("data-feedback");
+            const disetujuiOleh = this.getAttribute("data-disetujui-oleh");
 
             $("span.overlay-head-status").removeClass("pending")
             $("span.overlay-head-status").removeClass("disetujui")
@@ -126,9 +128,8 @@
             $("span.overlay-head-file-pendukung").removeClass("underline-offset-1");
             $("span.overlay-head-file-pendukung").removeClass("cursor-pointer");
             $("span.overlay-head-file-pendukung").off("click");
-
-
             $("span.overlay-head-status").addClass(statusText);
+
             if (filePendukung != "-") {
                 $("span.overlay-head-file-pendukung").addClass("underline");
                 $("span.overlay-head-file-pendukung").addClass("underline-offset-1");
@@ -153,6 +154,8 @@
                     <span class="text-dbklik text-[14px]">Feedback</span>
                     <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
                 `);
+
+                $(".overlay-head-disetujui-oleh").html(`${disetujuiOleh}`);
             }
 
             if (statusText == "pending") {
@@ -177,6 +180,7 @@
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {
             $(".kolom-feedback").html("");
+            $(".overlay-disetujui-oleh").html("");
 
             const nama = this.getAttribute("data-nama");
             const divisi = this.getAttribute("data-divisi");
@@ -188,6 +192,7 @@
             const status = this.children[5].innerHTML;
             const statusText = this.children[5].children[1].innerHTML;
             const feedback = this.getAttribute("data-feedback") ?? "-";
+            const disetujuiOleh = this.getAttribute("data-disetujui-oleh");
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
@@ -221,6 +226,8 @@
                     <span class="text-dbklik text-[14px]">Feedback</span>
                     <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
                 `);
+
+                $(".overlay-disetujui-oleh").html(`${disetujuiOleh}`);
             }
 
             $(".overlay").removeClass("hidden");
@@ -301,6 +308,18 @@
         $(".btn-edit-image").on("click", function() {
             $(".overlay-edit-foto").removeClass("hidden");
             $(".overlay-edit-foto").addClass("flex");
+        });
+
+        const btnCloseOverlay = $(".btn-close-overlay");
+        btnCloseOverlay.on("click", function() {
+            $(".container-overlay").removeClass("animate__fadeInDown");
+            $(".container-overlay").addClass("animate__fadeOutUp");
+            setTimeout(() => {
+                $(".overlay").removeClass("flex");
+                $(".overlay").addClass("hidden");
+                $(".container-overlay").removeClass("animate__fadeOutUp");
+                $(".container-overlay").addClass("animate__fadeInDown");
+            }, 500);
         });
 
         $(".btn-close-overlay-edit-foto").on("click", function() {

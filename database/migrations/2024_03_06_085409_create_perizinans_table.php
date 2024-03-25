@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("bukti_file")->nullable();
             $table->string("status");
             $table->string("feedback")->nullable();
+            $table->string("disetujui_oleh")->nullable();
             $table->timestamps();
         });
     }

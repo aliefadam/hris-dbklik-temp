@@ -46,9 +46,11 @@
                     </div>
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">Status</span>
-                        <span
-                            class="overlay-status drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize"><i
-                                class="bi bi-check-circle-fill"></i> Disetujui</span>
+                        <div class="flex items-center">
+                            <span class="overlay-status drop-shadow-md text-lg leading-none font-medium capitalize"><i
+                                    class="bi bi-check-circle-fill"></i> Disetujui</span> <span
+                                class="overlay-disetujui-oleh drop-shadow-md text-lg text-dbklik leading-none font-semibold ml-2 italic"></span>
+                        </div>
                     </div>
                     <div class="flex flex-col gap-1 kolom-feedback"></div>
                 </div>
@@ -109,8 +111,12 @@
                     </div>
                     <div class="flex flex-col gap-1">
                         <span class="text-dbklik text-[14px]">Status</span>
-                        <span class="overlay-head-status drop-shadow-md text-lg leading-none font-medium capitalize"><i
-                                class="bi bi-check-circle-fill"></i> Disetujui</span>
+                        <div class="flex items-center">
+                            <span
+                                class="overlay-head-status drop-shadow-md text-lg leading-none font-medium capitalize"><i
+                                    class="bi bi-check-circle-fill"></i> Disetujui</span> <span
+                                class="overlay-head-disetujui-oleh drop-shadow-md text-lg text-dbklik leading-none font-semibold ml-2 italic"></span>
+                        </div>
                     </div>
                     <div class="flex flex-col gap-1 kolom-feedback"></div>
                 </div>
