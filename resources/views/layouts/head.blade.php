@@ -104,6 +104,7 @@
         rowData.on("click", function() {
             $(".kolom-feedback").html("");
             $(".kolom-balasan").html("");
+            $(".overlay-head-disetujui-oleh").html("");
 
             const id = this.getAttribute("data-id");
             const no = this.children[0].innerHTML;
@@ -117,6 +118,7 @@
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
             const feedback = this.getAttribute("data-feedback");
+            const disetujuiOleh = this.getAttribute("data-disetujui-oleh");
 
             $("span.overlay-head-status").removeClass("pending")
             $("span.overlay-head-status").removeClass("disetujui")
@@ -125,7 +127,6 @@
             $("span.overlay-head-file-pendukung").removeClass("underline-offset-1");
             $("span.overlay-head-file-pendukung").removeClass("cursor-pointer");
             $("span.overlay-head-file-pendukung").off("click");
-
 
             $("span.overlay-head-status").addClass(statusText);
             if (filePendukung != "-") {
@@ -152,6 +153,8 @@
                     <span class="text-dbklik text-[14px]">Feedback</span>
                     <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
                 `);
+
+                $(".overlay-head-disetujui-oleh").html(`${disetujuiOleh}`);
             }
 
             if (statusText == "pending") {
@@ -184,6 +187,7 @@
             const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
             const status = this.children[5].innerHTML;
             const statusText = this.children[5].children[1].innerHTML;
+            const disetujuiOleh = this.getAttribute("data-disetujui-oleh");
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
@@ -211,6 +215,15 @@
             $("span.overlay-catatan").html(catatan);
             $("span.overlay-file-pendukung").html(filePendukung);
             $("span.overlay-status").html(status);
+
+            if (statusText != "pending") {
+                $(".kolom-feedback").html(`
+                    <span class="text-dbklik text-[14px]">Feedback</span>
+                    <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
+                `);
+
+                $(".overlay-disetujui-oleh").html(`${disetujuiOleh}`);
+            }
 
             $(".overlay").removeClass("hidden");
             $(".overlay").addClass("flex");
