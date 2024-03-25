@@ -118,7 +118,7 @@ class HRController extends Controller
     {
         if ($request->s == "") {
             $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
-                $query->where("jabatan_id", ">", auth()->user()->id);
+                $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
             })
                 ->orderBy("updated_at", "DESC")
                 ->get();
@@ -127,7 +127,7 @@ class HRController extends Controller
             $akhir = $request->e;
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
                 ->whereHas("karyawan", function ($query) {
-                    $query->where("jabatan_id", ">", auth()->user()->id);
+                    $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
                 })
                 ->orderBy("updated_at", "DESC")
                 ->get();
