@@ -119,7 +119,9 @@ class HRController extends Controller
         if ($request->s == "") {
             $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
                 $query->where("jabatan_id", ">", auth()->user()->id);
-            })->orderBy("updated_at", "DESC")->get();
+            })
+                ->orderBy("updated_at", "DESC")
+                ->get();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
