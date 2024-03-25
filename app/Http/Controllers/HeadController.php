@@ -112,6 +112,8 @@ class HeadController extends Controller
         if ($request->s == "") {
             $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
                 $query->where("divisi_id", auth()->user()->karyawan->divisi_id);
+            })->whereHas("karyawan", function ($query) {
+                $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
             })->orderBy("updated_at", "DESC")->get();
         } else {
             $mulai = $request->s;
@@ -119,6 +121,8 @@ class HeadController extends Controller
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
                 ->whereHas("karyawan", function ($query) {
                     $query->where("divisi_id", auth()->user()->karyawan->divisi_id);
+                })->whereHas("karyawan", function ($query) {
+                    $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
                 })->orderBy("updated_at", "DESC")->get();
         }
 

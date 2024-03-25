@@ -696,7 +696,6 @@ class DatabaseSeeder extends Seeder
             "password" => "123",
             "roleLevel" => "2",
         ]);
-
         User::create([
             "karyawan_id" => 8,
             "email" => 'lukman@example.com',
