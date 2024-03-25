@@ -117,17 +117,23 @@ class HRController extends Controller
     public function daftarPengajuan(Request $request)
     {
         if ($request->s == "") {
-            $dataPerizinan = Perizinan::whereHas("karyawan", function ($query) {
-                $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
-            })
+            $dataPerizinan = Perizinan::where("karyawan_id", "!=", auth()->user()->id)
+                ->orWhere(function ($query) {
+                    $query->where("karyawan_id", auth()->user()->id)
+                        ->where("status", "disetujui")
+                        ->orWhere("status", "ditolak");
+                })
                 ->orderBy("updated_at", "DESC")
                 ->get();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
-                ->whereHas("karyawan", function ($query) {
-                    $query->where("jabatan_id", ">", auth()->user()->karyawan->jabatan_id);
+                ->where("karyawan_id", "!=", auth()->user()->id)
+                ->orWhere(function ($query) {
+                    $query->where("karyawan_id", auth()->user()->id)
+                        ->where("status", "disetujui")
+                        ->orWhere("status", "ditolak");
                 })
                 ->orderBy("updated_at", "DESC")
                 ->get();

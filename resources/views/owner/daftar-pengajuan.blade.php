@@ -42,7 +42,8 @@
             @foreach ($data_perizinan as $perizinan)
                 <tr data-filePendukung="{{ $perizinan->bukti_file == null ? '-' : $perizinan->bukti_file }}"
                     data-catatan="{{ $perizinan->catatan ?? '-' }}" data-id="{{ $perizinan->id }}"
-                    data-feedback="{{ $perizinan->feedback ?? '-' }}">
+                    data-feedback="{{ $perizinan->feedback ?? '-' }}"
+                    data-disetujui-oleh="{{ $perizinan->disetujui_oleh }}">
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $perizinan->karyawan->divisi->nama_divisi }}</td>
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>

@@ -109,6 +109,7 @@
         const rowData = $("#table-daftar-pengajuan tbody tr");
         rowData.on("click", function() {
             $(".kolom-feedback").html("");
+            $(".overlay-disetujui-oleh").html("");
 
             const no = this.children[0].innerHTML;
             const divisi = this.children[1].innerHTML;
@@ -121,6 +122,7 @@
             const status = this.children[6].innerHTML;
             const statusText = this.children[6].children[1].innerHTML;
             const feedback = this.getAttribute("data-feedback");
+            const disetujuiOleh = this.getAttribute("data-disetujui-oleh");
 
             $("span.overlay-status").removeClass("pending")
             $("span.overlay-status").removeClass("disetujui")
@@ -155,6 +157,7 @@
                     <span class="text-dbklik text-[14px]">Feedback</span>
                     <span class="overlay-feedback drop-shadow-md text-lg leading-none font-medium cursor-pointer capitalize">${feedback}</span>
                 `);
+                $(".overlay-disetujui-oleh").html(`${disetujuiOleh}`);
             }
 
             $(".overlay").removeClass("hidden");
