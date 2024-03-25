@@ -42,6 +42,7 @@ class PerizinanController extends Controller
 
         foreach ($penerimaNotif as $penerima) {
             $pesan = [
+                "id_pengaju" => auth()->user()->id,
                 "judul" => "Pengajuan Izin Baru",
                 "pesan" => "Perhatian, Ada pengajuan izin baru yang perlu diverifikasi. Mohon segera tinjau pengajuan tersebut untuk memastikan kelancaran proses persetujuan. Pengajuan izin baru ini mungkin membutuhkan perhatian Anda dalam waktu dekat. Terima kasih atas kerja sama Anda.",
                 "nama" => auth()->user()->karyawan->nama_lengkap,

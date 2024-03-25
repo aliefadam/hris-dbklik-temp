@@ -13,6 +13,15 @@ class NotifikasiController extends Controller
         $notifikasi->status_dibaca = true;
         $notifikasi->save();
 
-        return response()->json($notifikasi);
+        $idPengaju = json_decode($notifikasi->pesan, true);
+        $idPengaju = $idPengaju["id_pengaju"];
+        $punyaSendiri = $idPengaju == auth()->user()->id ? true : false;
+
+        return response()->json(json_encode([
+            'punyaSendiri' => $punyaSendiri,
+            'notifikasi' => $notifikasi
+        ]));
+
+        // return response()->json($idPengaju);
     }
 }
