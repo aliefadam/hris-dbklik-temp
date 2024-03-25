@@ -16,4 +16,9 @@ class Notifikasi extends Model
     {
         $this->selectedNotifikasi = $id;
     }
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class);
+    }
 }
