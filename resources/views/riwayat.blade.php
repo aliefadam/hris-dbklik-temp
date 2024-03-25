@@ -40,7 +40,7 @@
         <tbody class="">
             @foreach ($riwayat as $r)
                 <tr data-nama="{{ $r->karyawan->nama_lengkap }}" data-filePendukung="{{ $r->bukti_file ?? '-' }}"
-                    data-catatan="{{ $r->catatan }}" data-divisi="{{ $r->karyawan->subDivisi->divisi->nama_divisi }}"
+                    data-catatan="{{ $r->catatan }}" data-divisi="{{ $r->karyawan->divisi->nama_divisi }}"
                     data-feedback="{{ $r->feedback ?? '-' }}" data-disetujui-oleh="{{ $r->disetujui_oleh }}">
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $r->izin->jenis_izin }}</td>

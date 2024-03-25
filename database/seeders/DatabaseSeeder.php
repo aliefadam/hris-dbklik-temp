@@ -402,7 +402,7 @@ class DatabaseSeeder extends Seeder
             "jenis_kelamin" => "Perempuan",
             'email' => 'eva.turner@example.com',
             'jabatan_id' => 3,
-            'tanggal_masuk_kerja' => '2023-04-15',
+            'tanggal_masuk_kerja' => '2020-04-15',
             'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
             'alamat_ktp' => 'Jl. Simulasi No. 408, Kota Simulasi',
             'no_nik' => 4567890123456789,
@@ -609,6 +609,50 @@ class DatabaseSeeder extends Seeder
             'catatan' => '-',
         ]);
 
+        Karyawan::create([
+            'divisi_id' => 10,
+            'sub_divisi_id' => 0,
+            'nama_lengkap' => 'Emma Watson',
+            'nama_panggilan' => 'Emma',
+            "jenis_kelamin" => "Perempuan",
+            'email' => 'emma.watson@example.com',
+            'jabatan_id' => 2,
+            'tanggal_masuk_kerja' => '2020-04-15',
+            'alamat_domisili' => 'Jl. Example No. 304, Kota Simulasi',
+            'alamat_ktp' => 'Jl. Simulasi No. 408, Kota Simulasi',
+            'no_nik' => 4567890123456789,
+            'no_kk' => 4567890123456789,
+            'no_npwp' => 4567890123,
+            'no_bpjs_ktk' => 45678901234567,
+            'no_bpjs_kes' => 45678901234567,
+            'tempat_lahir' => 'Simulated City',
+            'tanggal_lahir' => '1994-09-20',
+            'agama' => 'Kristen',
+            'pendidikan_terakhir' => 'S1 Desain Komunikasi Visual',
+            'tahun_lulus' => 2016,
+            'status_pernikahan' => 'Belum Menikah',
+            'no_telephone' => 84567890123,
+            'no_whatsapp' => 84567890123,
+            'no_rekening_bca' => 4567890123,
+            'inventaris_kantor' => 'Laptop, Tablet Grafis',
+            'berakhir_kerja' => "2030-04-15",
+            'range_kontrak' => '3 tahun',
+            'kontak_darurat' => 84567890124,
+            'cabang_id' => 1,
+            'jatah_cuti' => 6,
+            'cv_file' => 'emma_watson_cv.pdf',
+            'ksk_file' => 'emma_watson_ksk.pdf',
+            'ijasah_file' => 'emma_watson_ijazah.pdf',
+            'transkrip_nilai_file' => 'emma_watson_transkrip.pdf',
+            'ktp_file' => 'emma_watson_ktp.pdf',
+            'bpjs_ktk_file' => 'emma_watson_bpjs_ktk.pdf',
+            'bpjs_kes_file' => 'emma_watson_bpjs_kes.pdf',
+            'referensi_kerja_file' => 'emma_watson_referensi.pdf',
+            'status_karyawan' => 'Karyawan Tetap',
+            'catatan' => '-',
+        ]);
+        
+
         // User
         User::create([
             "karyawan_id" => 1,
@@ -656,6 +700,13 @@ class DatabaseSeeder extends Seeder
         User::create([
             "karyawan_id" => 8,
             "email" => 'lukman@example.com',
+            "password" => "123",
+            "roleLevel" => "4",
+        ]);
+
+        User::create([
+            "karyawan_id" => 9,
+            "email" => 'emma.watson@example.com',
             "password" => "123",
             "roleLevel" => "2",
         ]);

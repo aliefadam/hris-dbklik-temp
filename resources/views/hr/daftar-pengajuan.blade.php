@@ -45,7 +45,7 @@
                     data-feedback="{{ $perizinan->feedback ?? '-' }}"
                     data-disetujui-oleh="{{ $perizinan->disetujui_oleh }}">
                     <td class="">{{ $loop->iteration }}</td>
-                    <td class="">{{ $perizinan->karyawan->subDivisi->divisi->nama_divisi }}</td>
+                    <td class="">{{ $perizinan->karyawan->divisi->nama_divisi }}</td>
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                     <td class="">{{ $perizinan->izin->jenis_izin }}</td>
                     <td class="">{{ $perizinan->created_at }}</td>
