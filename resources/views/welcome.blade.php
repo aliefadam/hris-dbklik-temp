@@ -8,7 +8,6 @@
                 @php $foto = $dataDiri["foto"] ?? "no_image.png" @endphp
                 <img src="{{ asset("storage/upload/foto_user/$foto") }}" class="object-cover w-full h-full rounded-full">
             </div>
-            {{-- <img src="{{ asset('imgs/profil.png') }}" class="w-[200px] h-[210px] drop-shadow-xl"> --}}
         </div>
         <div class="flex-1 justify-center flex flex-col gap-1 md:gap-0">
             <h1 class="leading-none text-center md:text-left text-[25px] md:text-[35px] font-semibold text-dbklik">
