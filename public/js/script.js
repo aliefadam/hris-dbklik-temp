@@ -50,15 +50,27 @@ document.addEventListener("click", ({ target }) => {
 
 document.addEventListener("scroll", function () {
     if (window.scrollY > 10) {
-        nav.classList.add("scroll", "shadow-xl", "px-5");
-        settingExtra.classList.remove("right-[40px]");
-        settingExtra.style.right = "60px";
-        notificationExtra.classList.remove("right-[90px]");
-        notificationExtra.style.right = "110px";
+        if (!window.matchMedia("(max-width: 768px)").matches) {
+            nav.classList.remove("px-2", "md:px-0");
+            nav.classList.add("bg-white", "shadow-xl", "px-5");
+            settingExtra.style.right = "60px";
+            notificationExtra.style.right = "110px";
+        } else {
+            nav.classList.add("bg-white", "shadow-xl", "px-3");
+            settingExtra.style.right = "20px";
+            notificationExtra.style.right = "60px";
+        }
     } else {
-        nav.classList.remove("scroll", "shadow-xl", "px-5");
-        settingExtra.style.right = "40px";
-        notificationExtra.style.right = "90px";
+        if (!window.matchMedia("(max-width: 768px)").matches) {
+            nav.classList.remove("bg-white", "shadow-xl", "px-5");
+            nav.classList.add("px-2", "md:px-0");
+            settingExtra.style.right = "40px";
+            notificationExtra.style.right = "90px";
+        } else {
+            nav.classList.remove("bg-white", "shadow-xl", "px-3");
+            settingExtra.style.right = "10px";
+            notificationExtra.style.right = "50px";
+        }
     }
 });
 
@@ -106,8 +118,10 @@ function showTime() {
 
     const spanJam = nav.querySelector(".left span.jam");
     const spanHari = nav.querySelector(".left span.hari");
+    const spanTanggal = nav.querySelector(".left span.tanggal");
     spanJam.innerHTML = `${jam}:${menit}:${detik}`;
-    spanHari.innerHTML = `${dayIndo}, ${date} ${monthIndo} ${year}`;
+    spanHari.innerHTML = `${dayIndo},`;
+    spanTanggal.innerHTML = `${date} ${monthIndo} ${year}`;
 }
 
 setInterval(() => {
