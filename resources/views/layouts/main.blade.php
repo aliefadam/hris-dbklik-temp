@@ -42,7 +42,7 @@
     @include('partials.sidebar')
     @include('partials.topbar')
 
-    <main class="ml-[250px] mt-[84px] py-5 px-10">
+    <main class="ml-[70px] md:ml-[250px] mt-[84px] md:py-5 px-4 md:px-10">
         @yield('content')
     </main>
 
