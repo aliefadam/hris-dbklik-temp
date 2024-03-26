@@ -7,10 +7,6 @@ nav.active {
     width: calc(100% - 160px);
 }
 
-nav.scroll {
-    background-color: white;
-}
-
 aside {
     transition: 300ms;
 }

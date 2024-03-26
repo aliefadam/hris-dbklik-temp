@@ -41,7 +41,8 @@
     @include('partials.overlay_message')
     @include('partials.sidebar')
     @include('partials.topbar')
-    <main class="ml-[250px] mt-[84px] py-5 px-10">
+
+    <main class="ml-[70px] md:ml-[250px] mt-[84px] md:py-5 px-4 md:px-10">
         @yield('content')
     </main>
 
@@ -74,44 +75,6 @@
                     .draw();
             });
         });
-
-        // const rowData = $("#table-daftar-pengajuan tbody tr");
-        // rowData.on("click", function() {
-        //     const no = this.children[0].innerHTML;
-        //     const divisi = this.children[1].innerHTML;
-        //     const nama = this.children[2].innerHTML;
-        //     const izin = this.children[3].innerHTML;
-        //     const tanggalDiajukan = this.children[4].innerHTML;
-        //     const tanggalIzin = this.children[5].innerHTML;
-        //     const catatan = this.getAttribute("data-catatan") ?? "-";
-        //     const filePendukung = this.getAttribute("data-filePendukung") ?? "-";
-        //     const status = this.children[6].innerHTML;
-        //     const statusText = this.children[6].children[1].innerHTML;
-
-        //     $("span.overlay-status").removeClass("pending")
-        //     $("span.overlay-status").removeClass("disetujui")
-        //     $("span.overlay-status").removeClass("ditolak")
-        //     $("span.overlay-file-pendukung").removeClass("underline");
-        //     $("span.overlay-file-pendukung").removeClass("underline-offset-1");
-
-        //     $("span.overlay-status").addClass(statusText);
-        //     if (filePendukung != "-") {
-        //         $("span.overlay-file-pendukung").addClass("underline");
-        //         $("span.overlay-file-pendukung").addClass("underline-offset-1");
-        //     }
-
-        //     $(".overlay").removeClass("hidden");
-        //     $(".overlay").addClass("flex");
-
-        //     $("span.overlay-divisi").html(divisi);
-        //     $("span.overlay-nama").html(nama);
-        //     $("span.overlay-izin").html(izin);
-        //     $("span.overlay-tanggal-diajukan").html(tanggalDiajukan);
-        //     $("span.overlay-tanggal-izin").html(tanggalIzin);
-        //     $("span.overlay-catatan").html(catatan);
-        //     $("span.overlay-file-pendukung").html(filePendukung);
-        //     $("span.overlay-status").html(status);
-        // });
 
         const rowData2 = $("#table-riwayat tbody tr");
         rowData2.on("click", function() {
