@@ -92,6 +92,7 @@ class PerizinanController extends Controller
         $penerimaNotif = $perizinan->karyawan->id;
         $penerimaEmail = $perizinan->karyawan->email;
         $pesan = [
+            "id_pengaju" => $perizinan->karyawan_id,
             "judul" => $request->status == "disetujui" ? "Pengajuan Izin Diterima" : "Pengajuan Izin Ditolak",
             "pesan" => $request->status == "disetujui" ? "Selamat, pengajuan izin Anda telah disetujui. Kami ingin memberitahu Anda bahwa izin yang Anda ajukan telah diterima dan telah diresmikan. Terima kasih atas kerja sama Anda dalam mematuhi prosedur yang berlaku." : "Kami menghargai waktu dan usaha Anda dalam mengajukan izin. Setelah melalui pertimbangan yang cermat, kami harus menyampaikan bahwa pengajuan izin Anda tidak dapat kami setujui pada kesempatan ini. Keputusan ini diambil berdasarkan pedoman dan kriteria yang telah ditetapkan",
             "feedback" => $request->feedback,

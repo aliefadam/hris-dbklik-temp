@@ -17,11 +17,9 @@ class NotifikasiController extends Controller
         $idPengaju = $idPengaju["id_pengaju"];
         $punyaSendiri = $idPengaju == auth()->user()->id ? true : false;
 
-        return response()->json(json_encode([
+        return response()->json([
             'punyaSendiri' => $punyaSendiri,
             'notifikasi' => $notifikasi
-        ]));
-
-        // return response()->json($idPengaju);
+        ]);
     }
 }

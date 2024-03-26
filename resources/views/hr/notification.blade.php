@@ -96,22 +96,20 @@
                     `);
                 },
                 success: function(data) {
-                    console.log(JSON.parse(data));
-                    data = JSON.parse(data);
-                    const id = data.id;
-                    const pesanJson = data.notifikasi.pesan;
-                    const judul = pesanJson.judul;
-                    const pesan = pesanJson.pesan;
-                    const tanggal = data.tanggal_jam;
-                    const nama = pesanJson.nama;
-                    const divisi = pesanJson.divisi;
-                    const tanggalIzin = pesanJson.tanggal_izin;
-                    const izin = pesanJson.izin;
-                    const catatan = pesanJson.catatan;
-                    const filePendukung = pesanJson.file_pendukung;
-                    const status = data.status_dibaca;
+                    const punyaSendiri = data.punyaSendiri;
+                    const dataPesan = JSON.parse(data.notifikasi.pesan);
 
-                    const feedback = pesanJson.feedback ?? "";
+                    const judul = dataPesan.judul;
+                    const pesan = dataPesan.pesan;
+                    const tanggal = data.notifikasi.tanggal_jam;
+                    const nama = dataPesan.nama;
+                    const divisi = dataPesan.divisi;
+                    const tanggalIzin = dataPesan.tanggal_izin;
+                    const izin = dataPesan.izin;
+                    const catatan = dataPesan.catatan;
+                    const filePendukung = dataPesan.file_pendukung;
+
+                    const feedback = dataPesan.feedback ?? "";
                     const feedbackView = `
                     <div class="text-sm mt-4 notif-detail-feedback notif-detail-feedback">
                         <span>Balasan Admin: ${feedback}</span>
@@ -151,13 +149,13 @@
                                 <span class="text-primary notif-detail-tanggal">${tanggal}</span>
                             </div>
                             <p class="mt-2 text-sm notif-detail-pesan">${pesan}</p>
-
+                            ${!punyaSendiri ? pengajuanIzin : ""}
                         </div>
                     `);
 
                     $(".open-file").on("click", function() {
                         window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
-                    })
+                    });
                 },
                 error: function(e) {
                     console.log(e);

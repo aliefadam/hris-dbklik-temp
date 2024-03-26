@@ -73,12 +73,12 @@
                     `);
                 },
                 success: function(data) {
-                    const id = data.id;
-                    const pesanJson = JSON.parse(data.pesan);
-                    const judul = pesanJson.judul;
-                    const pesan = pesanJson.pesan;
-                    const feedback = pesanJson.feedback;
-                    const tanggal = data.tanggal_jam;
+                    const dataPesan = JSON.parse(data.notifikasi.pesan);
+
+                    const judul = dataPesan.judul;
+                    const pesan = dataPesan.pesan;
+                    const feedback = dataPesan.feedback;
+                    const tanggal = data.notifikasi.tanggal_jam;
 
                     const feedbackView = `
                     <div class="text-sm mt-4 notif-detail-feedback notif-detail-feedback">
