@@ -48,7 +48,7 @@
             @endphp
             <a href="/notification/{{ $notifikasi->id }}"
                 class="notification-list flex items-center justify-betweens py-2 md:py-3 px-3 md:px-5 hover:bg-gray-100 rounded-lg gap-1 md:gap-0">
-                <div class="flex-[3] md:flex-[2]">
+                <div class="flex-[3.5] md:flex-[2]">
                     <h1 class="text-dbklik text-sm md:text-[16px]">{{ $pesan['judul'] }}</h1>
                     <span class="block text-[11px] md:text-[13px]">{{ substr($pesan['pesan'], 0, 30) }}...</span>
                 </div>
