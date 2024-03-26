@@ -96,18 +96,51 @@
                     `);
                 },
                 success: function(data) {
-                    const id = data.id;
-                    const pesanJson = JSON.parse(data.pesan);
-                    const judul = pesanJson.judul;
-                    const pesan = pesanJson.pesan;
-                    const tanggal = data.tanggal_jam;
-                    const nama = pesanJson.nama;
-                    const divisi = pesanJson.divisi;
-                    const tanggalIzin = pesanJson.tanggal_izin;
-                    const izin = pesanJson.izin;
-                    const catatan = pesanJson.catatan;
-                    const filePendukung = pesanJson.file_pendukung;
-                    const status = data.status_dibaca;
+                    const punyaSendiri = data.punyaSendiri;
+                    const dataPesan = JSON.parse(data.notifikasi.pesan);
+
+                    const judul = dataPesan.judul;
+                    const pesan = dataPesan.pesan;
+                    const tanggal = data.notifikasi.tanggal_jam;
+                    const nama = dataPesan.nama;
+                    const divisi = dataPesan.divisi;
+                    const tanggalIzin = dataPesan.tanggal_izin;
+                    const izin = dataPesan.izin;
+                    const catatan = dataPesan.catatan;
+                    const filePendukung = dataPesan.file_pendukung;
+
+                    const feedback = dataPesan.feedback ?? "";
+                    const feedbackView = `
+                    <div class="text-sm mt-4 notif-detail-feedback notif-detail-feedback">
+                        <span>Balasan Admin: ${feedback}</span>
+                    </div>`;
+
+                    const pengajuanIzin = `
+                    <div class="mt-5 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">Nama</span>
+                        <span class="text-black text-[17px] leading-none">${nama}</span>
+                    </div>
+                    <div class="mt-3 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">Divisi</span>
+                        <span class="text-black text-[17px] leading-none">${divisi}</span>
+                    </div>
+                    <div class="mt-3 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">Izin</span>
+                        <span class="text-black text-[17px] leading-none">${izin}</span>
+                    </div>
+                    <div class="mt-3 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">Tanggal Izin</span>
+                        <span class="text-black text-[17px] leading-none">${tanggalIzin}</span>
+                    </div>
+                    <div class="mt-3 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">Catatan</span>
+                        <span class="text-black text-[17px] leading-none">${catatan}</span>
+                    </div>
+                    <div class="mt-3 flex gap-1 flex-col">
+                        <span class="text-dbklik text-sm">File Pendukung</span>
+                        <span class="text-black text-[17px] leading-none ${filePendukung != "-" ? `underline cursor-pointer open-file` : ''}">${filePendukung}</span>
+                    </div>
+                    `;
 
                     $(".notifikasi-detail").html(`
                         <div class="scroll">
@@ -116,36 +149,13 @@
                                 <span class="text-primary notif-detail-tanggal">${tanggal}</span>
                             </div>
                             <p class="mt-2 text-sm notif-detail-pesan">${pesan}</p>
-                            <div class="mt-5 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">Nama</span>
-                                <span class="text-black text-[17px] leading-none">${nama}</span>
-                            </div>
-                            <div class="mt-3 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">Divisi</span>
-                                <span class="text-black text-[17px] leading-none">${divisi}</span>
-                            </div>
-                            <div class="mt-3 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">Izin</span>
-                                <span class="text-black text-[17px] leading-none">${izin}</span>
-                            </div>
-                            <div class="mt-3 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">Tanggal Izin</span>
-                                <span class="text-black text-[17px] leading-none">${tanggalIzin}</span>
-                            </div>
-                            <div class="mt-3 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">Catatan</span>
-                                <span class="text-black text-[17px] leading-none">${catatan}</span>
-                            </div>
-                            <div class="mt-3 flex gap-1 flex-col">
-                                <span class="text-dbklik text-sm">File Pendukung</span>
-                                <span class="text-black text-[17px] leading-none ${filePendukung != "-" ? `underline cursor-pointer open-file` : ''}">${filePendukung}</span>
-                            </div>
+                            ${!punyaSendiri ? pengajuanIzin : ""}
                         </div>
                     `);
 
                     $(".open-file").on("click", function() {
                         window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
-                    })
+                    });
                 },
             });
         }
