@@ -20,8 +20,6 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use DateTime;
-use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class HRController extends Controller
@@ -203,13 +201,17 @@ class HRController extends Controller
     public function biodata(Karyawan $karyawan)
     {
         if ($karyawan->sub_divisi_id == null) {
-            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi')
+            $biodata = Karyawan::select('divisis.nama_divisi', "jabatans.nama_jabatan", 'karyawans.*', "cabangs.nama_cabang")
                 ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->join("cabangs", "cabangs.id", "=", "karyawans.cabang_id")
+                ->join("jabatans", "jabatans.id", "=", "karyawans.jabatan_id")
                 ->where("karyawans.id", $karyawan->id)
                 ->get();
         } else {
-            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
+            $biodata = Karyawan::select('divisis.nama_divisi', 'sub_divisis.nama_sub_divisi', "jabatans.nama_jabatan", 'karyawans.*', "cabangs.nama_cabang")
                 ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->join("cabangs", "cabangs.id", "=", "karyawans.cabang_id")
+                ->join("jabatans", "jabatans.id", "=", "karyawans.jabatan_id")
                 ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
                 ->where("karyawans.id", $karyawan->id)
                 ->get();
@@ -237,7 +239,9 @@ class HRController extends Controller
     {
         return view('hr.notification', [
             "title" => "Notifikasi",
-            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)
+                ->orderBy("id", "DESC")
+                ->get(),
         ]);
     }
 
