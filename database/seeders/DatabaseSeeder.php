@@ -9,6 +9,7 @@ use App\Models\Divisi;
 use App\Models\Izin;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
+use App\Models\MenuKatering;
 use App\Models\RulesHRD;
 use App\Models\SubDivisi;
 use App\Models\User;
@@ -275,6 +276,42 @@ class DatabaseSeeder extends Seeder
         RulesHRD::create([
             "judul" => "Izin Sakit (akan masuk ke cuti-apabila memiliki cuti)",
             "aturan" => "Karyawan menulis form max jam 8 pagi di hari bekerja.",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Senin",
+            "tanggal" => "2024-04-01",
+            "menu" => "-",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Selasa",
+            "tanggal" => "2024-04-02",
+            "menu" => "-",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Rabu",
+            "tanggal" => "2024-04-03",
+            "menu" => "-",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Kamis",
+            "tanggal" => "2024-04-04",
+            "menu" => "-",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Jumat",
+            "tanggal" => "2024-04-05",
+            "menu" => "-",
+        ]);
+
+        MenuKatering::create([
+            "hari" => "Sabtu",
+            "tanggal" => "2024-04-06",
+            "menu" => "-",
         ]);
 
         Karyawan::create([

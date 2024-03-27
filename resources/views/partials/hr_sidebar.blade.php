@@ -45,12 +45,35 @@
                 Karyawan</span>
         </a>
         <a href="/hr/katering"
-            class="duration-200 item flex flex-col md:flex-row lg:flex-row xl:flex-row items-center md:gap-2 lg:gap-2 xl:gap-2 py-[8px] px-[16px] {{ $title == 'Katering' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
-            <i
-                class="icon-item fa-solid fa-burger  py-[5.5px] flex {{ $title == 'Katering' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
-            <span
-                class="{{ $title == 'Katering' ? 'text-dbklik' : 'text-white' }} font-medium text-[9px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-none">Katering</span>
+            class="dropdown-menu duration-200 item flex flex-col md:flex-row justify-between items-center py-[8px] px-[16px] {{ $title == '' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+            <div class="flex flex-col md:flex-row items-center gap-3">
+                <i
+                    class="icon-item fas fa-utensils py-[5.5px] flex {{ $title == '' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+                <span
+                    class="{{ $title == '' ? 'text-dbklik' : 'text-white' }} font-medium text-[9px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-none">Katering</span>
+            </div>
+            <i class="bi bi-chevron-right text-white"></i>
         </a>
+        <div class="dropdown-extra hidden">
+            <a href="/hr/katering"
+                class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Katering' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+                <span
+                    class="{{ $title == 'Katering' ? 'text-dbklik' : 'text-white' }} py-2 ml-7 font-medium text-[16px] leading-none">Pesan
+                    Katering</span>
+            </a>
+            <a href="/hr/edit-katering"
+                class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Edit Menu' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+                <span
+                    class="{{ $title == 'Edit Menu' ? 'text-dbklik' : 'text-white' }} py-2 ml-7 font-medium text-[16px] leading-none">Edit
+                    Menu</span>
+            </a>
+            <a href="/hr/katering"
+                class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Daftar Pesanan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+                <span
+                    class="{{ $title == 'Daftar Pesanan' ? 'text-dbklik' : 'text-white' }} py-2 ml-7 font-medium text-[16px] leading-none">Daftar
+                    Pesanan</span>
+            </a>
+        </div>
         <a href="/hr/struktur-pegawai"
             class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Struktur Pegawai' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <i
@@ -61,3 +84,16 @@
         </a>
     </div>
 </aside>
+
+<script>
+    $(".dropdown-menu").on("click", function(e) {
+        e.preventDefault();
+        if ($(".dropdown-extra").hasClass("hidden")) {
+            $(".dropdown-extra").removeClass("hidden");
+            $(this).children()[1].style.transform = "rotate(90deg)";
+        } else {
+            $(".dropdown-extra").addClass("hidden");
+            $(this).children()[1].style.transform = "rotate(0)";
+        }
+    });
+</script>

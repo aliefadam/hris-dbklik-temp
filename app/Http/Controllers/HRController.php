@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\MenuKatering;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
 use Illuminate\Support\Facades\File;
@@ -113,6 +114,27 @@ class HRController extends Controller
         return view("hr.katering", [
             "title" => "Katering",
         ]);
+    }
+
+    public function editKatering()
+    {
+        return view("hr.edit-katering", [
+            "title" => "Edit Menu",
+            "data_menu" => MenuKatering::all(),
+        ]);
+    }
+
+    public function ubahKatering(Request $request)
+    {
+
+        MenuKatering::where("hari", "Senin")->update(["menu" => $request->Senin]);
+        MenuKatering::where("hari", "Selasa")->update(["menu" => $request->Selasa]);
+        MenuKatering::where("hari", "Rabu")->update(["menu" => $request->Rabu]);
+        MenuKatering::where("hari", "Kamis")->update(["menu" => $request->Kamis]);
+        MenuKatering::where("hari", "Jumat")->update(["menu" => $request->Jumat]);
+        MenuKatering::where("hari", "Sabtu")->update(["menu" => $request->Sabtu]);
+
+        return redirect()->back();
     }
 
     public function strukturPegawai()
