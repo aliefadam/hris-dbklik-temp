@@ -45,6 +45,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
         Route::put('/ganti-password', [HeadController::class, 'simpanPasswordBaru'])->middleware("role:2");
+        Route::get('/katering', [HeadController::class, 'katering'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {
@@ -71,6 +72,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
         Route::post('/edit-profile-karyawan/{karyawan}', [HRController::class, 'editProfileKaryawan'])->middleware("role:3");
         Route::get('/export-excel/{s}/{e}', [HRController::class, 'exportExcel'])->middleware("role:3");
+        Route::get('/katering', [HRController::class, 'katering'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");
@@ -82,6 +84,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/notification', [StaffController::class, 'notification'])->middleware("role:4");
     Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
+    Route::get('/katering', [StaffController::class, 'katering'])->middleware("role:4");
 
 
     Route::post('/edit-foto', [StaffController::class, 'editFoto']);

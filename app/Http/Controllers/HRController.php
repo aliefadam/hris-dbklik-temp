@@ -79,6 +79,7 @@ class HRController extends Controller
             "rulesHRD" => RulesHRD::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", "1")
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0,
         ]);
@@ -104,6 +105,13 @@ class HRController extends Controller
             "title" => "Riwayat",
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function katering()
+    {
+        return view("hr.katering", [
+            "title" => "Katering",
         ]);
     }
 
@@ -230,6 +238,7 @@ class HRController extends Controller
             "data_mutasi" => Mutasi::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", $karyawan->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", 1)
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0,
         ]);

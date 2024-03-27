@@ -70,6 +70,7 @@ class StaffController extends Controller
             "rulesHRD" => RulesHRD::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", "1")
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0,
         ]);
@@ -106,6 +107,13 @@ class StaffController extends Controller
             "jabatan_id" => auth()->user()->karyawan->jabatan_id,
             "diatas_satu_level" => auth()->user()->karyawan->jabatan_id - 1,
             "title" => "Struktur Pegawai",
+        ]);
+    }
+
+    public function katering()
+    {
+        return view("katering", [
+            "title" => "Katering",
         ]);
     }
 
