@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportPerizinan;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
@@ -20,6 +21,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DateTime;
+use Maatwebsite\Excel\Excel as ExcelExcel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HRController extends Controller
 {
@@ -129,7 +132,38 @@ class HRController extends Controller
             $mulai = $request->s;
             $akhir = $request->e;
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
-                ->where("karyawan_id", "!=", auth()->user()->id)
+                ->where(function ($queryy) {
+                    $queryy->where("karyawan_id", "!=", auth()->user()->id)
+                        ->orWhere(function ($query) {
+                            $query->where("karyawan_id", auth()->user()->id)
+                                ->where("status", "disetujui")
+                                ->orWhere("status", "ditolak");
+                        });
+                })
+                // ->where("karyawan_id", "!=", auth()->user()->id)
+                // ->orWhere(function ($query) {
+                //     $query->where("karyawan_id", auth()->user()->id)
+                //         ->where("status", "disetujui")
+                //         ->orWhere("status", "ditolak");
+                // })
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
+        return view('hr.daftar-pengajuan', [
+            "data_perizinan" => $dataPerizinan,
+            "tampil_catatan" => false,
+            "title" => "Daftar Pengajuan",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function exportExcel($s, $e)
+    {
+        $dataPerizinan = null;
+        if ($s == "all") {
+            $dataPerizinan = Perizinan::where("karyawan_id", "!=", auth()->user()->id)
                 ->orWhere(function ($query) {
                     $query->where("karyawan_id", auth()->user()->id)
                         ->where("status", "disetujui")
@@ -137,14 +171,23 @@ class HRController extends Controller
                 })
                 ->orderBy("updated_at", "DESC")
                 ->get();
+        } else {
+            $mulai = $s;
+            $akhir = $e;
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->where(function ($queryy) {
+                    $queryy->where("karyawan_id", "!=", auth()->user()->id)
+                        ->orWhere(function ($query) {
+                            $query->where("karyawan_id", auth()->user()->id)
+                                ->where("status", "disetujui")
+                                ->orWhere("status", "ditolak");
+                        });
+                })
+                ->orderBy("updated_at", "DESC")
+                ->get();
         }
 
-        return view('hr.daftar-pengajuan', [
-            "data_perizinan" => $dataPerizinan,
-            "title" => "Daftar Pengajuan",
-            "mulai" => isset($mulai) ? $mulai : null,
-            "akhir" => isset($akhir) ? $akhir : null,
-        ]);
+        return Excel::download(new ExportPerizinan($dataPerizinan), "data-perizinan.xlsx");
     }
 
     public function daftarKaryawan()
