@@ -2,7 +2,10 @@
     class="fixed rounded-lg top-0 left-[calc(250px+40px)] w-[calc(100%-250px-40px-40px)] h-[64px] flex items-center justify-between z-10">
     <div class="left flex items-center gap-2">
         <span class="jam bg-dbklik w-[100px] p-2 rounded-lg text-center text-yellow-dbklik block font-semibold"></span>
-        <span class="hari text-dbklik text-xl font-semibold"></span>
+        <div class="flex flex-col md:flex-row md:gap-1">
+            <span class="text-[13px] md:text-xl hari text-dbklik font-semibold"></span>
+            <span class="text-[13px] md:text-xl tanggal text-dbklik font-semibold"></span>
+        </div>
     </div>
     <div class="right flex gap-3 text-dbklik">
         <div class="btn-notification relative">

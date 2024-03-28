@@ -59,6 +59,18 @@ class DatabaseSeeder extends Seeder
             "max_hari_izin" => "2160",
         ]);
 
+        Izin::create([
+            "jenis_izin" => "Dinas Luar",
+            "min_pengajuan" => "0",
+            "max_hari_izin" => "0",
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Terlambat/Pulang Awal",
+            "min_pengajuan" => "0",
+            "max_hari_izin" => "0",
+        ]);
+
         // Divisi
         Divisi::create([
             "nama_divisi" => "Accounting",
@@ -295,7 +307,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '1 tahun',
             'kontak_darurat' => 81234567891,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'john_doe_cv.pdf',
             'ksk_file' => 'john_doe_ksk.pdf',
             'ijasah_file' => 'john_doe_ijazah.pdf',
@@ -338,7 +349,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '2 tahun',
             'kontak_darurat' => 82345678902,
             'cabang_id' => 2,
-            'jatah_cuti' => 6,
             'cv_file' => 'jane_smith_cv.pdf',
             'ksk_file' => 'jane_smith_ksk.pdf',
             'ijasah_file' => 'jane_smith_ijazah.pdf',
@@ -381,7 +391,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '3 tahun',
             'kontak_darurat' => 83456789013,
             'cabang_id' => 2,
-            'jatah_cuti' => 6,
             'cv_file' => 'alex_johnson_cv.pdf',
             'ksk_file' => 'alex_johnson_ksk.pdf',
             'ijasah_file' => 'alex_johnson_ijazah.pdf',
@@ -424,7 +433,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '3 tahun',
             'kontak_darurat' => 84567890124,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'eva_turner_cv.pdf',
             'ksk_file' => 'eva_turner_ksk.pdf',
             'ijasah_file' => 'eva_turner_ijazah.pdf',
@@ -467,7 +475,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '3 tahun',
             'kontak_darurat' => 85678901235,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'mark_bennett_cv.pdf',
             'ksk_file' => 'mark_bennett_ksk.pdf',
             'ijasah_file' => 'mark_bennett_ijazah.pdf',
@@ -510,7 +517,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '3 tahun',
             'kontak_darurat' => 85678901235,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'tom_holland_cv.pdf',
             'ksk_file' => 'tom_holland_ksk.pdf',
             'ijasah_file' => 'tom_holland_ijazah.pdf',
@@ -553,7 +559,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '1 tahun',
             'kontak_darurat' => 81234567891,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'alee_feyy_cv.pdf',
             'ksk_file' => 'alee_feyy_ksk.pdf',
             'ijasah_file' => 'alee_feyy_ijazah.pdf',
@@ -596,7 +601,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '1 tahun',
             'kontak_darurat' => 81234567891,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'john_doe_cv.pdf',
             'ksk_file' => 'john_doe_ksk.pdf',
             'ijasah_file' => 'john_doe_ijazah.pdf',

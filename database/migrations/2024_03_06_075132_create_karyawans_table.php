@@ -42,7 +42,6 @@ return new class extends Migration
             $table->string("range_kontrak");
             $table->bigInteger("kontak_darurat");
             $table->foreignId("cabang_id");
-            $table->integer("jatah_cuti");
             $table->string("cv_file");
             $table->string("ksk_file");
             $table->string("ijasah_file");

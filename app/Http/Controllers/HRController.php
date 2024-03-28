@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportPerizinan;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
@@ -19,7 +20,7 @@ use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use DateTime;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HRController extends Controller
 {
@@ -129,7 +130,38 @@ class HRController extends Controller
             $mulai = $request->s;
             $akhir = $request->e;
             $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
-                ->where("karyawan_id", "!=", auth()->user()->id)
+                ->where(function ($queryy) {
+                    $queryy->where("karyawan_id", "!=", auth()->user()->id)
+                        ->orWhere(function ($query) {
+                            $query->where("karyawan_id", auth()->user()->id)
+                                ->where("status", "disetujui")
+                                ->orWhere("status", "ditolak");
+                        });
+                })
+                // ->where("karyawan_id", "!=", auth()->user()->id)
+                // ->orWhere(function ($query) {
+                //     $query->where("karyawan_id", auth()->user()->id)
+                //         ->where("status", "disetujui")
+                //         ->orWhere("status", "ditolak");
+                // })
+                ->orderBy("updated_at", "DESC")
+                ->get();
+        }
+
+        return view('hr.daftar-pengajuan', [
+            "data_perizinan" => $dataPerizinan,
+            "tampil_catatan" => false,
+            "title" => "Daftar Pengajuan",
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function exportExcel($s, $e)
+    {
+        $dataPerizinan = null;
+        if ($s == "all") {
+            $dataPerizinan = Perizinan::where("karyawan_id", "!=", auth()->user()->id)
                 ->orWhere(function ($query) {
                     $query->where("karyawan_id", auth()->user()->id)
                         ->where("status", "disetujui")
@@ -137,14 +169,23 @@ class HRController extends Controller
                 })
                 ->orderBy("updated_at", "DESC")
                 ->get();
+        } else {
+            $mulai = $s;
+            $akhir = $e;
+            $dataPerizinan = Perizinan::whereBetween("tanggal_mulai", [$mulai, $akhir])
+                ->where(function ($queryy) {
+                    $queryy->where("karyawan_id", "!=", auth()->user()->id)
+                        ->orWhere(function ($query) {
+                            $query->where("karyawan_id", auth()->user()->id)
+                                ->where("status", "disetujui")
+                                ->orWhere("status", "ditolak");
+                        });
+                })
+                ->orderBy("updated_at", "DESC")
+                ->get();
         }
 
-        return view('hr.daftar-pengajuan', [
-            "data_perizinan" => $dataPerizinan,
-            "title" => "Daftar Pengajuan",
-            "mulai" => isset($mulai) ? $mulai : null,
-            "akhir" => isset($akhir) ? $akhir : null,
-        ]);
+        return Excel::download(new ExportPerizinan($dataPerizinan), "data-perizinan.xlsx");
     }
 
     public function daftarKaryawan()
@@ -160,13 +201,17 @@ class HRController extends Controller
     public function biodata(Karyawan $karyawan)
     {
         if ($karyawan->sub_divisi_id == null) {
-            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi')
+            $biodata = Karyawan::select('divisis.nama_divisi', "jabatans.nama_jabatan", 'karyawans.*', "cabangs.nama_cabang")
                 ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->join("cabangs", "cabangs.id", "=", "karyawans.cabang_id")
+                ->join("jabatans", "jabatans.id", "=", "karyawans.jabatan_id")
                 ->where("karyawans.id", $karyawan->id)
                 ->get();
         } else {
-            $biodata = Karyawan::select('karyawans.*', 'divisis.nama_divisi', 'sub_divisis.nama_sub_divisi')
+            $biodata = Karyawan::select('divisis.nama_divisi', 'sub_divisis.nama_sub_divisi', "jabatans.nama_jabatan", 'karyawans.*', "cabangs.nama_cabang")
                 ->join("divisis", "divisis.id", "=", "karyawans.divisi_id")
+                ->join("cabangs", "cabangs.id", "=", "karyawans.cabang_id")
+                ->join("jabatans", "jabatans.id", "=", "karyawans.jabatan_id")
                 ->join("sub_divisis", "sub_divisis.id", "=", "karyawans.sub_divisi_id")
                 ->where("karyawans.id", $karyawan->id)
                 ->get();
@@ -194,7 +239,9 @@ class HRController extends Controller
     {
         return view('hr.notification', [
             "title" => "Notifikasi",
-            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
+            "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)
+                ->orderBy("id", "DESC")
+                ->get(),
         ]);
     }
 
