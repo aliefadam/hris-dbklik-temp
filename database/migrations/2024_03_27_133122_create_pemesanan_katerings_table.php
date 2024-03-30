@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("karyawan_id");
             $table->foreignId("menu_id");
-            $table->enum("setuju", [true, false]);
+            // $table->enum("setuju", [true, false]);
+            $table->boolean("setuju");
             $table->string("request")->nullable();
             $table->timestamps();
         });

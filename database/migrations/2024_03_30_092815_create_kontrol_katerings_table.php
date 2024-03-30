@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_katerings', function (Blueprint $table) {
+        Schema::create('kontrol_katerings', function (Blueprint $table) {
             $table->id();
-            $table->string("hari");
-            $table->date("tanggal")->nullable();
-            $table->string("menu")->nullable();
+            $table->string("status");
+            $table->dateTime("batas_akhir")->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_katerings');
+        Schema::dropIfExists('kontrol_katerings');
     }
 };

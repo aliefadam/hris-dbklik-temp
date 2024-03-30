@@ -13,9 +13,11 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\KontrolKatering;
 use App\Models\MenuKatering;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
+use App\Models\PemesananKatering;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -113,28 +115,93 @@ class HRController extends Controller
     {
         return view("hr.katering", [
             "title" => "Katering",
+            "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
+            "data_tanggal_awal" => MenuKatering::where("hari", "Senin")->first()->tanggal ?? "",
+            "data_tanggal_akhir" => MenuKatering::where("hari", "Sabtu")->first()->tanggal ?? "",
+            "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
+            "menu_katering" => MenuKatering::all(),
         ]);
     }
 
     public function editKatering()
     {
+        $status = KontrolKatering::find(1)->status;
+        $batas_akhir = KontrolKatering::find(1)->batas_akhir;
+
+        if ($status == "Aktif") {
+            if (date("Y-m-d H:i:s") > $batas_akhir) {
+                $this->nonaktifkanKatering();
+            }
+        }
+
         return view("hr.edit-katering", [
             "title" => "Edit Menu",
             "data_menu" => MenuKatering::all(),
+            "data_tanggal_awal" => MenuKatering::where("hari", "Senin")->first()->tanggal ?? "",
+            "data_tanggal_akhir" => MenuKatering::where("hari", "Sabtu")->first()->tanggal ?? "",
+            "kontrol_katering" => KontrolKatering::first(),
         ]);
     }
 
     public function ubahKatering(Request $request)
     {
+        $tanggalAwal = $request->tanggal_awal_menu;
+        $tanggalAkhir = $request->tanggal_akhir_menu;
 
-        MenuKatering::where("hari", "Senin")->update(["menu" => $request->Senin]);
-        MenuKatering::where("hari", "Selasa")->update(["menu" => $request->Selasa]);
-        MenuKatering::where("hari", "Rabu")->update(["menu" => $request->Rabu]);
-        MenuKatering::where("hari", "Kamis")->update(["menu" => $request->Kamis]);
-        MenuKatering::where("hari", "Jumat")->update(["menu" => $request->Jumat]);
-        MenuKatering::where("hari", "Sabtu")->update(["menu" => $request->Sabtu]);
+        $hariMenu = [
+            "Senin" => $request->Senin,
+            "Selasa" => $request->Selasa,
+            "Rabu" => $request->Rabu,
+            "Kamis" => $request->Kamis,
+            "Jumat" => $request->Jumat,
+            "Sabtu" => $request->Sabtu,
+        ];
+
+        $tanggalSekarang = $tanggalAwal;
+        foreach ($hariMenu as $hari => $menu) {
+            MenuKatering::where("hari", $hari)->update([
+                "menu" => $menu,
+                "tanggal" => $tanggalSekarang,
+            ]);
+            $tanggalSekarang = date('Y-m-d', strtotime($tanggalSekarang . ' +1 day'));
+        }
+
+        MenuKatering::where("hari", "Sabtu")->update([
+            "menu" => $hariMenu["Sabtu"],
+            "tanggal" => $tanggalAkhir,
+        ]);
 
         return redirect()->back();
+    }
+
+    public function aktifkanKatering($tanggal_jam)
+    {
+        KontrolKatering::find(1)->update([
+            "status" => "Aktif",
+            "batas_akhir" => $tanggal_jam,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function nonaktifkanKatering()
+    {
+        KontrolKatering::find(1)->update([
+            "status" => "Non Aktif",
+            "batas_akhir" => null,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function daftarPesananKatering()
+    {
+        return view('hr.daftar-pesanan-katering', [
+            "data_pemesanan_group" => PemesananKatering::all(),
+            "data_pemesanan" => PemesananKatering::all(),
+            "data_hari" => MenuKatering::all(),
+            "title" => "Daftar Pesanan",
+        ]);
     }
 
     public function strukturPegawai()

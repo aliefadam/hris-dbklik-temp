@@ -67,7 +67,7 @@
                     class="{{ $title == 'Edit Menu' ? 'text-dbklik' : 'text-white' }} py-2 ml-7 font-medium text-[16px] leading-none">Edit
                     Menu</span>
             </a>
-            <a href="/hr/katering"
+            <a href="/hr/daftar-pesanan-katering"
                 class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Daftar Pesanan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
                 <span
                     class="{{ $title == 'Daftar Pesanan' ? 'text-dbklik' : 'text-white' }} py-2 ml-7 font-medium text-[16px] leading-none">Daftar
