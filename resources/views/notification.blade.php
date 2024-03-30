@@ -41,7 +41,7 @@
                             $feedback = $pesan['feedback'];
                         @endphp
                         <span>{{ $feedback != null ? "Balasan dari Admin:  $feedback" : '' }}</span>
-                    </div>`
+                    </div>
                 </div>
             @else
                 <div class="h-full flex justify-center items-center notifikasi-hint">
