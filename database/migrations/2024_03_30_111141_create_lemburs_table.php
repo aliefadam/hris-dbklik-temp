@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string("keperluan");
             $table->time("jam_mulai");
             $table->time("jam_selesai");
-            $table->string("catatan");
+            $table->string("jumlah_jam_menit");
+            $table->string("catatan")->nullable();
             $table->timestamps();
         });
     }

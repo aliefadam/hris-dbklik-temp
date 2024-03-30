@@ -131,6 +131,7 @@
                 <th class="p-3">Tanggal Lembur</th>
                 <th class="p-3">Keperluan</th>
                 <th class="p-3">Jam Lembur</th>
+                <th class="p-3">Jumlah <span class="text-xs">(jam:menit)</span></th>
                 <th class="p-3">Catatan</th>
             </tr>
         </thead>
@@ -141,6 +142,7 @@
                     <td class="">{{ $lembur->tanggal }}</td>
                     <td class="">{{ $lembur->keperluan }}</td>
                     <td class="">{{ substr($lembur->jam_mulai, 0, 5) . " - " . substr($lembur->jam_selesai, 0, 5) }}</td>
+                    <td class="">{{ $lembur->jumlah_jam_menit }}</td>
                     <td class="">{{ $lembur->catatan }}</td>
                 </tr>
             @endforeach

@@ -491,18 +491,4 @@ class HRController extends Controller
 
         return redirect()->back();
     }
-
-    public function lembur(Request $request)
-    {
-        Lembur::create([
-            "karyawan_id" => $request->karyawan_id,
-            "tanggal" => $request->tanggal,
-            "keperluan" => $request->keperluan,
-            "jam_mulai" => $request->jam_mulai,
-            "jam_selesai" => $request->jam_selesai,
-            "catatan" => $request->catatan,
-        ]);
-
-        return redirect()->back();
-    }
 }
