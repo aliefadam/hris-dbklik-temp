@@ -36,6 +36,7 @@
                         <span class="text-primary notif-detail-tanggal">{{ $notifikasi->tanggal_jam }}</span>
                     </div>
                     <p class="mt-2 text-sm notif-detail-pesan">{{ $pesan['pesan'] }}</p>
+                    
                     <div class="mt-5 flex gap-1 flex-col">
                         <span class="text-dbklik text-sm">Nama</span>
                         <span class="text-black text-[17px] leading-none">{{ $pesan['nama'] }}</span>

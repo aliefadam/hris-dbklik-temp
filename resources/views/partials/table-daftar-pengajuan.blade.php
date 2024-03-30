@@ -24,7 +24,7 @@
                 <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                 <td class="">{{ $perizinan->izin->jenis_izin }}</td>
                 <td class="">{{ $perizinan->created_at }}</td>
-                <td class="">{{ $perizinan->tanggal_mulai }} - {{ $perizinan->tanggal_akhir }}</td>
+                <td class="">{{ $perizinan->tanggal_mulai }} {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
                 @if ($tampil_catatan)
                     <td class="p-3">{{ $perizinan->catatan ?? '-' }}</td>
                 @endif

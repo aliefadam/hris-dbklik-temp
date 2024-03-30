@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId("karyawan_id");
             $table->foreignId("izin_id");
             $table->date("tanggal_mulai");
-            $table->date("tanggal_akhir");
+            $table->date("tanggal_akhir")->nullable();
+            $table->time("jam")->nullable();
             $table->text("catatan")->nullable();
             $table->string("bukti_file")->nullable();
             $table->string("status");

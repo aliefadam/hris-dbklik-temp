@@ -35,7 +35,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <div class="w-full md:w-[50%] flex items-center gap-2">
-                        <select name="jenis_izin" id=""
+                        <select name="jenis_izin" id="jenis_izin"
                             class="outline-none border border-dbklik p-2 rounded-md w-[100%]">
                             @foreach ($jenis_izin as $izin)
                                 <option value="{{ $izin->id }}">{{ $izin->jenis_izin }}</option>
@@ -45,11 +45,13 @@
                     <div class="flex flex-col md:flex-row mt-3 md:mt-7 w-full gap-3 md:gap-4">
                         <div class="flex flex-col gap-2 w-full md:w-[50%]">
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                                <label for="tanggal_mulai" class="text-dbklik font-medium">Tanggal Mulai</label>
+                                <label for="tanggal_mulai" class="text-dbklik font-medium" id="label_tanggal_mulai">Tanggal
+                                    Mulai<span class="text-red-500"> *</span></label>
                                 <input required type="date" name="tanggal_mulai" id="tanggal_mulai" class="outline-none">
                             </div>
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
-                                <label for="tanggal_akhir" class="text-dbklik font-medium">Tanggal Akhir</label>
+                                <label for="tanggal_akhir" class="text-dbklik font-medium" id="label_tanggal_akhir">Tanggal
+                                    Akhir<span class="text-red-500"> *</span></label>
                                 <input required type="date" name="tanggal_akhir" id="tanggal_akhir" class="outline-none">
                             </div>
                             <div class="flex flex-col gap-2 p-3 border-dbklik border rounded-lg">
@@ -82,4 +84,27 @@
             </ol>
         </div>
     </div>
+
+    <script>
+        var tanggal_akhir_input = document.getElementById('tanggal_akhir');
+        var label_tanggal_mulai = document.getElementById('label_tanggal_mulai');
+        var label_tanggal_akhir = document.getElementById('label_tanggal_akhir');
+        
+        $("#jenis_izin").on("change", function() {
+            var selectedOption = this.options[this.selectedIndex].innerHTML;
+            console.log(selectedOption);
+
+            if (selectedOption === 'Terlambat' || selectedOption === 'Pulang Awal') {
+                tanggal_akhir_input.type = 'time';
+                label_tanggal_mulai.innerHTML = 'Tanggal<span class="text-red-500"> *</span>';
+                label_tanggal_akhir.innerHTML = 'Jam<span class="text-red-500"> *</span>';
+                tanggal_akhir_input.name = 'jam';
+            } else {
+                tanggal_akhir_input.type = 'date';
+                label_tanggal_mulai.innerHTML = 'Tanggal Mulai<span class="text-red-500"> *</span>';
+                label_tanggal_akhir.innerHTML = 'Tanggal Akhir<span class="text-red-500"> *</span>';
+                tanggal_akhir_input.name = 'tanggal_akhir';
+            }
+        });
+    </script>
 @endsection

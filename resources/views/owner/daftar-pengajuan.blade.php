@@ -49,7 +49,7 @@
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                     <td class="">{{ $perizinan->izin->jenis_izin }}</td>
                     <td class="">{{ $perizinan->created_at }}</td>
-                    <td class="">{{ $perizinan->tanggal_mulai }} - {{ $perizinan->tanggal_akhir }}</td>
+                    <td class="">{{ $perizinan->tanggal_mulai }} {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
                     @php
                         $status = $perizinan['status'];
                         if ($status == 'pending') {

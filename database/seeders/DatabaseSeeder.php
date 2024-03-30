@@ -66,7 +66,25 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Izin::create([
-            "jenis_izin" => "Terlambat/Pulang Awal",
+            "jenis_izin" => "Terlambat",
+            "min_pengajuan" => "0",
+            "max_hari_izin" => "0",
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Pulang Awal",
+            "min_pengajuan" => "0",
+            "max_hari_izin" => "0",
+        ]);
+        
+        Izin::create([
+            "jenis_izin" => "Keluar di jam kerja",
+            "min_pengajuan" => "0",
+            "max_hari_izin" => "0",
+        ]);
+
+        Izin::create([
+            "jenis_izin" => "Konfirmasi ceklog",
             "min_pengajuan" => "0",
             "max_hari_izin" => "0",
         ]);
@@ -643,7 +661,6 @@ class DatabaseSeeder extends Seeder
             'range_kontrak' => '3 tahun',
             'kontak_darurat' => 84567890124,
             'cabang_id' => 1,
-            'jatah_cuti' => 6,
             'cv_file' => 'emma_watson_cv.pdf',
             'ksk_file' => 'emma_watson_ksk.pdf',
             'ijasah_file' => 'emma_watson_ijazah.pdf',
