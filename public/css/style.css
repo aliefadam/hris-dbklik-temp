@@ -165,6 +165,7 @@ table tr th:last-child {
 #table-riwayat_wrapper,
 #table-daftar-pengajuan_wrapper,
 #table-karyawan_wrapper,
+#table-lembur_wrapper,
 #table-mutasi_wrapper {
     margin-top: 20px;
 }

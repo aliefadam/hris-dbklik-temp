@@ -71,6 +71,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
         Route::post('/edit-profile-karyawan/{karyawan}', [HRController::class, 'editProfileKaryawan'])->middleware("role:3");
         Route::get('/export-excel/{s}/{e}', [HRController::class, 'exportExcel'])->middleware("role:3");
+        Route::post('/lembur', [HRController::class, 'lembur'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

@@ -95,6 +95,14 @@
                 pageLength: 5,
             });
 
+            let tableLembur = $('#table-lembur').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+            });
+
             // $('#customSearchBoxKaryawan').keyup(function() {
             //     tableMutasi.search($(this).val())
             //         .draw();
@@ -244,6 +252,7 @@
         const btnKontrak = $(".btn-kontrak");
         const btnCatatan = $(".btn-catatan");
         const btnMutasi = $(".btn-mutasi");
+        const btnLembur = $(".btn-lembur");
 
         btnResign.on("click", function() {
             showOverlay("overlay-resign");
@@ -258,11 +267,15 @@
         btnMutasi.on("click", function() {
             showOverlay("overlay-mutasi");
         });
+        btnLembur.on("click", function() {
+            showOverlay("overlay-lembur");
+        });
 
         const btnCloseOverlayResign = $(".btn-close-overlay-resign");
         const btnCloseOverlayKontrak = $(".btn-close-overlay-kontrak");
         const btnCloseOverlayCatatan = $(".btn-close-overlay-catatan");
         const btnCloseOverlayMutasi = $(".btn-close-overlay-mutasi");
+        const btnCloseOverlayLembur = $(".btn-close-overlay-lembur");
 
         btnCloseOverlayResign.on("click", function() {
             closeOverlay("overlay-resign", "container-overlay-resign");
@@ -275,6 +288,9 @@
         });
         btnCloseOverlayMutasi.on("click", function() {
             closeOverlay("overlay-mutasi", "container-overlay-mutasi");
+        });
+        btnCloseOverlayLembur.on("click", function() {
+            closeOverlay("overlay-lembur", "container-overlay-lembur");
         });
 
         function showOverlay(overlay) {

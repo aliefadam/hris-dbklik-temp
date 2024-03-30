@@ -15,6 +15,7 @@ use App\Models\Jabatan;
 use App\Models\Divisi;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
+use App\Models\Lembur;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -228,6 +229,7 @@ class HRController extends Controller
             "jabatan" => Jabatan::all(),
             "title" => "Detail Karyawan",
             "data_mutasi" => Mutasi::all(),
+            "data_lembur" => Lembur::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", $karyawan->id)
                 ->where("status", "disetujui")
                 ->whereYear("tanggal_mulai", date("Y"))
@@ -486,6 +488,20 @@ class HRController extends Controller
             "inventaris_kantor" => $request->inventaris_kantor,
         ]);
 
+
+        return redirect()->back();
+    }
+
+    public function lembur(Request $request)
+    {
+        Lembur::create([
+            "karyawan_id" => $request->karyawan_id,
+            "tanggal" => $request->tanggal,
+            "keperluan" => $request->keperluan,
+            "jam_mulai" => $request->jam_mulai,
+            "jam_selesai" => $request->jam_selesai,
+            "catatan" => $request->catatan,
+        ]);
 
         return redirect()->back();
     }

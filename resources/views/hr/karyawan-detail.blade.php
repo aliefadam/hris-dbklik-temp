@@ -116,6 +116,37 @@
         </tbody>
     </table>
 
+    <div class="mt-10 flex justify-between leading-none items-center">
+        <h1 class="text-dbklik font-semibold text-3xl">Riwayat Lembur</h1>
+        <button
+            class="btn-lembur bg-gradient-to-r from-dbklik to-indigo-600 text-white px-5 py-4 rounded-lg shadow-lg block"><i
+                class="bi bi-plus-lg"></i>Tambah
+            Lembur</button>
+    </div>
+
+    <table class="w-full rounded-lg shadow-lg bg-white" id="table-lembur">
+        <thead>
+            <tr class="bg-dbklik text-yellow-dbklik">
+                <th class="p-3">No</th>
+                <th class="p-3">Tanggal Lembur</th>
+                <th class="p-3">Keperluan</th>
+                <th class="p-3">Jam Lembur</th>
+                <th class="p-3">Catatan</th>
+            </tr>
+        </thead>
+        <tbody class="">
+            @foreach ($data_lembur as $lembur)
+                <tr>
+                    <td class="">{{ $loop->iteration }}</td>
+                    <td class="">{{ $lembur->tanggal }}</td>
+                    <td class="">{{ $lembur->keperluan }}</td>
+                    <td class="">{{ substr($lembur->jam_mulai, 0, 5) . " - " . substr($lembur->jam_selesai, 0, 5) }}</td>
+                    <td class="">{{ $lembur->catatan }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
     <script>
         $(".open-file").on("click", function() {
             window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
