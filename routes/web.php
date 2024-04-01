@@ -73,6 +73,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
         Route::post('/edit-profile-karyawan/{karyawan}', [HRController::class, 'editProfileKaryawan'])->middleware("role:3");
         Route::get('/export-excel/{s}/{e}', [HRController::class, 'exportExcel'])->middleware("role:3");
+        Route::get('/export-excel-katering/{s}/{e}', [HRController::class, 'exportExcelKatering'])->middleware("role:3");
         Route::get('/katering', [HRController::class, 'katering'])->middleware("role:3");
         Route::get('/edit-katering', [HRController::class, 'editKatering'])->middleware("role:3");
         Route::put('/ubah-katering', [HRController::class, 'ubahKatering'])->middleware("role:3");

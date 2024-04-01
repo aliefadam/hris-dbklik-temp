@@ -69,7 +69,7 @@
                 paging: true,
                 info: false,
                 lengthChange: false,
-                pageLength: 5,
+                pageLength: 10,
                 order: [],
             });
 

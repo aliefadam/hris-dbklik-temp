@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportKatering;
 use App\Exports\ExportPerizinan;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
@@ -194,12 +195,26 @@ class HRController extends Controller
         return redirect()->back();
     }
 
-    public function daftarPesananKatering()
+    public function daftarPesananKatering(Request $request)
     {
+        $dataMenu = null;
+        if ($request->s == "") {
+            $dataMenu = MenuKatering::orderBy("tanggal", "ASC")->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataMenu = MenuKatering::whereBetween("tanggal", [$mulai, $akhir])
+                ->orderBy("tanggal", "ASC")
+                ->get();
+        }
+
         return view('hr.daftar-pesanan-katering', [
             "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
-            "data_menu" => MenuKatering::all(),
+            "data_menu" => $dataMenu,
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
             "title" => "Daftar Pesanan",
+            "export" => false,
         ]);
     }
 
@@ -234,12 +249,6 @@ class HRController extends Controller
                                 ->orWhere("status", "ditolak");
                         });
                 })
-                // ->where("karyawan_id", "!=", auth()->user()->id)
-                // ->orWhere(function ($query) {
-                //     $query->where("karyawan_id", auth()->user()->id)
-                //         ->where("status", "disetujui")
-                //         ->orWhere("status", "ditolak");
-                // })
                 ->orderBy("updated_at", "DESC")
                 ->get();
         }
@@ -282,6 +291,22 @@ class HRController extends Controller
         }
 
         return Excel::download(new ExportPerizinan($dataPerizinan), "data-perizinan.xlsx");
+    }
+
+    public function exportExcelKatering($s, $e)
+    {
+        $dataMenu = null;
+        if ($s == "all") {
+            $dataMenu = MenuKatering::orderBy("tanggal", "ASC")->get();
+        } else {
+            $mulai = $s;
+            $akhir = $e;
+            $dataMenu = MenuKatering::whereBetween("tanggal", [$mulai, $akhir])
+                ->orderBy("tanggal", "ASC")
+                ->get();
+        }
+
+        return Excel::download(new ExportKatering($dataMenu), "data-katering.xlsx");
     }
 
     public function daftarKaryawan()
