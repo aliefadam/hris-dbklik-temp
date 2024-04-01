@@ -28,12 +28,12 @@
                                     <div class="flex gap-2">
                                         <div class="">
                                             <input required type="radio" name="{{ $katering->hari }}"
-                                                id="{{ $katering->hari }}-Ya" class="translate-y-[1px]" value="true">
+                                                id="{{ $katering->hari }}-Ya" class="translate-y-[1px]" value="Ya">
                                             <label class="text-sm" for="{{ $katering->hari }}-Ya">Ya</label>
                                         </div>
                                         <div class="">
                                             <input required type="radio" name="{{ $katering->hari }}"
-                                                id="{{ $katering->hari }}-Tidak" class="translate-y-[1px]" value="false">
+                                                id="{{ $katering->hari }}-Tidak" class="translate-y-[1px]" value="Tidak">
                                             <label class="text-sm" for="{{ $katering->hari }}-Tidak">Tidak</label>
                                         </div>
                                     </div>

@@ -7,6 +7,8 @@ use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\Karyawan;
+use App\Models\KontrolKatering;
+use App\Models\MenuKatering;
 use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -114,6 +116,11 @@ class StaffController extends Controller
     {
         return view("katering", [
             "title" => "Katering",
+            "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
+            "data_tanggal_awal" => MenuKatering::where("hari", "Senin")->first()->tanggal ?? "",
+            "data_tanggal_akhir" => MenuKatering::where("hari", "Sabtu")->first()->tanggal ?? "",
+            "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
+            "menu_katering" => MenuKatering::all(),
         ]);
     }
 

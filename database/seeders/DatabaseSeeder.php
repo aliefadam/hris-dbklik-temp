@@ -10,6 +10,7 @@ use App\Models\Izin;
 use App\Models\Jabatan;
 use App\Models\Karyawan;
 use App\Models\MenuKatering;
+use App\Models\PemesananKatering;
 use App\Models\RulesHRD;
 use App\Models\SubDivisi;
 use App\Models\User;

@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- pwa --}}
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6777ef" />
+    <link rel="apple-touch-icon" href="{{ asset('imgs/db-logo.png') }}">
+    {{-- <link rel="manifest" href="{{ asset('/manifest.json') }}"> --}}
+
     {{-- web icon --}}
     <link rel="icon" href="{{ asset('imgs/db-logo.png') }}">
 
@@ -58,6 +64,20 @@
     <script src="{{ asset('js/script.js') }}"></script>
     <script>
         $(document).ready(function() {
+            let tableKatering = $('#table-daftar-katering').DataTable({
+                searching: true,
+                paging: true,
+                info: false,
+                lengthChange: false,
+                pageLength: 5,
+                order: [],
+            });
+
+            $('#customSearchBoxDaftarKatering').keyup(function() {
+                tableKatering.search($(this).val())
+                    .draw();
+            });
+
             let table = $('#table-riwayat').DataTable({
                 searching: true,
                 paging: true,
@@ -362,6 +382,8 @@
         });
     </script>
 
+
+    <script src="{{ asset('/sw.js') }}"></script>
 </body>
 
 </html>

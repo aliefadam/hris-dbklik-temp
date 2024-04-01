@@ -1,10 +1,10 @@
 @extends('layouts.hr')
 
 @section('content')
-    <div class="flex justify-between">
+    <div class="flex justify-between mb-[20px]">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBoxDaftarPengajuan" class="outline-none" placeholder="Cari">
+            <input type="search" id="customSearchBoxDaftarKatering" class="outline-none" placeholder="Cari">
         </div>
         <form action="/hr/daftar-pengajuan">
             <div class="flex gap-3">

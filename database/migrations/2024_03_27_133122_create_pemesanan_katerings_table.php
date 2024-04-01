@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('pemesanan_katerings', function (Blueprint $table) {
             $table->id();
             $table->foreignId("karyawan_id");
-            $table->foreignId("menu_id");
-            // $table->enum("setuju", [true, false]);
-            $table->boolean("setuju");
+            $table->string("hari");
+            $table->date("tanggal");
+            $table->string("menu");
+            $table->string("setuju");
             $table->string("request")->nullable();
             $table->timestamps();
         });

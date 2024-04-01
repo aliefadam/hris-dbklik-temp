@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
             "karyawan_id" => 8,
             "email" => 'lukman@example.com',
             "password" => "123",
-            "roleLevel" => "2",
+            "roleLevel" => "4",
         ]);
     }
 }

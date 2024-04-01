@@ -10,21 +10,26 @@ class PemesananKateringController extends Controller
 {
     public function pesanKatering(Request $request)
     {
-        $hariKatering = MenuKatering::all();
-        $karyawanId = auth()->user()->id;
+        $dataMenu = MenuKatering::all();
+        foreach ($dataMenu as $menu) {
+            // dump([
+            //     "karyawan_id" => auth()->user()->id,
+            //     "hari" => $menu->hari,
+            //     "tanggal" => $menu->tanggal,
+            //     "menu" => MenuKatering::where("hari", $menu->hari)->first()->menu,
+            //     "setuju" => request("$menu->hari"),
+            //     "request" => request("$menu->hari-isi-request"),
+            // ]);
 
-        foreach ($hariKatering as $katering) {
-            $dataPemesananKatering = [
-                "karyawan_id" => $karyawanId,
-                "menu_id" => $katering->id,
-                "setuju" => request("$katering->hari") == "true" ? true : false,
-                "request" => request("$katering->hari-isi-request"),
-            ];
-            PemesananKatering::create($dataPemesananKatering);
-            // dump($dataPemesananKatering);
+            PemesananKatering::create([
+                "karyawan_id" => auth()->user()->id,
+                "hari" => $menu->hari,
+                "tanggal" => $menu->tanggal,
+                "menu" => MenuKatering::where("hari", $menu->hari)->first()->menu,
+                "setuju" => request("$menu->hari"),
+                "request" => request("$menu->hari-isi-request"),
+            ]);
         }
-        // exit;
-
         return redirect()->back();
     }
 }

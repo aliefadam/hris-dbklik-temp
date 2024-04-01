@@ -165,7 +165,8 @@ table tr th:last-child {
 #table-riwayat_wrapper,
 #table-daftar-pengajuan_wrapper,
 #table-karyawan_wrapper,
-#table-mutasi_wrapper {
+#table-mutasi_wrapper,
+#table-pengajuan_wrapper {
     margin-top: 20px;
 }
 
@@ -224,6 +225,10 @@ table.dataTable > tbody > tr:hover {
 
 table.dataTable > tbody > tr > td {
     padding: 20px 12px;
+}
+
+table.dataTable#table-daftar-katering > tbody > tr > td.sub-heading {
+    padding: 10px !important;
 }
 
 table.dataTable > tbody > tr > td.pending,

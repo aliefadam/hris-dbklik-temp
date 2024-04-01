@@ -197,9 +197,8 @@ class HRController extends Controller
     public function daftarPesananKatering()
     {
         return view('hr.daftar-pesanan-katering', [
-            "data_pemesanan_group" => PemesananKatering::all(),
-            "data_pemesanan" => PemesananKatering::all(),
-            "data_hari" => MenuKatering::all(),
+            "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
+            "data_menu" => MenuKatering::all(),
             "title" => "Daftar Pesanan",
         ]);
     }
