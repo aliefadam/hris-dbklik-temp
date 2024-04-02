@@ -15,7 +15,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td class="sub-heading text-sm text-center font-medium">{{ $menu->hari }},
+                <td class="sub-heading text-sm font-medium">{{ $menu->hari }},
                     {{ date('d-m-Y', strtotime($menu->tanggal)) }} - {{ $menu->menu }}</td>
                 <td></td>
                 <td></td>
