@@ -20,16 +20,14 @@
                 <td></td>
                 <td></td>
             </tr>
-            @if ($export)
-                @php
-                    $data_katering = $data_katering->where('tanggal', $menu->tanggal)->where('setuju', 'Ya');
-                @endphp
-            @else
-                @php
-                    $data_katering = $data_katering->where('tanggal', $menu->tanggal);
-                @endphp
-            @endif
-            @foreach ($data_katering as $katering)
+            @php
+                if ($export) {
+                    $new_data_katering = $data_katering->where('tanggal', $menu->tanggal)->where('setuju', 'Ya');
+                } else {
+                    $new_data_katering = $data_katering->where('tanggal', $menu->tanggal);
+                }
+            @endphp
+            @foreach ($new_data_katering as $katering)
                 <tr>
                     <td class="text-sm">{{ $loop->iteration }}</td>
                     <td class="text-sm"><span style="font-weight: 600">{{ $katering->karyawan->nama_panggilan }}</span>
