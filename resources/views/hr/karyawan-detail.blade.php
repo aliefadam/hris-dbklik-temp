@@ -149,6 +149,33 @@
         </tbody>
     </table>
 
+    <div class="mt-10">
+        <div class="flex items-center">
+            <h1 class="text-dbklik font-semibold text-3xl">Penilaian Kinerja</h1>
+        </div>
+        <table class="w-auto rounded-lg shadow-lg bg-white">
+            <thead>
+                <tr class="bg-dbklik text-yellow-dbklik">
+                    <th class="p-3">No</th>
+                    <th class="p-3">Nilai</th>
+                    <th class="p-3">Apresiasi</th>
+                    <th class="p-3">Periode</th>
+                </tr>
+            </thead>
+            <tbody class="">
+                @foreach ($data_lembur as $lembur)
+                    <tr>
+                        {{-- <td class="">{{ $loop->iteration }}</td>
+                        <td class="">{{ $lembur->tanggal }}</td>
+                        <td class="">{{ $lembur->keperluan }}</td>
+                        <td class="">{{ substr($lembur->jam_mulai, 0, 5) . " - " . substr($lembur->jam_selesai, 0, 5) }}</td> --}}
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    
+
     <script>
         $(".open-file").on("click", function() {
             window.open(`/storage/upload/file_pendukung/${$(this).html()}`, "_blank");
