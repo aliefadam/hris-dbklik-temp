@@ -28,8 +28,13 @@
                 @endforeach
             </div>
             <div class="mt-3 flex gap-2 justify-between">
-                <button type="button" class="shadow-lg edit btn-edit-menu-katering px-5 py-2 bg-yellow-400 rounded-md">Edit
-                    Menu</button>
+                <div class="flex gap-2">
+                    <button type="button"
+                        class="shadow-lg edit btn-edit-menu-katering px-5 py-2 bg-yellow-400 rounded-md">Edit
+                        Menu</button>
+                    <button type="button"
+                        class="hidden text-white shadow-lg btn-clear-menu-katering px-5 py-2 bg-orange-400 rounded-md">Bersihkan</button>
+                </div>
                 <div class="flex gap-2">
                     @if ($kontrol_katering->status == 'Aktif')
                         <label for="" class="self-center text-red-500 sisa-waktu"
@@ -60,6 +65,7 @@
                     $("input.input-menu").removeClass("cursor-not-allowed");
                     $("input.input-menu").attr("readonly", false);
                 });
+
                 $("input[name=tanggal_awal_menu]").removeClass(["cursor-not-allowed", "bg-gray-200"]);
                 $("input[name=tanggal_akhir_menu]").removeClass(["cursor-not-allowed", "bg-gray-200"]);
                 $("input[name=tanggal_awal_menu]").attr("readonly", false);
@@ -68,10 +74,17 @@
                 $(".btn-edit-menu-katering").removeClass(["edit", "bg-yellow-400"]);
                 $(".btn-edit-menu-katering").addClass(["bg-green-600", "text-white"]);
 
+                $(".btn-clear-menu-katering").show();
                 $(".btn-edit-menu-katering").html("Simpan");
             } else {
                 $(this).attr("type", "submit");
             }
+        });
+
+        $(".btn-clear-menu-katering").on("click", function() {
+            $("#tanggal_awal_menu").val("");
+            $("#tanggal_akhir_menu").val("");
+            $("input.input-menu").val("");
         });
 
         $(".btn-aktifkan-katering").on("click", function() {
