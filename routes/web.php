@@ -82,6 +82,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/nonaktifkan-katering/', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
         Route::get('/daftar-pesanan-katering/', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
         Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
+        Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

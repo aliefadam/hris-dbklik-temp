@@ -86,24 +86,22 @@
     </div>
 
     <script>
-        var tanggal_akhir_input = document.getElementById('tanggal_akhir');
-        var label_tanggal_mulai = document.getElementById('label_tanggal_mulai');
-        var label_tanggal_akhir = document.getElementById('label_tanggal_akhir');
-        
-        $("#jenis_izin").on("change", function() {
-            var selectedOption = this.options[this.selectedIndex].innerHTML;
-            console.log(selectedOption);
+        const tanggal_akhir_input = $('#tanggal_akhir');
+        const label_tanggal_mulai = $('#label_tanggal_mulai');
+        const label_tanggal_akhir = $('#label_tanggal_akhir');
 
+        $("#jenis_izin").on("change", function() {
+            const selectedOption = $(this).find('option:selected').text();
             if (selectedOption === 'Terlambat' || selectedOption === 'Pulang Awal') {
-                tanggal_akhir_input.type = 'time';
-                label_tanggal_mulai.innerHTML = 'Tanggal<span class="text-red-500"> *</span>';
-                label_tanggal_akhir.innerHTML = 'Jam<span class="text-red-500"> *</span>';
-                tanggal_akhir_input.name = 'jam';
+                tanggal_akhir_input.attr('type', 'time');
+                label_tanggal_mulai.html('Tanggal<span class="text-red-500"> *</span>');
+                label_tanggal_akhir.html('Jam<span class="text-red-500"> *</span>');
+                tanggal_akhir_input.attr('name', 'jam');
             } else {
-                tanggal_akhir_input.type = 'date';
-                label_tanggal_mulai.innerHTML = 'Tanggal Mulai<span class="text-red-500"> *</span>';
-                label_tanggal_akhir.innerHTML = 'Tanggal Akhir<span class="text-red-500"> *</span>';
-                tanggal_akhir_input.name = 'tanggal_akhir';
+                tanggal_akhir_input.attr('type', 'date');
+                label_tanggal_mulai.html('Tanggal Mulai<span class="text-red-500"> *</span>');
+                label_tanggal_akhir.html('Tanggal Akhir<span class="text-red-500"> *</span>');
+                tanggal_akhir_input.attr('name', 'tanggal_akhir');
             }
         });
     </script>
