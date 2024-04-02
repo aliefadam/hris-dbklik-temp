@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportKatering;
 use App\Exports\ExportPerizinan;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
@@ -13,8 +14,11 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\KontrolKatering;
+use App\Models\MenuKatering;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
+use App\Models\PemesananKatering;
 use App\Models\Lembur;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -80,6 +84,7 @@ class HRController extends Controller
             "rulesHRD" => RulesHRD::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", "1")
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0,
         ]);
@@ -105,6 +110,121 @@ class HRController extends Controller
             "title" => "Riwayat",
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function katering()
+    {
+        $data_tanggal_awal = MenuKatering::where("hari", "Senin")->orderBy("id", "DESC")->first()->tanggal ?? "";
+        $data_tanggal_akhir = MenuKatering::where("hari", "Sabtu")->orderBy("id", "DESC")->first()->tanggal ?? "";
+
+        return view("hr.katering", [
+            "title" => "Katering",
+            "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
+            "data_tanggal_awal" => $data_tanggal_awal,
+            "data_tanggal_akhir" => $data_tanggal_akhir,
+            "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
+            "menu_katering" =>
+            MenuKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->get(),
+        ]);
+    }
+
+    public function editKatering()
+    {
+        $status = KontrolKatering::find(1)->status;
+        $batas_akhir = KontrolKatering::find(1)->batas_akhir;
+
+        if ($status == "Aktif") {
+            if (date("Y-m-d H:i:s") > $batas_akhir) {
+                $this->nonaktifkanKatering();
+            }
+        }
+
+        $data_tanggal_awal = MenuKatering::where("hari", "Senin")->orderBy("id", "DESC")->first()->tanggal ?? "";
+        $data_tanggal_akhir = MenuKatering::where("hari", "Sabtu")->orderBy("id", "DESC")->first()->tanggal ?? "";
+
+        return view("hr.edit-katering", [
+            "title" => "Edit Menu",
+            "data_menu" => MenuKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->get(),
+            "data_tanggal_awal" => $data_tanggal_awal,
+            "data_tanggal_akhir" => $data_tanggal_akhir,
+            "kontrol_katering" => KontrolKatering::first(),
+        ]);
+    }
+
+    public function ubahKatering(Request $request)
+    {
+        $tanggalAwal = $request->tanggal_awal_menu;
+        // $tanggalAkhir = $request->tanggal_akhir_menu;
+
+        $hariMenu = [
+            "Senin" => $request->Senin,
+            "Selasa" => $request->Selasa,
+            "Rabu" => $request->Rabu,
+            "Kamis" => $request->Kamis,
+            "Jumat" => $request->Jumat,
+            "Sabtu" => $request->Sabtu,
+        ];
+
+        $tanggalSekarang = $tanggalAwal;
+        foreach ($hariMenu as $hari => $menu) {
+            MenuKatering::create([
+                "hari" => $hari,
+                "tanggal" => $tanggalSekarang,
+                "menu" => $menu,
+            ]);
+            // MenuKatering::where("hari", $hari)->update([
+            //     "menu" => $menu,
+            //     "tanggal" => $tanggalSekarang,
+            // ]);
+            $tanggalSekarang = date('Y-m-d', strtotime($tanggalSekarang . ' +1 day'));
+        }
+
+        return redirect()->back();
+    }
+
+    public function aktifkanKatering($tanggal_jam)
+    {
+        KontrolKatering::find(1)->update([
+            "status" => "Aktif",
+            "batas_akhir" => $tanggal_jam,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function nonaktifkanKatering()
+    {
+        KontrolKatering::find(1)->update([
+            "status" => "Non Aktif",
+            "batas_akhir" => null,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function daftarPesananKatering(Request $request)
+    {
+        $dataMenu = null;
+        if ($request->s == "") {
+            $dataMenu = MenuKatering::orderBy("tanggal", "ASC")->get();
+        } else {
+            $mulai = $request->s;
+            $akhir = $request->e;
+            $dataMenu = MenuKatering::whereBetween("tanggal", [$mulai, $akhir])
+                ->orderBy("tanggal", "ASC")
+                ->get();
+        }
+
+        return view('hr.daftar-pesanan-katering', [
+            "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
+            "data_menu" => $dataMenu,
+            "mulai" => isset($mulai) ? $mulai : null,
+            "akhir" => isset($akhir) ? $akhir : null,
+            "title" => "Daftar Pesanan",
+            "export" => false,
         ]);
     }
 
@@ -139,12 +259,6 @@ class HRController extends Controller
                                 ->orWhere("status", "ditolak");
                         });
                 })
-                // ->where("karyawan_id", "!=", auth()->user()->id)
-                // ->orWhere(function ($query) {
-                //     $query->where("karyawan_id", auth()->user()->id)
-                //         ->where("status", "disetujui")
-                //         ->orWhere("status", "ditolak");
-                // })
                 ->orderBy("updated_at", "DESC")
                 ->get();
         }
@@ -187,6 +301,22 @@ class HRController extends Controller
         }
 
         return Excel::download(new ExportPerizinan($dataPerizinan), "data-perizinan.xlsx");
+    }
+
+    public function exportExcelKatering($s, $e)
+    {
+        $dataMenu = null;
+        if ($s == "all") {
+            $dataMenu = MenuKatering::orderBy("tanggal", "ASC")->get();
+        } else {
+            $mulai = $s;
+            $akhir = $e;
+            $dataMenu = MenuKatering::whereBetween("tanggal", [$mulai, $akhir])
+                ->orderBy("tanggal", "ASC")
+                ->get();
+        }
+
+        return Excel::download(new ExportKatering($dataMenu), "data-katering.xlsx");
     }
 
     public function daftarKaryawan()
@@ -232,6 +362,7 @@ class HRController extends Controller
             "data_lembur" => Lembur::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", $karyawan->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", 1)
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0,
         ]);
