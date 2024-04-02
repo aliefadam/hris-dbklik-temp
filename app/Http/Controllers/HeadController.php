@@ -68,6 +68,7 @@ class HeadController extends Controller
             "rulesHRD" => RulesHRD::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", auth()->user()->id)
                 ->where("status", "disetujui")
+                ->where("izin_id", "1")
                 ->whereYear("tanggal_mulai", date("Y"))
                 ->count() : 0
         ]);
@@ -93,6 +94,13 @@ class HeadController extends Controller
             "title" => "Riwayat",
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function katering()
+    {
+        return view("head.katering", [
+            "title" => "Katering",
         ]);
     }
 

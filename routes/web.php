@@ -5,6 +5,7 @@ use App\Http\Controllers\HRController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PemesananKateringController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\ResignController;
 use App\Http\Controllers\RulesHRDController;
@@ -46,6 +47,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/profile", [HeadController::class, 'profile'])->middleware("role:2");
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
         Route::put('/ganti-password', [HeadController::class, 'simpanPasswordBaru'])->middleware("role:2");
+        Route::get('/katering', [HeadController::class, 'katering'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {
@@ -72,6 +74,13 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/tambahMutasi', [HRController::class, 'tambahMutasi'])->middleware("role:3");
         Route::post('/edit-profile-karyawan/{karyawan}', [HRController::class, 'editProfileKaryawan'])->middleware("role:3");
         Route::get('/export-excel/{s}/{e}', [HRController::class, 'exportExcel'])->middleware("role:3");
+        Route::get('/export-excel-katering/{s}/{e}', [HRController::class, 'exportExcelKatering'])->middleware("role:3");
+        Route::get('/katering', [HRController::class, 'katering'])->middleware("role:3");
+        Route::get('/edit-katering', [HRController::class, 'editKatering'])->middleware("role:3");
+        Route::put('/ubah-katering', [HRController::class, 'ubahKatering'])->middleware("role:3");
+        Route::get('/aktifkan-katering/{tanggal_jam}', [HRController::class, 'aktifkanKatering'])->middleware("role:3");
+        Route::get('/nonaktifkan-katering/', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
+        Route::get('/daftar-pesanan-katering/', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
         Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
     });
 
@@ -84,8 +93,9 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/notification', [StaffController::class, 'notification'])->middleware("role:4");
     Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
+    Route::get('/katering', [StaffController::class, 'katering'])->middleware("role:4");
 
-
+    Route::post('/pesan-katering', [PemesananKateringController::class, 'pesanKatering']);
     Route::post('/edit-foto', [StaffController::class, 'editFoto']);
     Route::post("/ajukan-perizinan", [PerizinanController::class, "ajukanPerizinan"]);
     Route::post("/balas-perizinan/{perizinan}", [PerizinanController::class, "balasPerizinan"]);
