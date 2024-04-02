@@ -30,6 +30,7 @@ class PerizinanController extends Controller
             "izin_id" => $request->jenis_izin,
             "tanggal_mulai" => $request->tanggal_mulai,
             "tanggal_akhir" => $request->tanggal_akhir,
+            "jam" => $request->jam,
             "catatan" => $request->catatan,
             "bukti_file" => $namaFilePendukung,
             "status" => "pending",
@@ -48,7 +49,7 @@ class PerizinanController extends Controller
                 "nama" => auth()->user()->karyawan->nama_lengkap,
                 "divisi" => auth()->user()->karyawan->divisi->nama_divisi,
                 "izin" => Izin::find($request->jenis_izin)->jenis_izin,
-                "tanggal_izin" => $request->tanggal_mulai . " - " . $request->tanggal_akhir,
+                "tanggal_izin" => $request->tanggal_mulai . " " . ( $request->jam ?? "- " . $request->tanggal_akhir ),
                 "catatan" => $request->catatan ?? "-",
                 "file_pendukung" => $namaFilePendukung ?? "-",
             ];

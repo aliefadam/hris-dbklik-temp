@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\LemburController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PemesananKateringController;
@@ -80,6 +81,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/aktifkan-katering/{tanggal_jam}', [HRController::class, 'aktifkanKatering'])->middleware("role:3");
         Route::get('/nonaktifkan-katering/', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
         Route::get('/daftar-pesanan-katering/', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
+        Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

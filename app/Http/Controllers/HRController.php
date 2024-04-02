@@ -19,6 +19,7 @@ use App\Models\MenuKatering;
 use App\Models\SubDivisi;
 use App\Models\Mutasi;
 use App\Models\PemesananKatering;
+use App\Models\Lembur;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -358,6 +359,7 @@ class HRController extends Controller
             "jabatan" => Jabatan::all(),
             "title" => "Detail Karyawan",
             "data_mutasi" => Mutasi::all(),
+            "data_lembur" => Lembur::all(),
             "jatah_cuti" => $isOneYear ? 6 - Perizinan::where("karyawan_id", $karyawan->id)
                 ->where("status", "disetujui")
                 ->where("izin_id", 1)

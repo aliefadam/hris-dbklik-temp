@@ -45,7 +45,7 @@
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $r->izin->jenis_izin }}</td>
                     <td class="">{{ $r->created_at }}</td>
-                    <td class="">{{ $r->tanggal_mulai }} - {{ $r->tanggal_akhir }}</td>
+                    <td class="">{{ $r->tanggal_mulai }} {{ $r->jam ?? ' - ' . $r->tanggal_akhir }} </td>
                     <td class="">{{ $r->catatan ?? '-' }}</td>
                     @php
                         $status = $r->status;

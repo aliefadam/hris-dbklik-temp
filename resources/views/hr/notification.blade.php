@@ -36,31 +36,41 @@
                         <span class="text-primary notif-detail-tanggal">{{ $notifikasi->tanggal_jam }}</span>
                     </div>
                     <p class="mt-2 text-sm notif-detail-pesan">{{ $pesan['pesan'] }}</p>
-                    <div class="mt-5 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">Nama</span>
-                        <span class="text-black text-[17px] leading-none">{{ $pesan['nama'] }}</span>
-                    </div>
-                    <div class="mt-3 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">Divisi</span>
-                        <span class="text-black text-[17px] leading-none">{{ $pesan['divisi'] }}</span>
-                    </div>
-                    <div class="mt-3 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">Izin</span>
-                        <span class="text-black text-[17px] leading-none">{{ $pesan['izin'] }}</span>
-                    </div>
-                    <div class="mt-3 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">Tanggal Izin</span>
-                        <span class="text-black text-[17px] leading-none">{{ $pesan['tanggal_izin'] }}</span>
-                    </div>
-                    <div class="mt-3 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">Catatan</span>
-                        <span class="text-black text-[17px] leading-none">{{ $pesan['catatan'] }}</span>
-                    </div>
-                    <div class="mt-3 flex gap-1 flex-col">
-                        <span class="text-dbklik text-sm">File Pendukung</span>
-                        <span
-                            class="text-black text-[17px] leading-none {{ $pesan['file_pendukung'] != '-' ? 'underline cursor-pointer open-file' : '' }}">{{ $pesan['file_pendukung'] }}</span>
-                    </div>
+                    @if ($pesan['id_pengaju'] == auth()->user()->id)
+                        <div class="text-sm mt-4 notif-detail-feedback notif-detail-feedback">
+                            @php
+                                $feedback = $pesan['feedback'];
+                            @endphp
+                            <span>{{ $feedback != null ? "Balasan dari Admin:  $feedback" : '' }}</span>
+                        </div>
+                    @else
+                        <div class="mt-5 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">Nama</span>
+                            <span class="text-black text-[17px] leading-none">{{ $pesan['nama'] }}</span>
+                        </div>
+                        <div class="mt-3 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">Divisi</span>
+                            <span class="text-black text-[17px] leading-none">{{ $pesan['divisi'] }}</span>
+                        </div>
+                        <div class="mt-3 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">Izin</span>
+                            <span class="text-black text-[17px] leading-none">{{ $pesan['izin'] }}</span>
+                        </div>
+                        <div class="mt-3 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">Tanggal Izin</span>
+                            <span class="text-black text-[17px] leading-none">{{ $pesan['tanggal_izin'] }}</span>
+                        </div>
+                        <div class="mt-3 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">Catatan</span>
+                            <span class="text-black text-[17px] leading-none">{{ $pesan['catatan'] }}</span>
+                        </div>
+                        <div class="mt-3 flex gap-1 flex-col">
+                            <span class="text-dbklik text-sm">File Pendukung</span>
+                            <span
+                                class="text-black text-[17px] leading-none {{ $pesan['file_pendukung'] != '-' ? 'underline cursor-pointer open-file' : '' }}">{{ $pesan['file_pendukung'] }}</span>
+                        </div>
+                    @endif
+
                 </div>
             @else
                 <div class="h-full flex justify-center items-center notifikasi-hint">
