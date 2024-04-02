@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             KaryawanSeeder::class,
             UserSeeder::class,
             KontrolKateringSeeder::class,
+            KeyPerformanceIndicatorSeeder::class,
         ]);
     }
 }

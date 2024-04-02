@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\KeyPerformanceIndicator;
 use App\Models\KontrolKatering;
 use App\Models\MenuKatering;
 use App\Models\SubDivisi;
@@ -319,6 +320,14 @@ class HRController extends Controller
         return Excel::download(new ExportKatering($dataMenu), "data-katering.xlsx");
     }
 
+    public function kpi()
+    {
+        return view('hr.penilaian-kpi', [
+            "data_kpi" => KeyPerformanceIndicator::all(),
+            "title" => "Penilaian KPI",
+        ]);
+    }
+
     public function daftarKaryawan()
     {
         return view('hr.daftar-karyawan', [
@@ -474,7 +483,6 @@ class HRController extends Controller
         return redirect()->back();
     }
 
-
     public function updateKontrak(Request $request)
     {
         $karyawan_id = $request->karyawan_id;
@@ -618,7 +626,6 @@ class HRController extends Controller
             "kontak_darurat" => $request->kontak_darurat,
             "inventaris_kantor" => $request->inventaris_kantor,
         ]);
-
 
         return redirect()->back();
     }

@@ -48,7 +48,7 @@
             class="dropdown-menu duration-200 item flex flex-col md:flex-row justify-between items-center py-[8px] px-[16px] {{ $title == '' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <div class="flex flex-col md:flex-row items-center gap-3">
                 <i
-                    class="icon-item fas fa-utensils py-[5.5px] flex {{ $title == '' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+                    class="icon-item fal fa-utensils py-[5.5px] flex {{ $title == '' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
                 <span
                     class="{{ $title == '' ? 'text-dbklik' : 'text-white' }} font-medium text-[9px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-none">Katering</span>
             </div>
@@ -74,6 +74,14 @@
                     Pesanan</span>
             </a>
         </div>
+        <a href="/hr/kpi"
+            class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Penilaian KPI' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+            <i
+                class="icon-item fal fa-chart-line py-[5.5px] flex {{ $title == 'Penilaian KPI' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+            <span
+                class="{{ $title == 'Penilaian KPI' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Penilaian
+                KPI</span>
+        </a>
         <a href="/hr/struktur-pegawai"
             class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Struktur Pegawai' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <i
@@ -82,6 +90,7 @@
                 class="{{ $title == 'Struktur Pegawai' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Struktur
                 Pegawai</span>
         </a>
+
     </div>
 </aside>
 

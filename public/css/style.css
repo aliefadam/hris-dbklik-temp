@@ -166,8 +166,9 @@ table tr th:last-child {
 #table-daftar-pengajuan_wrapper,
 #table-karyawan_wrapper,
 #table-mutasi_wrapper,
-#table-pengajuan_wrapper, 
-#table-lembur_wrapper{
+#table-pengajuan_wrapper,
+#table-lembur_wrapper,
+#table-daftar-penilaian-kpi_wrapper {
     margin-top: 20px;
 }
 
@@ -220,7 +221,7 @@ table.dataTable > tbody > tr {
     transition: 50ms;
 }
 
-table.dataTable > tbody > tr:hover {
+table.dataTable > tbody > tr:not(".tbl-kpi"):hover {
     background-color: rgb(218, 218, 218);
 }
 

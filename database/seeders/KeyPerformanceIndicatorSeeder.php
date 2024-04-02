@@ -16,8 +16,8 @@ class KeyPerformanceIndicatorSeeder extends Seeder
         KeyPerformanceIndicator::create([
             "karyawan_id" => "1",
             "nilai" => "A",
-            "apresiasi" => "true",
-            "periode" => "25 Feb - 27 Mar 2024"
+            "apresiasi" => true,
+            "periode" => "2024-03-27",
         ]);
     }
 }
