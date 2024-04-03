@@ -2,10 +2,10 @@
     "name": "HRIS DB Klik",
     "short_name": "HRIS",
     "start_url": "/index.php",
-    "background_color": "#6777ef",
-    "description": "Tutorial of Laravel Package",
+    "background_color": "#0f2370",
+    "description": "Human Resource Information System DB Klik",
     "display": "fullscreen",
-    "theme_color": "#6777ef",
+    "theme_color": "#0f2370",
     "icons": [
         {
             "src": "ms-icon-310x310.PNG",
