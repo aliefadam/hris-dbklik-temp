@@ -9,6 +9,7 @@ use App\Models\Perizinan;
 use App\Models\Karyawan;
 use App\Models\KontrolKatering;
 use App\Models\MenuKatering;
+use App\Models\PemesananKatering;
 use App\Models\RulesHRD;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -114,13 +115,20 @@ class StaffController extends Controller
 
     public function katering()
     {
+        $data_tanggal_awal = MenuKatering::where("hari", "Senin")->orderBy("id", "DESC")->first()->tanggal ?? "";
+        $data_tanggal_akhir = MenuKatering::where("hari", "Sabtu")->orderBy("id", "DESC")->first()->tanggal ?? "";
+
         return view("katering", [
             "title" => "Katering",
             "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
-            "data_tanggal_awal" => MenuKatering::where("hari", "Senin")->first()->tanggal ?? "",
-            "data_tanggal_akhir" => MenuKatering::where("hari", "Sabtu")->first()->tanggal ?? "",
+            "apakah_sudah_mengisi" => PemesananKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->whereHas("karyawan", function ($query) {
+                    $query->where("id", auth()->user()->id);
+                })->count() > 0 ? true : false,
+            "data_tanggal_awal" => $data_tanggal_awal,
+            "data_tanggal_akhir" => $data_tanggal_akhir,
             "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
-            "menu_katering" => MenuKatering::all(),
+            "menu_katering" => MenuKatering::latest()->limit(6)->get(),
         ]);
     }
 
@@ -214,7 +222,7 @@ class StaffController extends Controller
         Karyawan::find(auth()->user()->id)->update([
             "foto" => $namaFotoBaru,
         ]);
-        File::move($foto->path(), public_path("storage/upload/foto_user/$namaFotoBaru"));
+        $foto->storeAs("public/upload/foto_user", $namaFotoBaru);
 
         return redirect()->back();
     }

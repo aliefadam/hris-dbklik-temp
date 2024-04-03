@@ -6,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- pwa --}}
-    <!-- PWA  -->
-    <meta name="theme-color" content="#6777ef" />
-    <link rel="apple-touch-icon" href="{{ asset('imgs/db-logo.png') }}">
-    {{-- <link rel="manifest" href="{{ asset('/manifest.json') }}"> --}}
-
     {{-- web icon --}}
     <link rel="icon" href="{{ asset('imgs/db-logo.png') }}">
 
@@ -20,9 +14,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css">
 
     {{-- font awesome icons --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
         type="text/css" />
 
@@ -412,8 +403,6 @@
         });
     </script>
 
-
-    <script src="{{ asset('/sw.js') }}"></script>
 </body>
 
 </html>

@@ -21,7 +21,7 @@
                         class="bi bi-funnel"></i> Filter</button>
                 <button type="button"
                     class="relative btn-more-daftar-pengajuan duration-200 bg-gradient-to-r from-amber-600 to-amber-500 rounded-lg shadow-xl px-5"><i
-                        class="bi bi-caret-down-fill text-white icon-more-daftar-pengajuan flex"></i>
+                        class="duration-300 bi bi-caret-down-fill text-white icon-more-daftar-pengajuan flex"></i>
                     <div
                         class="box-more-daftar-pengajuan hidden w-[200px] absolute z-[2] bottom-[-105px] right-0 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] rounded-md overflow-hidden">
                         <a href="/hr/daftar-pengajuan"
@@ -49,9 +49,10 @@
         $(".btn-more-daftar-pengajuan").on("click", function() {
             if ($(".box-more-daftar-pengajuan").hasClass("hidden")) {
                 $(".box-more-daftar-pengajuan").removeClass("hidden");
-                $("icon-more-daftar-pengajuan").css("transform", "rotate(-90deg)");
+                $(".btn-more-daftar-pengajuan > i").addClass("-rotate-[180deg]");
             } else {
                 $(".box-more-daftar-pengajuan").addClass("hidden");
+                $(".btn-more-daftar-pengajuan > i").removeClass("-rotate-[180deg]");
             }
         });
     </script>

@@ -1,6 +1,7 @@
 @extends('layouts.hr')
 
 @section('content')
+    {{-- @dd($data_menu) --}}
     <div class="bg-white rounded-xl shadow-xl w-[100%] h-[calc(100vh-148px)] p-4">
         <form action="/hr/ubah-katering" method="POST" class="">
             @csrf
