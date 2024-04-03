@@ -133,8 +133,9 @@ class HRController extends Controller
         ]);
     }
 
-    public function editKatering()
+    public function editKatering(Request $request)
     {
+
         $status = KontrolKatering::find(1)->status;
         $batas_akhir = KontrolKatering::find(1)->batas_akhir;
 
@@ -158,6 +159,8 @@ class HRController extends Controller
 
     public function ubahKatering(Request $request)
     {
+        $data_ada = MenuKatering::where("tanggal", $request->tanggal_awal_menu)->count() > 0 ? true : false;
+
         $tanggalAwal = $request->tanggal_awal_menu;
 
         $hariMenu = [
@@ -171,11 +174,20 @@ class HRController extends Controller
 
         $tanggalSekarang = $tanggalAwal;
         foreach ($hariMenu as $hari => $menu) {
-            MenuKatering::create([
-                "hari" => $hari,
-                "tanggal" => $tanggalSekarang,
-                "menu" => $menu,
-            ]);
+
+            if ($data_ada) {
+                MenuKatering::where("tanggal", $tanggalSekarang)->update([
+                    "hari" => $hari,
+                    "tanggal" => $tanggalSekarang,
+                    "menu" => $menu,
+                ]);
+            } else {
+                MenuKatering::create([
+                    "hari" => $hari,
+                    "tanggal" => $tanggalSekarang,
+                    "menu" => $menu,
+                ]);
+            }
             $tanggalSekarang = date('Y-m-d', strtotime($tanggalSekarang . ' +1 day'));
         }
 
