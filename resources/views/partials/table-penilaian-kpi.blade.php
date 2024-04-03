@@ -2,6 +2,7 @@
     <thead>
         <tr class="bg-dbklik text-yellow-dbklik">
             <th class="p-3">No</th>
+            <th class="p-3">Divisi</th>
             <th class="p-3">Nama Karyawan</th>
             <th class="p-3">Nilai</th>
             <th class="p-3">Apresiasi</th>
@@ -12,6 +13,7 @@
         @foreach ($data_kpi as $kpi)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $kpi->karyawan->divisi->nama_divisi }}</td>
                 <td>{{ $kpi->karyawan->nama_lengkap }}</td>
                 <td>{{ $kpi->nilai }}</td>
                 <td>{{ $kpi->apresiasi ? 'Dapat' : 'Tidak Dapat' }}</td>

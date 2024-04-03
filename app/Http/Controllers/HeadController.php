@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
+use App\Models\KeyPerformanceIndicator;
 use App\Models\KontrolKatering;
 use App\Models\MenuKatering;
 use App\Models\Notifikasi;
@@ -116,6 +117,16 @@ class HeadController extends Controller
             "data_tanggal_akhir" => $data_tanggal_akhir,
             "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
             "menu_katering" => MenuKatering::latest()->limit(6)->get(),
+        ]);
+    }
+
+    public function pengisianKPI()
+    {
+        $user_jabatan = auth()->user()->karyawan->jabatan_id;
+        return view("head.pengisian-kpi",[
+            "bawahan" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)->where("jabatan_id", $user_jabatan + 1)->get(),
+            "data_kpi" => KeyPerformanceIndicator::All(),
+            "title" => "Penilaian KPI"
         ]);
     }
 
