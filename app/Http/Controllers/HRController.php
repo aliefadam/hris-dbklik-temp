@@ -122,12 +122,14 @@ class HRController extends Controller
         return view("hr.katering", [
             "title" => "Katering",
             "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
+            "apakah_sudah_mengisi" => PemesananKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->whereHas("karyawan", function ($query) {
+                    $query->where("id", auth()->user()->id);
+                })->count() > 0 ? true : false,
             "data_tanggal_awal" => $data_tanggal_awal,
             "data_tanggal_akhir" => $data_tanggal_akhir,
             "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
-            "menu_katering" =>
-            MenuKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
-                ->get(),
+            "menu_katering" => MenuKatering::latest()->limit(6)->get(),
         ]);
     }
 
@@ -147,8 +149,7 @@ class HRController extends Controller
 
         return view("hr.edit-katering", [
             "title" => "Edit Menu",
-            "data_menu" => MenuKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
-                ->get(),
+            "data_menu" => MenuKatering::latest()->limit(6)->get(),
             "data_tanggal_awal" => $data_tanggal_awal,
             "data_tanggal_akhir" => $data_tanggal_akhir,
             "kontrol_katering" => KontrolKatering::first(),
@@ -158,7 +159,6 @@ class HRController extends Controller
     public function ubahKatering(Request $request)
     {
         $tanggalAwal = $request->tanggal_awal_menu;
-        // $tanggalAkhir = $request->tanggal_akhir_menu;
 
         $hariMenu = [
             "Senin" => $request->Senin,
@@ -176,10 +176,6 @@ class HRController extends Controller
                 "tanggal" => $tanggalSekarang,
                 "menu" => $menu,
             ]);
-            // MenuKatering::where("hari", $hari)->update([
-            //     "menu" => $menu,
-            //     "tanggal" => $tanggalSekarang,
-            // ]);
             $tanggalSekarang = date('Y-m-d', strtotime($tanggalSekarang . ' +1 day'));
         }
 
@@ -210,17 +206,18 @@ class HRController extends Controller
     {
         $dataMenu = null;
         if ($request->s == "") {
-            $dataMenu = MenuKatering::orderBy("tanggal", "ASC")->get();
+            $dataMenu = MenuKatering::latest()->limit(6)->get();
+            // $dataMenu = MenuKatering::all();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
             $dataMenu = MenuKatering::whereBetween("tanggal", [$mulai, $akhir])
-                ->orderBy("tanggal", "ASC")
                 ->get();
         }
 
         return view('hr.daftar-pesanan-katering', [
-            "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
+            "data_katering" => PemesananKatering::all(),
+            // "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
             "data_menu" => $dataMenu,
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
@@ -433,7 +430,7 @@ class HRController extends Controller
         Karyawan::find(auth()->user()->id)->update([
             "foto" => $namaFotoBaru,
         ]);
-        File::move($foto->path(), public_path("storage/upload/foto_user/$namaFotoBaru"));
+        File::put($foto->path(), public_path("storage/upload/foto_user/$namaFotoBaru"));
 
         return redirect()->back();
     }

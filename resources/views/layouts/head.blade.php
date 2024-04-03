@@ -14,7 +14,7 @@
 
     {{-- font awesome icons --}}
     <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet"
-    type="text/css" />
+        type="text/css" />
 
     {{-- font poppins --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

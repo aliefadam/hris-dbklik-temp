@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
+use App\Models\KontrolKatering;
+use App\Models\MenuKatering;
 use App\Models\Notifikasi;
+use App\Models\PemesananKatering;
 use App\Models\Perizinan;
 use App\Models\RulesHRD;
 use App\Models\User;
@@ -99,8 +102,20 @@ class HeadController extends Controller
 
     public function katering()
     {
+        $data_tanggal_awal = MenuKatering::where("hari", "Senin")->orderBy("id", "DESC")->first()->tanggal ?? "";
+        $data_tanggal_akhir = MenuKatering::where("hari", "Sabtu")->orderBy("id", "DESC")->first()->tanggal ?? "";
+
         return view("head.katering", [
             "title" => "Katering",
+            "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,
+            "apakah_sudah_mengisi" => PemesananKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->whereHas("karyawan", function ($query) {
+                    $query->where("id", auth()->user()->id);
+                })->count() > 0 ? true : false,
+            "data_tanggal_awal" => $data_tanggal_awal,
+            "data_tanggal_akhir" => $data_tanggal_akhir,
+            "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
+            "menu_katering" => MenuKatering::latest()->limit(6)->get(),
         ]);
     }
 
