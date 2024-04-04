@@ -32,7 +32,7 @@
             </div>
             <div class="mt-4 bg-white shadow-xl rounded-lg px-3 md:px-5 py-4 md:py-6">
                 <form action="/ajukan-perizinan" class="w-full form-ajukan-perizinan" method="post"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="form-perizinan">
                     @csrf
                     <div class="w-full md:w-[50%] flex items-center gap-2">
                         <select name="jenis_izin" id="jenis_izin"
