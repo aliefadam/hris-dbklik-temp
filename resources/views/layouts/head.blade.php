@@ -33,6 +33,9 @@
     <script src="{{ asset('js/table-daftar-pengajuan.js') }}"></script>
     <script src="{{ asset('js/handle-overlay.js') }}"></script>
     <script src="{{ asset('js/edit-image.js') }}"></script>
+    <script src="{{ asset('js/table-daftar-pengisian-kpi.js') }}"></script>
+    <script src="{{ asset('sw.js') }}"></script>
+    <script src="{{ asset('js/service-worker.js') }}"></script>
 
     <script></script>
 

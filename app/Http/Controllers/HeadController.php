@@ -135,11 +135,43 @@ class HeadController extends Controller
     public function pengisianKPI()
     {
         $user_jabatan = auth()->user()->karyawan->jabatan_id;
-        return view("head.pengisian-kpi",[
-            "bawahan" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)->where("jabatan_id", $user_jabatan + 1)->get(),
-            "data_kpi" => KeyPerformanceIndicator::All(),
-            "title" => "Penilaian KPI"
+        return view("head.pengisian-kpi", [
+            "data_karyawan" => Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+                ->where("jabatan_id", $user_jabatan + 1)
+                ->get(),
+            "data_kpi" => KeyPerformanceIndicator::whereMonth("periode", date("m"))->get(),
+            "title" => "Penilaian KPI",
         ]);
+    }
+
+    public function simpanKPI()
+    {
+        $dataKaryawan = Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
+            ->where("jabatan_id", auth()->user()->karyawan->jabatan_id + 1)
+            ->get();
+
+        $bulan_yang_sama = KeyPerformanceIndicator::whereMonth("periode", date("m"))->count() > 0 ? true : false;
+
+
+        foreach ($dataKaryawan as $karyawan) {
+            if ($bulan_yang_sama) {
+                KeyPerformanceIndicator::whereMonth("periode", date("m"))->where("karyawan_id", $karyawan->id)->update([
+                    "karyawan_id" => $karyawan->id,
+                    "nilai" => request("nilai_$karyawan->id"),
+                    "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
+                    "periode" => today(),
+                ]);
+            } else {
+                KeyPerformanceIndicator::create([
+                    "karyawan_id" => $karyawan->id,
+                    "nilai" => request("nilai_$karyawan->id"),
+                    "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
+                    "periode" => today(),
+                ]);
+            }
+        }
+
+        return redirect()->back();
     }
 
     public function strukturPegawai()

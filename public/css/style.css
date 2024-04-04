@@ -168,7 +168,8 @@ table tr th:last-child {
 #table-mutasi_wrapper,
 #table-pengajuan_wrapper,
 #table-lembur_wrapper,
-#table-daftar-penilaian-kpi_wrapper {
+#table-daftar-penilaian-kpi_wrapper,
+#table-daftar-pengisian-kpi_wrapper {
     margin-top: 20px;
 }
 
