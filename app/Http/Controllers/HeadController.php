@@ -106,6 +106,18 @@ class HeadController extends Controller
         $data_tanggal_awal = MenuKatering::where("hari", "Senin")->orderBy("id", "DESC")->first()->tanggal ?? "";
         $data_tanggal_akhir = MenuKatering::where("hari", "Sabtu")->orderBy("id", "DESC")->first()->tanggal ?? "";
 
+        $status = KontrolKatering::find(1)->status;
+        $batas_akhir = KontrolKatering::find(1)->batas_akhir;
+        if ($status == "Aktif") {
+            if (date("Y-m-d H:i:s") > $batas_akhir) {
+                KontrolKatering::find(1)->update([
+                    "status" => "Non Aktif",
+                    "batas_akhir" => null,
+                ]);
+                return redirect()->back();
+            }
+        }
+
         return view("head.katering", [
             "title" => "Katering",
             "apakah_katering_aktif" => KontrolKatering::find(1)->status == "Aktif" ? true : false,

@@ -15,16 +15,8 @@ class PemesananKateringController extends Controller
 
         $dataMenu = MenuKatering::whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
             ->get();
-        foreach ($dataMenu as $menu) {
-            // dump([
-            //     "karyawan_id" => auth()->user()->id,
-            //     "hari" => $menu->hari,
-            //     "tanggal" => $menu->tanggal,
-            //     "menu" => MenuKatering::where("hari", $menu->hari)->first()->menu,
-            //     "setuju" => request("$menu->hari"),
-            //     "request" => request("$menu->hari-isi-request"),
-            // ]);
 
+        foreach ($dataMenu as $menu) {
             PemesananKatering::create([
                 "karyawan_id" => auth()->user()->id,
                 "hari" => $menu->hari,
