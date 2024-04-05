@@ -4,7 +4,7 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBoxDaftarPengajuan" class="outline-none" placeholder="Cari">
+            <input type="search" id="search-daftar-pengajuan" class="outline-none" placeholder="Cari">
         </div>
         <form action="/owner/daftar-pengajuan">
             <div class="flex gap-3">
@@ -49,7 +49,8 @@
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                     <td class="">{{ $perizinan->izin->jenis_izin }}</td>
                     <td class="">{{ $perizinan->created_at }}</td>
-                    <td class="">{{ $perizinan->tanggal_mulai }} {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
+                    <td class="">{{ $perizinan->tanggal_mulai }}
+                        {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
                     @php
                         $status = $perizinan['status'];
                         if ($status == 'pending') {

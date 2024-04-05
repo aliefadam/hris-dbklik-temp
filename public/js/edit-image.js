@@ -1,3 +1,12 @@
+$("#edit_foto").on("change", function () {
+    const reader = new FileReader();
+    reader.readAsDataURL(this.files[0]);
+    reader.onload = ({ target }) => {
+        $(".foto-preview").attr("src", target.result);
+    };
+    $(".after-select").show();
+});
+
 $(".btn-edit-image").on("click", function () {
     $(".overlay-edit-foto").removeClass("hidden");
     $(".overlay-edit-foto").addClass("flex");

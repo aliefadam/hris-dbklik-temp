@@ -1,4 +1,4 @@
-<table class="w-full rounded-lg shadow-lg bg-white tbl-kpi" id="table-daftar-penilaian-kpi">
+<table class="w-full rounded-lg shadow-lg bg-white" id="table-daftar-penilaian-kpi">
     <thead>
         <tr class="bg-dbklik text-yellow-dbklik">
             <th class="p-3">No</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody class="">
         @foreach ($data_kpi as $kpi)
-            <tr>
+            <tr class="tbl-kpi">
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $kpi->karyawan->nama_lengkap }}</td>
                 <td>{{ $kpi->nilai }}</td>

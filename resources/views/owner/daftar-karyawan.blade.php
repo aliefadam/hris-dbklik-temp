@@ -4,7 +4,7 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBoxKaryawan" class="outline-none" placeholder="Cari">
+            <input type="search" id="search-daftar-karyawan-owner" class="outline-none" placeholder="Cari">
         </div>
         {{-- <div class="flex gap-3">
             <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
@@ -16,7 +16,7 @@
         </div> --}}
     </div>
 
-    <table class="w-full rounded-lg shadow-lg bg-white" id="table-karyawan">
+    <table class="w-full rounded-lg shadow-lg bg-white" id="table-karyawan-owner">
         <thead>
             <tr class="bg-dbklik text-yellow-dbklik">
                 <th class="p-3">No</th>

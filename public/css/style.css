@@ -162,13 +162,7 @@ table tr th:last-child {
     border-top-right-radius: 8px;
 }
 
-#table-riwayat_wrapper,
-#table-daftar-pengajuan_wrapper,
-#table-karyawan_wrapper,
-#table-mutasi_wrapper,
-#table-pengajuan_wrapper,
-#table-lembur_wrapper,
-#table-daftar-penilaian-kpi_wrapper {
+.dataTables_wrapper {
     margin-top: 20px;
 }
 
@@ -216,12 +210,12 @@ main .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     color: #fcbe00 !important;
 }
 
-table.dataTable > tbody > tr {
+table.dataTable > tbody > tr:not(.tbl-kpi) {
     cursor: pointer;
     transition: 50ms;
 }
 
-table.dataTable > tbody > tr:not(".tbl-kpi"):hover {
+table.dataTable > tbody > tr:not(.tbl-kpi):hover {
     background-color: rgb(218, 218, 218);
 }
 

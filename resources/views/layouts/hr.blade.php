@@ -14,13 +14,14 @@
 
     {{-- tailwind vite --}}
     @vite('resources/css/app.css')
+
     <title>{{ $title }}</title>
 </head>
 
 <body class="relative top-0 left-0 w-full bg-gradient-to-b bg-gray-100 font-[poppins] pb-5">
 
     @include('overlay')
-    @include('partials.overlay_message')
+
     @include('partials.hr_sidebar')
     @include('partials.hr_topbar')
 
@@ -29,13 +30,9 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/table-riwayat.js') }}"></script>
-    <script src="{{ asset('js/table-daftar-pengajuan.js') }}"></script>
-    <script src="{{ asset('js/table-karyawan.js') }}"></script>
-    <script src="{{ asset('js/table-penilaian-kpi.js') }}"></script>
-    <script src="{{ asset('js/table-katering.js') }}"></script>
-    <script src="{{ asset('js/table-mutasi.js') }}"></script>
-    <script src="{{ asset('js/table-lembur.js') }}"></script>
+    <script src="{{ asset('js/data-tables-init.js') }}"></script>
+    <script src="{{ asset('js/edit-mutasi.js') }}"></script>
+    <script src="{{ asset('js/edit-kontrak.js') }}"></script>
     <script src="{{ asset('js/handle-overlay.js') }}"></script>
     <script src="{{ asset('js/edit-image.js') }}"></script>
     <script src="{{ asset('js/edit-profile.js') }}"></script>

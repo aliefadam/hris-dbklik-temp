@@ -4,7 +4,7 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="text" id="customSearchBoxDaftarPengajuan" class="outline-none" placeholder="Cari">
+            <input type="text" id="search-daftar-pengajuan" class="outline-none" placeholder="Cari">
         </div>
         <form action="/head/daftar-pengajuan">
             <div class="flex gap-3">

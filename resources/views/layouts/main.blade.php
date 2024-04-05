@@ -34,7 +34,7 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/table-riwayat.js') }}"></script>
+    <script src="{{ asset('js/data-tables-init.js') }}"></script>
     <script src="{{ asset('js/btn-close-overlay.js') }}"></script>
     <script src="{{ asset('js/edit-image.js') }}"></script>
     <script src="{{ asset('/sw.js') }}"></script>

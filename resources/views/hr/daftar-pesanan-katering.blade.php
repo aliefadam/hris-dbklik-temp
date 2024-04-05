@@ -4,7 +4,7 @@
     <div class="flex justify-end mb-[20px]">
         {{-- <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBoxDaftarKatering" class="outline-none" placeholder="Cari">
+            <input type="search" id="search-daftar-katering" class="outline-none" placeholder="Cari">
         </div> --}}
         {{-- <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <select name="setuju_filter" id="setuju_filter">
