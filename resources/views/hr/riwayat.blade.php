@@ -44,7 +44,10 @@
                     data-feedback="{{ $r->feedback ?? '-' }}" data-disetujui-oleh="{{ $r->disetujui_oleh }}">
                     <td class="">{{ $loop->iteration }}</td>
                     <td class="">{{ $r->izin->jenis_izin }}</td>
-                    <td class="">{{ $r->created_at }}</td>
+                    @php
+                        $tanggalDiajukan = Carbon\Carbon::parse($r->created_at)->translatedFormat('l, d-m-Y H:i');
+                    @endphp
+                    <td class="">{{ $tanggalDiajukan }}</td>
                     <td class="">{{ $r->tanggal_mulai }} {{ $r->jam ?? ' - ' . $r->tanggal_akhir }} </td>
                     <td class="">{{ $r->catatan ?? '-' }}</td>
                     @php

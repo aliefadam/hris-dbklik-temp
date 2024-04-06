@@ -23,8 +23,12 @@
                 <td class="">{{ $perizinan->karyawan->divisi->nama_divisi }}</td>
                 <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                 <td class="">{{ $perizinan->izin->jenis_izin }}</td>
-                <td class="">{{ $perizinan->created_at }}</td>
-                <td class="">{{ $perizinan->tanggal_mulai }} {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
+                @php
+                    $tanggalDiajukan = Carbon\Carbon::parse($perizinan->created_at)->translatedFormat('l, d-m-Y H:i');
+                @endphp
+                <td class="">{{ $tanggalDiajukan }}</td>
+                <td class="">{{ $perizinan->tanggal_mulai }}
+                    {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
                 @if ($tampil_catatan)
                     <td class="p-3">{{ $perizinan->catatan ?? '-' }}</td>
                 @endif

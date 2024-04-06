@@ -13,8 +13,8 @@
                         <option disabled selected value="">Pilih Bulan</option>
                         @for ($i = 1; $i <= 12; $i++)
                             @php
-                                $tanggal = strlen(strval($i)) == 1 ? '0' . $i : $i;
-                                $periode = "2024-$tanggal";
+                                $bulan = strlen(strval($i)) == 1 ? '0' . $i : $i;
+                                $periode = "2024-$bulan";
                                 $carbonPeriode = Carbon\Carbon::createFromFormat('Y-m', $periode);
                                 $nama_bulan = $carbonPeriode->translatedFormat('F');
                             @endphp
