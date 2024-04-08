@@ -56,4 +56,6 @@
             }
         });
     </script>
+
+    <div id="user-login" data-jabatan="{{ auth()->user()->karyawan->jabatan_id }}"></div>
 @endsection

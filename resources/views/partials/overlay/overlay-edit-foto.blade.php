@@ -1,6 +1,6 @@
 <div
-    class="overlay-edit-foto bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
-    <div class="w-[30%] animate__animated animate__fadeInDown container-overlay-edit-foto">
+    class="overlay-background overlay-edit-foto bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
+    <div class="w-[30%] animate__animated animate__fadeInDown container-overlay">
         <div class="bg-dbklik px-4 py-3 flex justify-between items-center rounded-tl-lg rounded-tr-lg">
             <h1 class="text-yellow-dbklik text-lg font-semibold">Edit Foto</h1>
             <i

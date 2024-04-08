@@ -1,4 +1,4 @@
-<table border="1" class="w-full rounded-lg shadow-lg bg-white" id="table-daftar-katerings">
+<table border="1" class="w-full rounded-lg shadow-lg bg-white">
     <thead>
         <tr class="bg-dbklik text-yellow-dbklik border-b border-yellow-dbklik">
             <th class="p-3 text-sm">No</th>

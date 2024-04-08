@@ -1,11 +1,11 @@
 @if (isset($karyawan))
     <div
-        class="overlay-edit-profile bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
-        <div class="w-[50%] animate__animated animate__fadeInDown container-overlay-edit-profile">
+        class="overlay-background overlay-edit-profile bg-[rgba(0,0,0,0.7)] fixed top-0 left-0 z-20 w-full h-screen hidden justify-center items-center">
+        <div class="w-[50%] animate__animated animate__fadeInDown container-overlay">
             <div class="bg-dbklik px-4 py-3 flex justify-between items-center rounded-tl-lg rounded-tr-lg">
                 <h1 class="text-yellow-dbklik text-lg font-semibold">Edit Profile Karyawan</h1>
                 <i
-                    class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay-edit-profile"></i>
+                    class="bi bi-x-lg text-yellow-dbklik cursor-pointer flex hover:bg-slate-300 hover:text-dbklik duration-200 rounded-full p-3 font-semibold btn-close-overlay"></i>
             </div>
             <div class="bg-gray-100 p-5 rounded-bl-lg rounded-br-lg h-[50vh] overflow-auto form-edit-profile">
                 <form action="/hr/edit-profile-karyawan/{{ $karyawan->id }}" class="w-full" method="post"

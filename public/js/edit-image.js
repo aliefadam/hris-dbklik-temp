@@ -8,18 +8,12 @@ $("#edit_foto").on("change", function () {
 });
 
 $(".btn-edit-image").on("click", function () {
-    $(".overlay-edit-foto").removeClass("hidden");
-    $(".overlay-edit-foto").addClass("flex");
+    showOverlay("overlay-edit-foto");
 });
 
 $(".btn-close-overlay-edit-foto").on("click", function () {
-    $(".container-overlay-edit-foto").removeClass("animate__fadeInDown");
-    $(".container-overlay-edit-foto").addClass("animate__fadeOutUp");
+    closeOverlay();
     setTimeout(() => {
-        $(".overlay-edit-foto").removeClass("flex");
-        $(".overlay-edit-foto").addClass("hidden");
-        $(".container-overlay-edit-foto").removeClass("animate__fadeOutUp");
-        $(".container-overlay-edit-foto").addClass("animate__fadeInDown");
         $("#edit_foto").val("");
         $(".after-select").hide();
     }, 500);

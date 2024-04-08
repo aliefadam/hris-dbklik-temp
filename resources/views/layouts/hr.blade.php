@@ -30,12 +30,13 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/functions.js') }}"></script>
+    <script src="{{ asset('js/time.js') }}"></script>
     <script src="{{ asset('js/data-tables-init.js') }}"></script>
     <script src="{{ asset('js/edit-mutasi.js') }}"></script>
     <script src="{{ asset('js/edit-kontrak.js') }}"></script>
     <script src="{{ asset('js/handle-overlay.js') }}"></script>
     <script src="{{ asset('js/edit-image.js') }}"></script>
-    <script src="{{ asset('js/edit-profile.js') }}"></script>
 
 </body>
 

@@ -29,9 +29,9 @@
     </main>
 
     <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/time.js') }}"></script>
     <script src="{{ asset('js/data-tables-init.js') }}"></script>
     <script src="{{ asset('js/handle-overlay.js') }}"></script>
-    <script src="{{ asset('js/table-karyawan-owner.js') }}"></script>
     <script src="{{ asset('js/edit-image.js') }}"></script>
 </body>
 

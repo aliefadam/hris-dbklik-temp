@@ -48,7 +48,12 @@
                     <td class="">{{ $perizinan->karyawan->divisi->nama_divisi }}</td>
                     <td class="">{{ $perizinan->karyawan->nama_lengkap }}</td>
                     <td class="">{{ $perizinan->izin->jenis_izin }}</td>
-                    <td class="">{{ $perizinan->created_at }}</td>
+                    @php
+                        $tanggalDiajukan = Carbon\Carbon::parse($perizinan->created_at)->translatedFormat(
+                            'l, d-M-Y H:i',
+                        );
+                    @endphp
+                    <td class="">{{ $tanggalDiajukan }}</td>
                     <td class="">{{ $perizinan->tanggal_mulai }}
                         {{ $perizinan->jam ?? ' - ' . $perizinan->tanggal_akhir }} </td>
                     @php
@@ -68,4 +73,6 @@
             @endforeach
         </tbody>
     </table>
+
+    <div id="user-login" data-jabatan="{{ auth()->user()->karyawan->jabatan_id }}"></div>
 @endsection

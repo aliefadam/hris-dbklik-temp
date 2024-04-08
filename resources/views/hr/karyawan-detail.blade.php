@@ -11,14 +11,14 @@
                 </div>
             </div>
             <div class="flex gap-[10px] mt-[10px]">
-                <button
+                <button onclick="showOverlay('overlay-catatan')"
                     class="btn-catatan shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-green-600 to-green-400 w-full text-white py-[10px] rounded-lg"><i
                         class="bi bi-pencil-square"></i> Edit Catatan</button>
-                <button
+                <button onclick="showOverlay('overlay-kontrak')"
                     class="{{ $karyawan->status_karyawan != 'Karyawan Tetap' ? 'btn-kontrak' : 'from-gray-600 to-gray-400 cursor-not-allowed' }} shadow-md flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-cyan-600 to-cyan-400 w-full text-white py-[10px] rounded-lg"><i
                         class="bi bi-file-earmark-plus"></i> Perpanjang Kontrak</button>
             </div>
-            <button
+            <button onclick="showOverlay('overlay-resign')"
                 class="btn-resign shadow-md flex gap-2 justify-center duration-500 mt-[10px] bg-gradient-to-r from-red-600 to-red-400 w-full text-white py-[10px] px-3 rounded-lg">
                 <i class="bi bi-door-open-fill"></i> Resign
             </button>
@@ -71,6 +71,7 @@
             </div>
             <div class="flex justify-end">
                 <button
+                onclick="showOverlay('overlay-edit-profile')"
                     class="btn-edit-profile shadow-lg flex gap-2 justify-center duration-500 mt-2 bg-gradient-to-r from-emerald-600 to-emerald-400 text-white py-[10px] px-3 rounded-lg w-fit"><i
                         class="bi bi-person-gear"></i> Edit Profile</button>
             </div>
@@ -79,7 +80,7 @@
 
     <div class="mt-10 flex justify-between leading-none items-center">
         <h1 class="text-dbklik font-semibold text-3xl">Riwayat Mutasi</h1>
-        <button
+        <button onclick="showOverlay('overlay-mutasi')"
             class="btn-mutasi bg-gradient-to-r from-dbklik to-indigo-600 text-white px-5 py-4 rounded-lg shadow-lg block"><i
                 class="bi bi-plus-lg"></i>Tambah
             Mutasi</button>
@@ -118,7 +119,7 @@
 
     <div class="mt-10 flex justify-between leading-none items-center">
         <h1 class="text-dbklik font-semibold text-3xl">Riwayat Lembur</h1>
-        <button
+        <button onclick="showOverlay('overlay-lembur')"
             class="btn-lembur bg-gradient-to-r from-dbklik to-indigo-600 text-white px-5 py-4 rounded-lg shadow-lg block"><i
                 class="bi bi-plus-lg"></i>Tambah
             Lembur</button>
