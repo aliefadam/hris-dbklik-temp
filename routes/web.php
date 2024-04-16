@@ -96,6 +96,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get("/notification/{notifikasi}", [StaffController::class, 'notificationSelected'])->middleware("role:4");
     Route::get('/profile', [StaffController::class, 'profile'])->middleware("role:4");
     Route::get('/katering', [StaffController::class, 'katering'])->middleware("role:4");
+    Route::get('/data-rekapan', [StaffController::class, 'dataRekapan'])->middleware("role:4");
 
     Route::post('/pesan-katering', [PemesananKateringController::class, 'pesanKatering']);
     Route::post('/edit-foto', [StaffController::class, 'editFoto']);

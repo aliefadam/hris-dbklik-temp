@@ -7,7 +7,9 @@ use App\Models\Izin;
 use App\Models\Notifikasi;
 use App\Models\Perizinan;
 use App\Models\Karyawan;
+use App\Models\KeyPerformanceIndicator;
 use App\Models\KontrolKatering;
+use App\Models\Lembur;
 use App\Models\MenuKatering;
 use App\Models\PemesananKatering;
 use App\Models\RulesHRD;
@@ -99,6 +101,55 @@ class StaffController extends Controller
             "title" => "Riwayat",
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
+        ]);
+    }
+
+    public function dataRekapan()
+    {
+        $data_lembur = Lembur::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereMonth("tanggal", date("m"))
+            ->orderBy("updated_at", "ASC")
+            ->first();
+
+        $data_cuti = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereHas('izin', function ($query) {
+                $query->where("jenis_izin", "Cuti");
+            })
+            ->where("status", "Disetujui")
+            ->count();
+
+        $data_dinasLuar = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereHas('izin', function ($query) {
+                $query->where("jenis_izin", "Dinas Luar");
+            })
+            ->where("status", "Disetujui")
+            ->count();
+
+        $data_izinLuarCuti = Perizinan::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereHas('izin', function ($query) {
+                $query->where("jenis_izin", "!=", "Cuti");
+            })
+            ->where("status", "Disetujui")
+            ->count();
+
+        $data_kpi = KeyPerformanceIndicator::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereMonth("periode", date("m"))
+            ->first();
+
+        $data_katering = PemesananKatering::where("karyawan_id", auth()->user()->karyawan->id)
+            ->whereMonth("tanggal", date("m"))
+            ->where("setuju", "Ya")
+            ->orderBy("tanggal", "ASC")
+            ->get();
+
+        return view('data-rekapan', [
+            "data_lembur" => $data_lembur,
+            "data_cuti" => $data_cuti,
+            "data_dinasLuar" => $data_dinasLuar,
+            "data_izinLuarCuti" => $data_izinLuarCuti,
+            "data_kpi" => $data_kpi,
+            "data_katering" => $data_katering,
+            "title" => "Data Rekapan",
         ]);
     }
 

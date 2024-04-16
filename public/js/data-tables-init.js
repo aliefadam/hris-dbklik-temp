@@ -30,5 +30,14 @@ dataTablesInit({
 });
 dataTablesInit({
     tableId: "table-jam",
-    searchBoxId: "#customSearchBoxJam",
+    searchBoxId: "customSearchBoxJam",
+});
+dataTablesInit({
+    tableId: "table-kehadiran",
+});
+dataTablesInit({
+    tableId: "table-kinerja-karyawan",
+});
+dataTablesInit({
+    tableId: "table-riwayat-katering",
 });

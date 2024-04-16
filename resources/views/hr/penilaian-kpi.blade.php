@@ -6,10 +6,10 @@
             <i class="bi bi-search text-dbklik"></i>
             <input type="search" id="search-daftar-penilaian-kpi" class="outline-none" placeholder="Cari">
         </div>
-        <form action="/hr/daftar-pengajuan">
+        <form action="/hr/kpi">
             <div class="flex gap-3">
                 <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                    <select name="" id="" class="outline-none text-dbklik w-[130px]">
+                    <select name="bulan" id="" class="outline-none text-dbklik w-[130px]">
                         <option disabled selected value="">Pilih Bulan</option>
                         @for ($i = 1; $i <= 12; $i++)
                             @php
@@ -23,7 +23,7 @@
                     </select>
                 </div>
                 <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
-                    <select name="" id="" class="outline-none text-dbklik w-[130px]">
+                    <select name="tahun" id="" class="outline-none text-dbklik w-[130px]">
                         <option disabled selected value="">Pilih Tahun</option>
                         @foreach (range(date('Y') - 5, date('Y')) as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
