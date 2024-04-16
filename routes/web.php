@@ -48,6 +48,8 @@ Route::middleware(["auth"])->group(function () {
         Route::get("/ganti-password", [HeadController::class, 'gantiPassword'])->middleware("role:2");
         Route::put('/ganti-password', [HeadController::class, 'simpanPasswordBaru'])->middleware("role:2");
         Route::get('/katering', [HeadController::class, 'katering'])->middleware("role:2");
+        Route::get('/pengisian-kpi', [HeadController::class, 'pengisianKPI'])->middleware("role:2");
+        Route::post('/isi-kpi', [HeadController::class, 'simpanKPI'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {

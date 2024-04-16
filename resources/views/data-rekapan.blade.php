@@ -93,6 +93,9 @@
                     <span class="text-dbklik text-[16px]">Penilaian Leader</span>
                     <span
                         class="text-yellow-dbklik drop-shadow-md text-lg leading-none font-medium">{{ isset($data_kpi->apresiasi) ? ($data_kpi->apresiasi ? 'Dapat' : 'Tidak Dapat') : '-' }}</span>
+                    {{-- <div class="flex gap-2">
+                        <div class="w-[20px] h-[20px] bg-green-600 rounded-full"></div>
+                    </div> --}}
                 </div>
             </div>
         </div>
