@@ -24,3 +24,11 @@ dataTablesInit({
     tableId: "table-karyawan-owner",
     searchBoxId: "search-daftar-karyawan-owner",
 });
+dataTablesInit({
+    tableId: "table-daftar-pengisian-kpi",
+    searchBoxId: "customSearchBoxPengisianKPI",
+});
+dataTablesInit({
+    tableId: "table-jam",
+    searchBoxId: "#customSearchBoxJam",
+});
