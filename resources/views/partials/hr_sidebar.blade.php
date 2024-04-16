@@ -1,4 +1,5 @@
-<aside class="fixed top-0 left-0 shadow-lg w-[250px] h-screen bg-gradient-to-b to-indigo-600 from-dbklik from-60%">
+<aside
+    class="fixed top-0 left-0 shadow-lg w-[250px] h-screen bg-gradient-to-b to-indigo-600 from-dbklik from-60% overflow-y-scroll">
     <div class="side-bar-header h-[64px] flex justify-between items-center px-[20px]">
         <div class="side-bar-title flex items-center gap-1">
             <img src="{{ asset('imgs/db-logo.png') }}" class="w-[25px]">

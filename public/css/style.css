@@ -133,6 +133,23 @@ body::-webkit-scrollbar-thumb:hover {
     background: #0f2370;
 }
 
+aside::-webkit-scrollbar {
+    width: 5px;
+}
+
+aside::-webkit-scrollbar-track {
+    background: white;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background-color: #152c89;
+    /* border-radius: 6px; */
+}
+
+aside::-webkit-scrollbar-thumb:hover {
+    background: #0f2370;
+}
+
 /*  */
 
 .kehadiran-list::-webkit-scrollbar {
