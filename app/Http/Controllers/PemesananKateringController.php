@@ -21,7 +21,7 @@ class PemesananKateringController extends Controller
                 "karyawan_id" => auth()->user()->id,
                 "hari" => $menu->hari,
                 "tanggal" => $menu->tanggal,
-                "menu" => MenuKatering::where("hari", $menu->hari)->first()->menu,
+                "menu" => $menu->menu,
                 "setuju" => request("$menu->hari"),
                 "request" => request("$menu->hari-isi-request"),
             ]);

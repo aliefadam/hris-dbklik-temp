@@ -16,13 +16,15 @@
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr class="">
-                            <td class="p-3">Kehadiran</td>
-                            <td class="p-3">{{ $data_lembur->jumlah_jam_menit }}</td>
-                            <td class="p-3">{{ $data_cuti }}</td>
-                            <td class="p-3">{{ $data_dinasLuar }}</td>
-                            <td class="p-3">{{ $data_izinLuarCuti }}</td>
-                        </tr>
+                        @if ($data_lembur)
+                            <tr class="">
+                                <td class="p-3">Kehadiran</td>
+                                <td class="p-3">{{ $data_lembur->jumlah_jam_menit }}</td>
+                                <td class="p-3">{{ $data_cuti }}</td>
+                                <td class="p-3">{{ $data_dinasLuar }}</td>
+                                <td class="p-3">{{ $data_izinLuarCuti }}</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
