@@ -51,6 +51,14 @@
                 class="{{ $title == 'Penilaian KPI' ? 'text-dbklik' : 'text-white' }} font-medium text-[9px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-none">Penilaian
                 KPI</span>
         </a>
+        <a href="/head/data-rekapan"
+            class="duration-200 item flex flex-col md:flex-row lg:flex-row xl:flex-row items-center md:gap-2 lg:gap-2 xl:gap-2 py-[8px] px-[16px] {{ $title == 'Data Rekapan' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
+            <i
+                class="icon-item fas fa-file-chart-line py-[5.5px] flex {{ $title == 'Data Rekapan' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+            <span
+                class="{{ $title == 'Data Rekapan' ? 'text-dbklik' : 'text-white' }} font-medium text-[9px] md:text-[16px] lg:text-[16px] xl:text-[16px] leading-none">Data
+                Rekapan {{ Carbon\Carbon::parse(date('F'))->translatedFormat('F') }}</span>
+        </a>
         <a href="/head/struktur-pegawai"
             class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Struktur Pegawai' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <i

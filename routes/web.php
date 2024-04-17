@@ -51,6 +51,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/katering', [HeadController::class, 'katering'])->middleware("role:2");
         Route::get('/pengisian-kpi', [HeadController::class, 'pengisianKPI'])->middleware("role:2");
         Route::post('/isi-kpi', [HeadController::class, 'simpanKPI'])->middleware("role:2");
+        Route::get('/data-rekapan', [HeadController::class, 'dataRekapan'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {
