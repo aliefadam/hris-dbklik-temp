@@ -31,7 +31,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/profile', [OwnerController::class, 'profile'])->middleware("role:1");
         Route::get('/ganti-password', [OwnerController::class, 'gantiPassword'])->middleware("role:1");
         Route::put('/ganti-password', [OwnerController::class, 'simpanPasswordBaru'])->middleware("role:1");
-        Route::post('/tampil-jumlah-izin/', [PerizinanController::class, 'tampilJumlahIzin'])->middleware("role:1");
+        Route::post('/tampil-jumlah-izin', [PerizinanController::class, 'tampilJumlahIzin'])->middleware("role:1");
     });
 
     Route::prefix("/head")->group(function () {
@@ -82,8 +82,8 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/edit-katering', [HRController::class, 'editKatering'])->middleware("role:3");
         Route::put('/ubah-katering', [HRController::class, 'ubahKatering'])->middleware("role:3");
         Route::get('/aktifkan-katering/{tanggal_jam}', [HRController::class, 'aktifkanKatering'])->middleware("role:3");
-        Route::get('/nonaktifkan-katering/', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
-        Route::get('/daftar-pesanan-katering/', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
+        Route::get('/nonaktifkan-katering', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
+        Route::get('/daftar-pesanan-katering', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
         Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
         Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
     });
