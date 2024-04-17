@@ -192,6 +192,10 @@ class StaffController extends Controller
             "data_tanggal_akhir" => $data_tanggal_akhir,
             "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
             "menu_katering" => MenuKatering::latest()->limit(6)->get(),
+            "data_katering_user" =>
+            PemesananKatering::where("karyawan_id", auth()->user()->id)
+                ->whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->get(),
         ]);
     }
 

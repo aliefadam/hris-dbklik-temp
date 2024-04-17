@@ -17,7 +17,39 @@
             @if ($apakah_sudah_mengisi)
                 <div class="flex flex-col gap-1 w-full h-full justify-center items-center p-5">
                     <h1 class="text-gray-400 font-semibold text-2xl">Pemesanan Katering DB KLIK</h1>
-                    <p class="text-gray-400">Anda sudah mengisi form katering untuk minggu ini</p>
+                    <p class="text-gray-400">Anda sudah mengisi form katering untuk minggu ini, berikut menu yang anda pesan
+                        :</p>
+
+                    <div class="w-[90%] grid grid-cols-3 gap-3 mt-6">
+                        @foreach ($data_katering_user as $katering)
+                            <div
+                                class="border border-dbklik rounded-md px-3 py-2 flex flex-col shadow-md relative overflow-hidden">
+                                <div class="flex justify-between">
+                                    <div class="">
+                                        <span class="text-dbklik italic font-medium">{{ $katering->hari }}</span> -
+                                        <span class="">{{ $katering->menu }}</span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <span class="text-[13px]">Request : {{ $katering->request ?? '-' }}</span>
+                                </div>
+                                <div
+                                    class="w-[25px] h-[25px] {{ $katering->setuju == 'Ya' ? 'bg-green-600' : 'bg-red-600' }} absolute -right-[12px] -top-[12px] rotate-45">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="flex gap-3 mt-3">
+                        <div class="flex items-center gap-1">
+                            <div class="w-[15px] h-[15px] bg-green-600 rounded-full"></div>
+                            <div class="">Dipesan</div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <div class="w-[15px] h-[15px] bg-red-600 rounded-full"></div>
+                            <div class="">Tidak Dipesan</div>
+                        </div>
+                    </div>
                 </div>
             @else
                 <div class="flex flex-col gap-1 w-full h-full p-5">
