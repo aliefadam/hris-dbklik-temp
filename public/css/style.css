@@ -227,12 +227,12 @@ main .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     color: #fcbe00 !important;
 }
 
-table.dataTable > tbody > tr:not(.tbl-kpi) {
+table.dataTable > tbody > tr:not(.tbl-kpi):not(.tbl-jam) {
     cursor: pointer;
     transition: 50ms;
 }
 
-table.dataTable > tbody > tr:not(.tbl-kpi):hover {
+table.dataTable > tbody > tr:not(.tbl-kpi):not(.tbl-jam):hover {
     background-color: rgb(218, 218, 218);
 }
 

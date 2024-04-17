@@ -30,7 +30,7 @@ dataTablesInit({
 });
 dataTablesInit({
     tableId: "table-jam",
-    searchBoxId: "customSearchBoxJam",
+    searchBoxId: "search-daftar-jam",
 });
 dataTablesInit({
     tableId: "table-kehadiran",

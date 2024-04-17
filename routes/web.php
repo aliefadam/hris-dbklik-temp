@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\JamController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\OwnerController;
@@ -85,6 +86,10 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/nonaktifkan-katering', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
         Route::get('/daftar-pesanan-katering', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
         Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
+        Route::get('/jam', [JamController::class, 'index'])->middleware("role:3");
+        Route::post('/tambahJam', [JamController::class, 'tambahJam'])->middleware("role:3");
+        Route::post('/editJam/{jam}', [JamController::class, 'editJam'])->middleware("role:3");
+        Route::delete('/hapusJam/{jam}', [JamController::class, 'hapusJam'])->middleware("role:3");
         Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
     });
 

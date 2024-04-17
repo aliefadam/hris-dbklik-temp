@@ -147,3 +147,24 @@ TR_TABLE_KARYAWAN_OWNER.on("click", function () {
     const id = this.getAttribute("data-id");
     window.location.href = `/owner/data-karyawan/${id}`;
 });
+
+const BUTTON_EDIT_JAM = $(".btn-edit-jam");
+BUTTON_EDIT_JAM.on("click", function () {
+    const jam = $(this).attr("data-jam");
+    $(".overlay-edit-jam input[name=jam]").val(jam);
+    $(".overlay-edit-jam form").attr(
+        "action",
+        `/hr/editJam/${$(this).attr("data-id")}`
+    );
+    showOverlay("overlay-edit-jam");
+});
+
+const BUTTON_HAPUS_JAM = $(".btn-hapus-jam");
+BUTTON_HAPUS_JAM.on("click", function () {
+    const jam = $(this).attr("data-jam");
+    $(".overlay-hapus-jam form").attr(
+        "action",
+        `/hr/hapusJam/${$(this).attr("data-id")}`
+    );
+    showOverlay("overlay-hapus-jam");
+});
