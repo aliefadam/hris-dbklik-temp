@@ -10,6 +10,7 @@ use App\Http\Controllers\PemesananKateringController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\ResignController;
 use App\Http\Controllers\RulesHRDController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/katering', [HeadController::class, 'katering'])->middleware("role:2");
         Route::get('/pengisian-kpi', [HeadController::class, 'pengisianKPI'])->middleware("role:2");
         Route::post('/isi-kpi', [HeadController::class, 'simpanKPI'])->middleware("role:2");
+        Route::get('/data-rekapan', [HeadController::class, 'dataRekapan'])->middleware("role:2");
     });
 
     Route::prefix('/hr')->group(function () {
@@ -86,10 +88,13 @@ Route::middleware(["auth"])->group(function () {
         Route::get('/nonaktifkan-katering', [HRController::class, 'nonaktifkanKatering'])->middleware("role:3");
         Route::get('/daftar-pesanan-katering', [HRController::class, 'daftarPesananKatering'])->middleware("role:3");
         Route::post('/lembur', [LemburController::class, 'lembur'])->middleware("role:3");
-        Route::get('/jam', [JamController::class, 'index'])->middleware("role:3");
+        Route::get('/jadwal', [HRController::class, 'viewJadwal'])->middleware("role:3");
         Route::post('/tambahJam', [JamController::class, 'tambahJam'])->middleware("role:3");
         Route::post('/editJam/{jam}', [JamController::class, 'editJam'])->middleware("role:3");
         Route::delete('/hapusJam/{jam}', [JamController::class, 'hapusJam'])->middleware("role:3");
+        Route::post('/tambahShift', [ShiftController::class, 'tambahShift'])->middleware("role:3");
+        Route::post('/editShift/{shift}', [ShiftController::class, 'editShift'])->middleware("role:3");
+        Route::delete('/hapusShift/{shift}', [ShiftController::class, 'hapusShift'])->middleware("role:3");
         Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
     });
 

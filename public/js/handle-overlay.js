@@ -168,3 +168,24 @@ BUTTON_HAPUS_JAM.on("click", function () {
     );
     showOverlay("overlay-hapus-jam");
 });
+
+const BUTTON_EDIT_SHIFT = $(".btn-edit-shift");
+BUTTON_EDIT_SHIFT.on("click", function () {
+    const shift = $(this).attr("data-shift");
+    $(".overlay-edit-shift input[name=shift]").val(shift);
+    $(".overlay-edit-shift form").attr(
+        "action",
+        `/hr/editShift/${$(this).attr("data-id")}`
+    );
+    showOverlay("overlay-edit-shift");
+});
+
+const BUTTON_HAPUS_SHIFT = $(".btn-hapus-shift");
+BUTTON_HAPUS_SHIFT.on("click", function () {
+    const shift = $(this).attr("data-shift");
+    $(".overlay-hapus-shift form").attr(
+        "action",
+        `/hr/hapusShift/${$(this).attr("data-id")}`
+    );
+    showOverlay("overlay-hapus-shift");
+});
