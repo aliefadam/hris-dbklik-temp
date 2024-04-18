@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\Jam;
 use App\Models\KeyPerformanceIndicator;
 use App\Models\KontrolKatering;
 use App\Models\MenuKatering;
@@ -21,6 +22,7 @@ use App\Models\SubDivisi;
 use App\Models\Mutasi;
 use App\Models\PemesananKatering;
 use App\Models\Lembur;
+use App\Models\Shift;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -641,5 +643,13 @@ class HRController extends Controller
         ]);
 
         return redirect()->back();
+    }
+    public function viewJadwal()
+    {
+        return view("hr.jadwal", [
+            "title" => "Jadwal",
+            "data_jam" => Jam::all(),
+            "data_shift" => Shift::all(),
+        ]);
     }
 }

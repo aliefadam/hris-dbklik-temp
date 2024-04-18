@@ -7,14 +7,6 @@ use Illuminate\Http\Request;
 
 class JamController extends Controller
 {
-    public function index()
-    {
-        return view("hr.jam", [
-            "title" => "Jam",
-            "data_jam" => Jam::all(),
-        ]);
-    }
-
     public function tambahJam(Request $request)
     {
         Jam::create([
