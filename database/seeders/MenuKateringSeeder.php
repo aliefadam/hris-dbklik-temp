@@ -16,13 +16,13 @@ class MenuKateringSeeder extends Seeder
         MenuKatering::create([
             "hari" => "Senin",
             "tanggal" => "2024-04-01",
-            "menu" => "Tempe Goreng",
+            "menu" => "Ayam Suwir",
         ]);
 
         MenuKatering::create([
             "hari" => "Selasa",
             "tanggal" => "2024-04-02",
-            "menu" => "Ikan Jaer",
+            "menu" => "Nasi Goreng",
         ]);
 
         MenuKatering::create([
@@ -34,19 +34,19 @@ class MenuKateringSeeder extends Seeder
         MenuKatering::create([
             "hari" => "Kamis",
             "tanggal" => "2024-04-04",
-            "menu" => "Sambell",
+            "menu" => "Ikan Bakar",
         ]);
 
         MenuKatering::create([
             "hari" => "Jumat",
             "tanggal" => "2024-04-05",
-            "menu" => "Nasi Goreng",
+            "menu" => "Cumi Sambal Hitam",
         ]);
 
         MenuKatering::create([
             "hari" => "Sabtu",
             "tanggal" => "2024-04-06",
-            "menu" => "Indomie",
+            "menu" => "Gurami Bakar",
         ]);
     }
 }

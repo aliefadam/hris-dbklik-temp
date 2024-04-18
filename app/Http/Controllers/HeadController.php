@@ -129,6 +129,10 @@ class HeadController extends Controller
             "data_tanggal_akhir" => $data_tanggal_akhir,
             "batas_akhir" => KontrolKatering::find(1)->batas_akhir,
             "menu_katering" => MenuKatering::latest()->limit(6)->get(),
+            "data_katering_user" =>
+            PemesananKatering::where("karyawan_id", auth()->user()->id)
+                ->whereBetween("tanggal", [$data_tanggal_awal, $data_tanggal_akhir])
+                ->get(),
         ]);
     }
 
@@ -204,6 +208,7 @@ class HeadController extends Controller
                 "jabatan" => auth()->user()->karyawan->jabatan->nama_jabatan,
                 "cabang" => auth()->user()->karyawan->cabang->nama_cabang,
                 "agama" => auth()->user()->karyawan->agama,
+
             ],
         ]);
     }
@@ -263,7 +268,6 @@ class HeadController extends Controller
 
         $bulan_yang_sama = KeyPerformanceIndicator::whereMonth("periode", date("m"))->count() > 0 ? true : false;
 
-
         foreach ($dataKaryawan as $karyawan) {
             if ($bulan_yang_sama) {
                 KeyPerformanceIndicator::whereMonth("periode", date("m"))->where("karyawan_id", $karyawan->id)->update([
@@ -281,8 +285,6 @@ class HeadController extends Controller
                 ]);
             }
         }
-
         return redirect()->back();
     }
 }
-

@@ -34,20 +34,20 @@
                                     <span class="text-[13px]">Request : {{ $katering->request ?? '-' }}</span>
                                 </div>
                                 <div
-                                    class="w-[25px] h-[25px] {{ $katering->setuju == 'Ya' ? 'bg-green-600' : 'bg-red-600' }} absolute -right-[12px] -top-[12px] rotate-45">
+                                    class="w-[25px] h-[25px] {{ $katering->setuju == 'Ya' ? 'bg-green-600' : 'bg-red-600' }} absolute -right-[13px] -top-[13px] rotate-45">
                                 </div>
                             </div>
                         @endforeach
                     </div>
 
-                    <div class="flex gap-3 mt-3">
+                    <div class="flex gap-3 mt-4">
                         <div class="flex items-center gap-1">
                             <div class="w-[15px] h-[15px] bg-green-600 rounded-full"></div>
-                            <div class="">Dipesan</div>
+                            <div class="leading-none">Dipesan</div>
                         </div>
                         <div class="flex items-center gap-1">
                             <div class="w-[15px] h-[15px] bg-red-600 rounded-full"></div>
-                            <div class="">Tidak Dipesan</div>
+                            <div class="leading-none">Tidak Dipesan</div>
                         </div>
                     </div>
                 </div>
