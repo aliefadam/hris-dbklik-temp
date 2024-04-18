@@ -14,6 +14,7 @@ use App\Models\User;
 use App\Models\Cabang;
 use App\Models\Jabatan;
 use App\Models\Divisi;
+use App\Models\Jadwal;
 use App\Models\Jam;
 use App\Models\KeyPerformanceIndicator;
 use App\Models\KontrolKatering;
@@ -225,7 +226,6 @@ class HRController extends Controller
         $dataMenu = null;
         if ($request->s == "") {
             $dataMenu = MenuKatering::latest()->limit(6)->get();
-            // $dataMenu = MenuKatering::all();
         } else {
             $mulai = $request->s;
             $akhir = $request->e;
@@ -235,7 +235,6 @@ class HRController extends Controller
 
         return view('hr.daftar-pesanan-katering', [
             "data_katering" => PemesananKatering::all(),
-            // "data_katering" => PemesananKatering::orderBy("tanggal", "ASC")->get(),
             "data_menu" => $dataMenu,
             "mulai" => isset($mulai) ? $mulai : null,
             "akhir" => isset($akhir) ? $akhir : null,
@@ -650,6 +649,8 @@ class HRController extends Controller
             "title" => "Jadwal",
             "data_jam" => Jam::all(),
             "data_shift" => Shift::all(),
+            "data_karyawan" => Karyawan::where("jabatan_id", "!=", 1)->get(),
+            "data_jadwal" => Jadwal::all(),
         ]);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HeadController;
 use App\Http\Controllers\HRController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JamController;
 use App\Http\Controllers\LemburController;
 use App\Http\Controllers\NotifikasiController;
@@ -92,9 +93,15 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/tambahJam', [JamController::class, 'tambahJam'])->middleware("role:3");
         Route::post('/editJam/{jam}', [JamController::class, 'editJam'])->middleware("role:3");
         Route::delete('/hapusJam/{jam}', [JamController::class, 'hapusJam'])->middleware("role:3");
+        Route::post('/tambahJadwal', [JadwalController::class, 'tambahJadwal'])->middleware("role:3");
+        Route::post('/editJadwal/{Jadwal}', [JadwalController::class, 'editJadwal'])->middleware("role:3");
+        Route::delete('/hapusJadwal/{Jadwal}', [JadwalController::class, 'hapusJadwal'])->middleware("role:3");
         Route::post('/tambahShift', [ShiftController::class, 'tambahShift'])->middleware("role:3");
-        Route::post('/editShift/{shift}', [ShiftController::class, 'editShift'])->middleware("role:3");
-        Route::delete('/hapusShift/{shift}', [ShiftController::class, 'hapusShift'])->middleware("role:3");
+        Route::post('/editShift/{Shift}', [ShiftController::class, 'editShift'])->middleware("role:3");
+        Route::delete('/hapusShift/{Shift}', [ShiftController::class, 'hapusShift'])->middleware("role:3");
+        Route::post('/tambahJadwal', [JadwalController::class, 'tambahJadwal'])->middleware("role:3");
+        Route::post('/editJadwal/{Jadwal}', [JadwalController::class, 'editJadwal'])->middleware("role:3");
+        Route::delete('/hapusJadwal/{Jadwal}', [JadwalController::class, 'hapusJadwal'])->middleware("role:3");
         Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
     });
 

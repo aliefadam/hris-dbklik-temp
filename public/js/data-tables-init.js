@@ -43,5 +43,5 @@ dataTablesInit({
 });
 dataTablesInit({
     tableId: "table-jadwal",
-    searchBoxId: "customSearchBoxJadwal",
+    searchBoxId: "search-jadwal",
 });

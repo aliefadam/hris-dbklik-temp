@@ -79,7 +79,7 @@
         <a href="/hr/jadwal"
             class="duration-200 item flex items-center gap-2 py-[8px] px-[16px] {{ $title == 'Jadwal' ? 'bg-white' : 'hover:bg-[#f3f3f32d]' }} rounded-lg">
             <i
-                class="icon-item fas fa-clock py-[5.5px] flex {{ $title == 'KPI' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
+                class="icon-item fas fa-clock py-[5.5px] flex {{ $title == 'Jadwal' ? 'text-dbklik' : 'text-white' }} text-[22px]"></i>
             <span
                 class="{{ $title == 'Jadwal' ? 'text-dbklik' : 'text-white' }} font-medium text-[16px] leading-none">Jadwal</span>
         </a>

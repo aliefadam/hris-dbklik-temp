@@ -95,7 +95,7 @@
                     <i class="bi bi-search text-dbklik"></i>
                     <input type="search" id="search-jadwal" class="outline-none" placeholder="Cari">
                 </div>
-                <button onclick="showOverlay('overlay-tambah-jam')"
+                <button onclick="showOverlay('overlay-tambah-jadwal')"
                     class="bg-gradient-to-r from-dbklik to-indigo-600 px-4 py-[10px] rounded-lg text-white cursor-pointer"><i
                         class="fas fa-plus"></i>
                     Tambah
@@ -107,24 +107,24 @@
             <thead>
                 <tr class="bg-dbklik text-yellow-dbklik">
                     <th class="p-3">No</th>
-                    <th class="p-3">Tanggal</th>
                     <th class="p-3">Karyawan</th>
+                    <th class="p-3">Divisi</th>
+                    <th class="p-3">Cabang</th>
+                    <th class="p-3">Periode</th>
                     <th class="p-3">Shift</th>
                 </tr>
             </thead>
             <tbody class="">
-                {{-- @foreach ($data_katering as $katering) --}}
-                <tr>
-                    {{-- <td>{{ $loop->iteration }}</td>
-                        <td>{{ Carbon\Carbon::parse($katering->tanggal)->translatedFormat('l, d F Y') }}</td>
-                        <td>{{ $katering->menu }}</td>
-                        <td>{{ $katering->request ?? '-' }}</td> --}}
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                </tr>
-                {{-- @endforeach --}}
+                @foreach ($data_jadwal as $jadwal)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $jadwal->karyawan->nama_lengkap }}</td>
+                        <td>{{ $jadwal->karyawan->divisi->nama_divisi }}</td>
+                        <td>{{ $jadwal->karyawan->cabang->nama_cabang }}</td>
+                        <td>{{ $jadwal->periode_awal }} - {{ $jadwal->periode_akhir }}</td>
+                        <td>{{ $jadwal->shift->shift }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
