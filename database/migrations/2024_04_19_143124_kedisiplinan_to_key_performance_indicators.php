@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('key_performance_indicators', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("karyawan_id");
-            $table->char('nilai', 1);
+        Schema::table('key_performance_indicators', function (Blueprint $table) {
+            //
+            $table->char('nilai', 1)->default('-')->change();
             $table->decimal('kedisiplinan', 3, 2);
-            $table->boolean('apresiasi')->nullable()->default(false);
-            $table->date('periode');
-            $table->timestamps();
         });
     }
 
@@ -27,6 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('key_performance_indicators');
+        Schema::table('key_performance_indicators', function (Blueprint $table) {
+            //
+            $table->dropColumn('kedisiplinan');
+            $table->char('nilai', 1)->default(' ')->change();
+        });
     }
 };
