@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- @dd($data_menu) --}}
-    <div class="bg-white rounded-xl shadow-xl w-[100%] h-[calc(100vh-148px)] p-4">
+    <div class="bg-white rounded-xl shadow-xl w-[100%] h-[calc(100vh-148px)]-sementara h-fit p-5">
         <form action="/hr/ubah-katering" method="POST" class="">
             @csrf
             @method('PUT')

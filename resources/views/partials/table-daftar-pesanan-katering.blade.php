@@ -14,7 +14,7 @@
             <tr style="background-color: #152C89; cursor: default; color: #FCBE00;">
                 <td colspan="6" class="py-[10px] text-center sub-heading text-sm font-medium">
                     {{ $menu->hari }},
-                    {{ date('d-m-Y', strtotime($menu->tanggal)) }} - {{ $menu->menu }}</td>
+                    {{ date('d-m-Y', strtotime($menu->tanggal)) }} {{ $menu->menu != '' ? "- $menu->menu" : '' }}</td>
             </tr>
             @php
                 if ($export) {
@@ -23,19 +23,25 @@
                     $new_data_katering = $data_katering->where('tanggal', $menu->tanggal);
                 }
             @endphp
-            @foreach ($new_data_katering as $katering)
+            @if ($menu->menu != '')
+                @foreach ($new_data_katering as $katering)
+                    <tr>
+                        <td class="text-sm py-[10px] px-[12px]">{{ $loop->iteration }}</td>
+                        <td class="text-sm py-[10px] px-[12px]"><span
+                                style="font-weight: 600">{{ $katering->karyawan->nama_panggilan }}</span>
+                            ({{ $katering->karyawan->nama_lengkap }})
+                        </td>
+                        <td class="text-sm py-[10px] px-[12px]">{{ $katering->karyawan->divisi->nama_divisi }}</td>
+                        <td class="text-sm py-[10px] px-[12px]">{{ $katering->karyawan->cabang->nama_cabang }}</td>
+                        <td class="text-sm py-[10px] px-[12px]">{{ $katering->setuju }}</td>
+                        <td class="text-sm py-[10px] px-[12px]">{{ $katering->request }}</td>
+                    </tr>
+                @endforeach
+            @else
                 <tr>
-                    <td class="text-sm py-[10px] px-[12px]">{{ $loop->iteration }}</td>
-                    <td class="text-sm py-[10px] px-[12px]"><span
-                            style="font-weight: 600">{{ $katering->karyawan->nama_panggilan }}</span>
-                        ({{ $katering->karyawan->nama_lengkap }})
-                    </td>
-                    <td class="text-sm py-[10px] px-[12px]">{{ $katering->karyawan->divisi->nama_divisi }}</td>
-                    <td class="text-sm py-[10px] px-[12px]">{{ $katering->karyawan->cabang->nama_cabang }}</td>
-                    <td class="text-sm py-[10px] px-[12px]">{{ $katering->setuju }}</td>
-                    <td class="text-sm py-[10px] px-[12px]">{{ $katering->request }}</td>
+                    <td colspan="6" class="text-sm py-[10px] px-[12px] text-center">LIBUR</td>
                 </tr>
-            @endforeach
+            @endif
         @endforeach
     </tbody>
 </table>

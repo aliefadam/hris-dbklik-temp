@@ -22,15 +22,16 @@
                     <div class="w-[90%] grid grid-cols-3 gap-3 mt-6">
                         @foreach ($data_katering_user as $katering)
                             <div
-                                class="border border-dbklik rounded-md px-3 py-2 flex flex-col shadow-md relative overflow-hidden">
+                                class="border border-dbklik rounded-md px-3 py-2 flex flex-col shadow-md relative overflow-hidden {{ $katering->menu == '' ? 'justify-center items-center' : '' }}">
                                 <div class="flex justify-between">
                                     <div class="">
                                         <span class="text-dbklik italic font-medium">{{ $katering->hari }}</span> -
-                                        <span class="">{{ $katering->menu }}</span>
+                                        <span class="">{{ $katering->menu ?? 'LIBUR' }}</span>
                                     </div>
                                 </div>
                                 <div class="">
-                                    <span class="text-[13px]">Request : {{ $katering->request ?? '-' }}</span>
+                                    <span
+                                        class="text-[13px]">{{ $katering->menu != '' ? 'Request: ' . ($katering->request ?? '-') : '' }}</span>
                                 </div>
                                 <div
                                     class="w-[25px] h-[25px] {{ $katering->setuju == 'Ya' ? 'bg-green-600' : 'bg-red-600' }} absolute -right-[13px] -top-[13px] rotate-45">
@@ -68,37 +69,41 @@
                         <div class="grid grid-cols-3 gap-3 mt-2">
                             @foreach ($menu_katering as $katering)
                                 <div
-                                    class="border border-dbklik rounded-md px-3 py-2 pb-[13px] flex flex-col gap-1 shadow-md">
+                                    class="border border-dbklik rounded-md px-3 py-2 pb-[13px] flex flex-col gap-1 shadow-md {{ $katering->menu == '' ? 'justify-center items-center' : '' }}">
                                     <div class="">
                                         <span class="text-dbklik italic font-medium">{{ $katering->hari }}</span> -
-                                        <span class="">{{ $katering->menu }}</span>
+                                        <span
+                                            class="">{{ $katering->menu != '' ? $katering->menu : 'LIBURRRRRR' }}</span>
                                     </div>
-                                    <div class="flex justify-between items-center mt-2">
-                                        <div class="flex gap-2">
-                                            <div class="">
-                                                <input required type="radio" name="{{ $katering->hari }}"
-                                                    id="{{ $katering->hari }}-Ya" class="translate-y-[1px]" value="Ya">
-                                                <label class="text-sm" for="{{ $katering->hari }}-Ya">Ya</label>
+                                    @if ($katering->menu != '')
+                                        <div class="flex justify-between items-center mt-2">
+                                            <div class="flex gap-2">
+                                                <div class="">
+                                                    <input required type="radio" name="{{ $katering->hari }}"
+                                                        id="{{ $katering->hari }}-Ya" class="translate-y-[1px]"
+                                                        value="Ya">
+                                                    <label class="text-sm" for="{{ $katering->hari }}-Ya">Ya</label>
+                                                </div>
+                                                <div class="">
+                                                    <input required type="radio" name="{{ $katering->hari }}"
+                                                        id="{{ $katering->hari }}-Tidak" class="translate-y-[1px]"
+                                                        value="Tidak">
+                                                    <label class="text-sm" for="{{ $katering->hari }}-Tidak">Tidak</label>
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                <input required type="radio" name="{{ $katering->hari }}"
-                                                    id="{{ $katering->hari }}-Tidak" class="translate-y-[1px]"
-                                                    value="Tidak">
-                                                <label class="text-sm" for="{{ $katering->hari }}-Tidak">Tidak</label>
+                                            <div class="flex gap-1">
+                                                <input type="checkbox" name="{{ $katering->hari }}-request"
+                                                    id="{{ $katering->hari }}-request" class="translate-y-[1px]">
+                                                <label for="{{ $katering->hari }}-request" class="text-sm">Request</label>
                                             </div>
                                         </div>
-                                        <div class="flex gap-1">
-                                            <input type="checkbox" name="{{ $katering->hari }}-request"
-                                                id="{{ $katering->hari }}-request" class="translate-y-[1px]">
-                                            <label for="{{ $katering->hari }}-request" class="text-sm">Request</label>
+                                        <div class="">
+                                            <input disabled type="text" name="{{ $katering->hari }}-isi-request"
+                                                id="{{ $katering->hari }}-isi-request"
+                                                class="text-sm input-request border border-gray-300 py-[8px] w-full rounded-md cursor-not-allowed placeholder:text-sm px-2"
+                                                placeholder="Centang request bila ada">
                                         </div>
-                                    </div>
-                                    <div class="">
-                                        <input disabled type="text" name="{{ $katering->hari }}-isi-request"
-                                            id="{{ $katering->hari }}-isi-request"
-                                            class="text-sm input-request border border-gray-300 py-[8px] w-full rounded-md cursor-not-allowed placeholder:text-sm px-2"
-                                            placeholder="Centang request bila ada">
-                                    </div>
+                                    @endif
                                 </div>
                             @endforeach
                             <div class="w-full">
