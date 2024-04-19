@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId("karyawan_id");
             $table->char('nilai', 1);
-            $table->decimal('kedisiplinan', 3, 2);
             $table->boolean('apresiasi')->nullable()->default(false);
             $table->date('periode');
             $table->timestamps();

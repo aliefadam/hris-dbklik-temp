@@ -51,6 +51,7 @@
                     <th class="p-3">Nama Karyawan</th>
                     <th class="p-3">Nilai</th>
                     <th class="p-3">Apresiasi</th>
+                    <th class="p-3">Kedisiplinan</th>
                 </tr>
             </thead>
             <tbody class="">
@@ -59,9 +60,11 @@
                         if (isset($data_kpi[$index])) {
                             $selected = $data_kpi[$index]->nilai;
                             $checked = $data_kpi[$index]->apresiasi;
+                            $discipline = $data_kpi[$index]->kedisiplinan * 100;
                         } else {
-                            $selected = '';
+                            $selected = '-';
                             $checked = false;
+                            $discipline = 0.00;
                         }
                     @endphp
                     <tr>
@@ -69,6 +72,8 @@
                         <td>{{ $karyawan->nama_lengkap }}</td>
                         <td>
                             <select name="nilai_{{ $karyawan->id }}" id="nilai_{{ $karyawan->id }}">
+                                <option @selected($selected == '-') value="-">-
+                                </option>
                                 <option @selected($selected == 'A') value="A">A
                                 </option>
                                 <option @selected($selected == 'B') value="B">B
@@ -83,6 +88,10 @@
                             <input @checked($checked) type="checkbox" name="apresiasi_{{ $karyawan->id }}"
                                 id="apresiasi_{{ $karyawan->id }}">
                             <label for="apresiasi_{{ $karyawan->id }}">Dapat</label>
+                        </td>
+                        <td>
+                            <input value="{{ $discipline }}" id="kedisiplinan_{{ $karyawan->id }}" type="number" name="kedisiplinan_{{ $karyawan->id }}" min="0" max="100" placeholder="0">
+                            <label for="kedisiplinan_{{ $karyawan->id }}">%</label>
                         </td>
                     </tr>
                 @endforeach

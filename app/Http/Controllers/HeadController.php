@@ -160,6 +160,7 @@ class HeadController extends Controller
                     "nilai" => request("nilai_$karyawan->id"),
                     "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
                     "periode" => today(),
+                    "kedisiplinan" => request("kedisiplinan_$karyawan->id")/100,
                 ]);
             } else {
                 KeyPerformanceIndicator::create([
@@ -167,6 +168,7 @@ class HeadController extends Controller
                     "nilai" => request("nilai_$karyawan->id"),
                     "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
                     "periode" => today(),
+                    "kedisiplinan" => request("kedisiplinan_$karyawan->id")/100,
                 ]);
             }
         }
