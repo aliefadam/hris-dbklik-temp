@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId("karyawan_id");
             $table->string("hari");
             $table->date("tanggal");
-            $table->string("menu");
-            $table->string("setuju");
+            $table->string("menu")->nullable();
+            $table->string("setuju")->nullable();
             $table->string("request")->nullable();
             $table->timestamps();
         });
