@@ -17,6 +17,7 @@ return new class extends Migration
             $table->char('nilai', 1);
             $table->boolean('apresiasi')->nullable()->default(false);
             $table->date('periode');
+            $table->decimal('kedisiplinan', 3, 2);
             $table->timestamps();
         });
     }

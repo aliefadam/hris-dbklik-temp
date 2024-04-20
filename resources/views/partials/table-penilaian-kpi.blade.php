@@ -6,6 +6,7 @@
             <th class="p-3">Nama Karyawan</th>
             <th class="p-3">Nilai</th>
             <th class="p-3">Apresiasi</th>
+            <th class="p-3">Kedisiplinan</th>
             <th class="p-3">Periode</th>
         </tr>
     </thead>
@@ -23,6 +24,7 @@
                     $nama_bulan = $carbonPeriode->translatedFormat('F');
                     $tahun = $carbonPeriode->year;
                 @endphp
+                <td>{{ $kpi->kedisiplinan * 100 }}%</td>
                 <td>{{ $nama_bulan }} {{ $tahun }}</td>
             </tr>
         @endforeach

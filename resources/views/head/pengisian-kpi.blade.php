@@ -4,9 +4,9 @@
     <div class="flex justify-between">
         <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
             <i class="bi bi-search text-dbklik"></i>
-            <input type="search" id="customSearchBoxPengisianKPI" class="outline-none" placeholder="Cari">
+            <input type="search" id="search-daftar-penilaian-kpi-head" class="outline-none" placeholder="Cari">
         </div>
-        <form action="/hr/daftar-pengajuan">
+        {{-- <form action="/hr/daftar-pengajuan">
             <div class="flex gap-3">
                 <div class="shadow-xl bg-white flex gap-3 p-3 rounded-lg">
                     <input required name="s" type="date" class="outline-none text-dbklik w-[120px]"
@@ -35,16 +35,13 @@
                         </a>
                     </div>
                 </button>
-                {{-- <a href="/hr/daftar-pengajuan"
-                    class="flex gap-1 items-center bg-gradient-to-r from-red-600 to-red-500 px-5 rounded-md text-white"><i
-                        class="bi bi-trash"></i> Bersihkan Filter</a> --}}
             </div>
-        </form>
+        </form> --}}
     </div>
 
-    <form action="/head/isi-kpi" method="POST">
+    <form id="pengisian-kpi-ajax" action="/head/isi-kpi" method="POST">
         @csrf
-        <table class="w-full rounded-lg shadow-lg bg-white tbl-kpi" id="table-daftar-pengisian-kpi">
+        <table class="w-full rounded-lg shadow-lg bg-white tbl-kpi" id="table-daftar-pengisian-kpi-head">
             <thead>
                 <tr class="bg-dbklik text-yellow-dbklik">
                     <th class="p-3">No</th>
@@ -71,7 +68,8 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $karyawan->nama_lengkap }}</td>
                         <td>
-                            <select name="nilai_{{ $karyawan->id }}" id="nilai_{{ $karyawan->id }}">
+                            <select data-id="{{ $karyawan->id }}" class="input-ajax-kpi" name="nilai_{{ $karyawan->id }}"
+                                id="nilai_{{ $karyawan->id }}">
                                 <option @selected($selected == '-') value="-">-
                                 </option>
                                 <option @selected($selected == 'A') value="A">A
@@ -85,26 +83,55 @@
                             </select>
                         </td>
                         <td>
-                            <input @checked($checked) type="checkbox" name="apresiasi_{{ $karyawan->id }}"
-                                id="apresiasi_{{ $karyawan->id }}">
+                            <input data-id="{{ $karyawan->id }}" class="input-ajax-kpi" @checked($checked)
+                                type="checkbox" name="apresiasi_{{ $karyawan->id }}" id="apresiasi_{{ $karyawan->id }}">
                             <label for="apresiasi_{{ $karyawan->id }}">Dapat</label>
                         </td>
-                        <td>
-                            <input value="{{ $discipline }}" id="kedisiplinan_{{ $karyawan->id }}" type="number"
+                        <td class="flex gap-1 items-center">
+                            <input data-id="{{ $karyawan->id }}"
+                                class="input-ajax-kpi w-[60px] outline-none p-2 focus:border focus:border-dbklik border border-transparent"
+                                value="{{ $discipline }}" id="kedisiplinan_{{ $karyawan->id }}" type="text"
                                 name="kedisiplinan_{{ $karyawan->id }}" min="0" max="100" placeholder="0">
-                            <label for="kedisiplinan_{{ $karyawan->id }}">%</label>
+                            <label class="font-semibold" for="kedisiplinan_{{ $karyawan->id }}">%</label>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
 
-        <div class="flex justify-end mt-3">
+        {{-- <div class="flex justify-end mt-3">
             <button class="bg-green-600 duration-200 hover:bg-green-700 text-white py-3 px-7 rounded-md">Simpan
                 Data</button>
-        </div>
+        </div> --}}
     </form>
+
+    <script>
+        $(".input-ajax-kpi").on("input", function() {
+            const formData = $("#pengisian-kpi-ajax").serialize();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $("meta[name=csrf-token]").attr("content"),
+                }
+            });
+
+            const id = $(this).attr("data-id");
+
+            $.ajax({
+                type: "POST",
+                url: "/head/isi-kpi",
+                data: {
+                    id: id,
+                    nilai: $(`select[name=nilai_${id}]`).val(),
+                    apresiasi: $(`input[name=apresiasi_${id}]`).prop("checked") ? 1 : 0,
+                    kedisiplinan: $(`input[name=kedisiplinan_${id}]`).val(),
+                },
+            });
+        });
+    </script>
 @endsection
 
+
+{{-- UNEXPECTED CODE --}}
 {{-- @php $selected = isset($data_kpi[$index]->nilai) ?? isset($data_kpi[$index]->nilai) ? $data_kpi[$index]->nilai : "" @endphp
                     @php $checked = isset($data_kpi[$index]->apresiasi) ?? isset($data_kpi[$index]->apresiasi) ? $data_kpi[$index]->apresiasi : false @endphp --}}

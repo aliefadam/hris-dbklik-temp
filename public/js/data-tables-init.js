@@ -21,6 +21,10 @@ dataTablesInit({
     searchBoxId: "search-daftar-penilaian-kpi",
 });
 dataTablesInit({
+    tableId: "table-daftar-pengisian-kpi-head",
+    searchBoxId: "search-daftar-penilaian-kpi-head",
+});
+dataTablesInit({
     tableId: "table-karyawan-owner",
     searchBoxId: "search-daftar-karyawan-owner",
 });

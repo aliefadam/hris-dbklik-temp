@@ -149,32 +149,33 @@ class HeadController extends Controller
         ]);
     }
 
-    public function simpanKPI()
+    public function simpanKPI(Request $request)
     {
-        $dataKaryawan = Karyawan::where("divisi_id", auth()->user()->karyawan->divisi_id)
-            ->where("jabatan_id", auth()->user()->karyawan->jabatan_id + 1)
-            ->get();
+        $karyawan_id = $request->id;
+        $nilai = $request->nilai;
+        $apresiasi = $request->apresiasi;
+        $kedisiplinan = $request->kedisiplinan;
 
-        $bulan_yang_sama = KeyPerformanceIndicator::whereMonth("periode", date("m"))->count() > 0 ? true : false;
+        $bulan_yang_sama = KeyPerformanceIndicator::where("karyawan_id", $karyawan_id)
+            ->whereMonth("periode", date("m"))
+            ->count() > 0 ? true : false;
 
-        foreach ($dataKaryawan as $karyawan) {
-            if ($bulan_yang_sama) {
-                KeyPerformanceIndicator::whereMonth("periode", date("m"))->where("karyawan_id", $karyawan->id)->update([
-                    "karyawan_id" => $karyawan->id,
-                    "nilai" => request("nilai_$karyawan->id"),
-                    "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
-                    "periode" => today(),
-                    "kedisiplinan" => request("kedisiplinan_$karyawan->id") / 100,
-                ]);
-            } else {
-                KeyPerformanceIndicator::create([
-                    "karyawan_id" => $karyawan->id,
-                    "nilai" => request("nilai_$karyawan->id"),
-                    "apresiasi" => request("apresiasi_$karyawan->id") == "on" ?? true,
-                    "periode" => today(),
-                    "kedisiplinan" => request("kedisiplinan_$karyawan->id") / 100,
-                ]);
-            }
+        if ($bulan_yang_sama) {
+            KeyPerformanceIndicator::whereMonth("periode", date("m"))->where("karyawan_id", $karyawan_id)->update([
+                "karyawan_id" => $karyawan_id,
+                "nilai" => $nilai,
+                "apresiasi" => $apresiasi,
+                "periode" => today(),
+                "kedisiplinan" => $kedisiplinan / 100,
+            ]);
+        } else {
+            KeyPerformanceIndicator::create([
+                "karyawan_id" => $karyawan_id,
+                "nilai" => $nilai,
+                "apresiasi" => $apresiasi,
+                "periode" => today(),
+                "kedisiplinan" => $kedisiplinan / 100,
+            ]);
         }
 
         return redirect()->back();
@@ -220,7 +221,6 @@ class HeadController extends Controller
 
     public function notification(Request $request)
     {
-
         return view('head.notification', [
             "title" => "Notifikasi",
             "data_notifikasi" => Notifikasi::where("karyawan_id", auth()->user()->id)->orderBy("id", "DESC")->get(),
