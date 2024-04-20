@@ -13,11 +13,11 @@ class KeyPerformanceIndicatorSeeder extends Seeder
      */
     public function run(): void
     {
-        KeyPerformanceIndicator::create([
-            "karyawan_id" => "1",
-            "nilai" => "A",
-            "apresiasi" => true,
-            "periode" => "2024-03-27",
-        ]);
+        // KeyPerformanceIndicator::create([
+        //     "karyawan_id" => "1",
+        //     "nilai" => "A",
+        //     "apresiasi" => true,
+        //     "periode" => "2024-03-27",
+        // ]);
     }
 }
