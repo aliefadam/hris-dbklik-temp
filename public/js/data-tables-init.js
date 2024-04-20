@@ -28,10 +28,6 @@ dataTablesInit({
     tableId: "table-daftar-pengisian-kpi",
     searchBoxId: "customSearchBoxPengisianKPI",
 });
-// dataTablesInit({
-//     tableId: "table-jam",
-//     searchBoxId: "search-daftar-jam",
-// });
 dataTablesInit({
     tableId: "table-kehadiran",
 });
