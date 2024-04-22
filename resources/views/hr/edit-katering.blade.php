@@ -58,6 +58,21 @@
     </div>
 
     <script>
+        $("input[name=tanggal_awal_menu]").on("input", function() {
+            const tanggalAwalMenu = $(this).val();
+            const tanggalAkhirMenu = new Date(tanggalAwalMenu);
+
+            tanggalAkhirMenu.setDate(tanggalAkhirMenu.getDate() + 5);
+
+            const year = tanggalAkhirMenu.getFullYear();
+            const month = String(tanggalAkhirMenu.getMonth()).length == 1 ? "0" + (tanggalAkhirMenu.getMonth() +
+                    1) :
+                (tanggalAkhirMenu.getMonth() + 1);
+            const date = String(tanggalAkhirMenu.getDate()).length == 1 ? "0" + tanggalAkhirMenu.getDate() :
+                tanggalAkhirMenu.getDate();
+            $("input[name=tanggal_akhir_menu]").val(`${year}-${month}-${date}`);
+        });
+
         $(".btn-edit-menu-katering").on("click", function() {
             if ($(".btn-edit-menu-katering").hasClass("edit")) {
                 $("div.input-menu").each(function(index, input) {
@@ -70,7 +85,8 @@
                 $("input[name=tanggal_awal_menu]").removeClass(["cursor-not-allowed", "bg-gray-200"]);
                 $("input[name=tanggal_akhir_menu]").removeClass(["cursor-not-allowed", "bg-gray-200"]);
                 $("input[name=tanggal_awal_menu]").attr("readonly", false);
-                $("input[name=tanggal_akhir_menu]").attr("readonly", false);
+                // $("input[name=tanggal_akhir_menu]").attr("readonly", false);
+                $("input[name=tanggal_akhir_menu]").addClass("bg-gray-200");
 
                 $(".btn-edit-menu-katering").removeClass(["edit", "bg-yellow-400"]);
                 $(".btn-edit-menu-katering").addClass(["bg-green-600", "text-white"]);
