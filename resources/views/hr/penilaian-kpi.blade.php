@@ -18,7 +18,9 @@
                                 $carbonPeriode = Carbon\Carbon::createFromFormat('Y-m', $periode);
                                 $nama_bulan = $carbonPeriode->translatedFormat('F');
                             @endphp
-                            <option value="{{ $i }}">{{ $nama_bulan }}</option>
+                            <option @selected($data_bulan == $i) value="{{ $i }}">
+                                {{ $nama_bulan }}
+                            </option>
                         @endfor
                     </select>
                 </div>
@@ -26,7 +28,8 @@
                     <select name="tahun" id="" class="outline-none text-dbklik w-[130px]">
                         <option disabled selected value="">Pilih Tahun</option>
                         @foreach (range(date('Y') - 5, date('Y')) as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
+                            <option @selected($data_tahun == $year) value="{{ $year }}">
+                                {{ $year }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -37,12 +40,12 @@
                         class="bi bi-caret-down-fill text-white icon-more-daftar-pengajuan flex"></i>
                     <div
                         class="box-more-daftar-pengajuan hidden w-[200px] absolute z-[2] bottom-[-105px] right-0 bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)] rounded-md overflow-hidden">
-                        <a href="/hr/daftar-pengajuan"
+                        <a href="/hr/kpi"
                             class="flex gap-1 items-center py-3 px-5 text-black hover:bg-red-600 hover:text-white duration-200"><i
                                 class="bi bi-trash"></i> Bersihkan Filter
                         </a>
                         <hr>
-                        <a href="/hr/export-excel/{{ isset($mulai) ? $mulai : 'all' }}/{{ isset($akhir) ? $akhir : 'all' }}"
+                        <a href="/hr/export-excel-kpi/{{ $data_bulan != '' ? $data_bulan : 'all' }}/{{ $data_tahun != '' ? $data_tahun : 'all' }}"
                             class="flex gap-1 items-center py-3 px-5 text-black duration-200 hover:bg-[#1D6F42] hover:text-white"><i
                                 class="bi bi-file-earmark-excel-fill"></i> Export Excel
                         </a>

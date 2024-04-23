@@ -103,6 +103,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post('/editJadwal/{Jadwal}', [JadwalController::class, 'editJadwal'])->middleware("role:3");
         Route::delete('/hapusJadwal/{Jadwal}', [JadwalController::class, 'hapusJadwal'])->middleware("role:3");
         Route::get("/kpi", [HRController::class, "kpi"])->middleware("role:3");
+        Route::get("/export-excel-kpi/{bulan}/{tahun}", [HRController::class, "exportKPI"])->middleware("role:3");
     });
 
     Route::get("/", [StaffController::class, "index"])->middleware("role:4");

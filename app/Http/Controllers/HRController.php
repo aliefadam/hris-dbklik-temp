@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportKatering;
+use App\Exports\ExportKPI;
 use App\Exports\ExportPerizinan;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
@@ -334,12 +335,47 @@ class HRController extends Controller
         return Excel::download(new ExportKatering($dataMenu), "data-katering.xlsx");
     }
 
-    public function kpi()
+    public function kpi(Request $request)
     {
+        $data_kpi = null;
+
+        if ($request->bulan != "" || $request->tahun != "") {
+            if ($request->bulan != "" && $request->tahun != "") {
+                $data_kpi = KeyPerformanceIndicator::whereMonth("periode", $request->bulan)->whereYear("periode", $request->tahun)->get();
+            } else if ($request->bulan != "" && $request->tahun == "") {
+                $data_kpi = KeyPerformanceIndicator::whereMonth("periode", $request->bulan)->get();
+            } else if ($request->bulan == "" && $request->tahun != "") {
+                $data_kpi = KeyPerformanceIndicator::whereYear("periode", $request->tahun)->get();
+            }
+        } else {
+            $data_kpi = KeyPerformanceIndicator::all();
+        }
+
         return view('hr.penilaian-kpi', [
-            "data_kpi" => KeyPerformanceIndicator::all(),
+            "data_kpi" => $data_kpi,
             "title" => "Penilaian KPI",
+            "data_bulan" => $request->bulan ?? "",
+            "data_tahun" => $request->tahun ?? "",
         ]);
+    }
+
+    public function exportKPI($bulan, $tahun)
+    {
+        $data_kpi = null;
+
+        if ($bulan != "all" || $tahun != "all") {
+            if ($bulan != "all" && $tahun != "all") {
+                $data_kpi = KeyPerformanceIndicator::whereMonth("periode", $bulan)->whereYear("periode", $tahun)->get();
+            } else if ($bulan != "all" && $tahun == "all") {
+                $data_kpi = KeyPerformanceIndicator::whereMonth("periode", $bulan)->get();
+            } else if ($bulan == "all" && $tahun != "all") {
+                $data_kpi = KeyPerformanceIndicator::whereYear("periode", $tahun)->get();
+            }
+        } else {
+            $data_kpi = KeyPerformanceIndicator::all();
+        }
+
+        return Excel::download(new ExportKPI($data_kpi), "data-kpi.xlsx");
     }
 
     public function daftarKaryawan()
