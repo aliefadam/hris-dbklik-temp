@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportKatering;
 use App\Exports\ExportKPI;
 use App\Exports\ExportPerizinan;
+use App\Models\absensi;
 use App\Models\DaftarPengajuan;
 use App\Models\Izin;
 use App\Models\Karyawan;
@@ -687,6 +688,14 @@ class HRController extends Controller
             "data_shift" => Shift::all(),
             "data_karyawan" => Karyawan::where("jabatan_id", "!=", 1)->get(),
             "data_jadwal" => Jadwal::all(),
+        ]);
+    }
+
+    public function viewAbsensi()
+    {
+        return view("hr.absensi", [
+            "title" => "Absensi",
+            "data_absensi" => Absensi::all()
         ]);
     }
 }
